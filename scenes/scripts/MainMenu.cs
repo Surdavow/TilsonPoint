@@ -80,6 +80,21 @@ public partial class MainMenu : Control
 		GetTree().Quit();
 	}
 
+	public void _on_resolution_button_item_selected(int index)
+	{
+		switch(index)
+		{
+			// 1280x720
+			case 0: 
+				DisplayServer.WindowSetSize(new Vector2I(1280, 720)); 
+				break;
+			// 1920x1080
+			case 1: 
+				DisplayServer.WindowSetSize(new Vector2I(1920, 1080)); 
+				break;
+		}
+	}
+
 	public void _on_master_volume_slider_value_changed(float value)
 	{
 		AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), value);
