@@ -59,6 +59,17 @@ grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("1_k0cre")
 
+[node name="MenuMusicPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_74yl7")
+pitch_scale = 1.25
+autoplay = true
+attenuation = 0.001011
+bus = &"Music"
+parameters/looping = true
+
+[node name="MenuSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+attenuation = 0.001011
+
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -268,16 +279,27 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
 text = "Quit"
 vertical_icon_alignment = 0
 
-[node name="SettingsMenuContainer" type="VBoxContainer" parent="MainMenuControl"]
-visible = false
+[node name="SettingsMenuControl" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 24
+
+[node name="SettingsMenuContainer" type="VBoxContainer" parent="SettingsMenuControl"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Margin1" type="MarginContainer" parent="MainMenuControl/SettingsMenuContainer"]
+[node name="Margin1" type="MarginContainer" parent="SettingsMenuControl/SettingsMenuContainer"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 25
 
-[node name="SettingsLabel" type="Label" parent="MainMenuControl/SettingsMenuContainer"]
+[node name="SettingsLabel" type="Label" parent="SettingsMenuControl/SettingsMenuContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -292,12 +314,12 @@ text = "Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SettingsTab" type="TabContainer" parent="MainMenuControl/SettingsMenuContainer"]
+[node name="SettingsTab" type="TabContainer" parent="SettingsMenuControl/SettingsMenuContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 current_tab = 0
 
-[node name="Graphics" type="MarginContainer" parent="MainMenuControl/SettingsMenuContainer/SettingsTab"]
+[node name="Graphics" type="MarginContainer" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab"]
 layout_mode = 2
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 24
@@ -305,30 +327,30 @@ theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 metadata/_tab_index = 0
 
-[node name="GraphicsGridContainer" type="GridContainer" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Graphics"]
+[node name="GraphicsGridContainer" type="GridContainer" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics"]
 layout_mode = 2
 theme_override_constants/h_separation = 400
 theme_override_constants/v_separation = 30
 columns = 2
 
-[node name="DisplaySettingsContainer" type="VBoxContainer" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer"]
+[node name="DisplaySettingsContainer" type="VBoxContainer" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="DisplaySettingsLabel" type="Label" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
+[node name="DisplaySettingsLabel" type="Label" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Display Settings"
 
-[node name="DisplayDriverLabel" type="Label" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
+[node name="DisplayDriverLabel" type="Label" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 20
 text = "Display Driver:"
 vertical_alignment = 1
 
-[node name="DisplayDriverButton" type="OptionButton" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
+[node name="DisplayDriverButton" type="OptionButton" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 item_count = 2
@@ -337,14 +359,14 @@ popup/item_0/id = 1
 popup/item_1/text = "DirectX 12"
 popup/item_1/id = 1
 
-[node name="ResolutionLabel" type="Label" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
+[node name="ResolutionLabel" type="Label" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 20
 text = "Resolution:"
 vertical_alignment = 1
 
-[node name="ResolutionButton" type="OptionButton" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
+[node name="ResolutionButton" type="OptionButton" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 item_count = 2
@@ -353,43 +375,61 @@ popup/item_0/id = 2
 popup/item_1/text = "1920x1080"
 popup/item_1/id = 1
 
-[node name="Sound" type="MarginContainer" parent="MainMenuControl/SettingsMenuContainer/SettingsTab"]
+[node name="WindowModeLabel" type="Label" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Window Mode:"
+vertical_alignment = 1
+
+[node name="WindowModeButton" type="OptionButton" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+item_count = 3
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless"
+popup/item_1/id = 1
+popup/item_2/text = "Fullscreen"
+popup/item_2/id = 2
+
+[node name="Sound" type="MarginContainer" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 300
 theme_override_constants/margin_right = 300
 metadata/_tab_index = 1
 
-[node name="SoundSettings" type="VBoxContainer" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Sound"]
+[node name="SoundSettings" type="VBoxContainer" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound"]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="MasterVolumeLabel" type="Label" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings"]
+[node name="MasterVolumeLabel" type="Label" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings"]
 layout_mode = 2
 text = "Volume"
 
-[node name="MasterVolumeSlider" type="HSlider" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings"]
+[node name="MasterVolumeSlider" type="HSlider" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings"]
 layout_mode = 2
 min_value = -40.0
 max_value = 0.0
 step = 0.1
 
-[node name="MusicVolumeLabel" type="Label" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings"]
+[node name="MusicVolumeLabel" type="Label" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings"]
 layout_mode = 2
 text = "Music Volume"
 
-[node name="MusicVolumeSlider" type="HSlider" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings"]
+[node name="MusicVolumeSlider" type="HSlider" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings"]
 layout_mode = 2
 min_value = -40.0
 max_value = 0.0
 step = 0.1
 
-[node name="Margin2" type="MarginContainer" parent="MainMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings"]
+[node name="Margin2" type="MarginContainer" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 8
 
-[node name="DoneButton" type="Button" parent="MainMenuControl/SettingsMenuContainer"]
+[node name="DoneButton" type="Button" parent="SettingsMenuControl/SettingsMenuContainer"]
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -421,16 +461,28 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
 text = "Done"
 vertical_icon_alignment = 0
 
-[node name="MenuMusicPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_74yl7")
-pitch_scale = 1.25
-autoplay = true
-attenuation = 0.001011
-bus = &"Music"
-parameters/looping = true
+[node name="VersionLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -76.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Build 0.01"
 
-[node name="MenuSoundPlayer" type="AudioStreamPlayer2D" parent="."]
-attenuation = 0.001011
+[node name="BlackScreen" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
 [connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="." method="_on_host_game_button_pressed"]
@@ -440,8 +492,9 @@ attenuation = 0.001011
 [connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/HelpButton" to="." method="_on_mouse_entered"]
 [connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="item_selected" from="MainMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/ResolutionButton" to="." method="_on_resolution_button_item_selected"]
-[connection signal="value_changed" from="MainMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
-[connection signal="value_changed" from="MainMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
-[connection signal="mouse_entered" from="MainMenuControl/SettingsMenuContainer/DoneButton" to="." method="_on_mouse_entered"]
-[connection signal="pressed" from="MainMenuControl/SettingsMenuContainer/DoneButton" to="." method="_on_back_button_pressed"]
+[connection signal="item_selected" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/ResolutionButton" to="." method="_on_resolution_button_item_selected"]
+[connection signal="item_selected" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/WindowModeButton" to="." method="_on_resolution_button_item_selected"]
+[connection signal="value_changed" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="mouse_entered" from="SettingsMenuControl/SettingsMenuContainer/DoneButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="SettingsMenuControl/SettingsMenuContainer/DoneButton" to="." method="_on_back_button_pressed"]

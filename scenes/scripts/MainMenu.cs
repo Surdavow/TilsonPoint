@@ -1,4 +1,5 @@
 using Godot;
+using GodotPlugins.Game;
 using System;
 using System.Collections.Generic;
 
@@ -7,13 +8,29 @@ public partial class MainMenu : Control
 	private AudioStreamPlayer2D menuSoundPlayer;
 	private Label titleLabel;
 	private bool isTitleVisible = false;
-	private int titleTransitionCount = 0;
+	private MarginContainer MainMenuControl;
+	public Vector2 MainMenuTargetPos;
+	private MarginContainer SettingsMenuPos;
+	public Vector2 SettingsMenuTargetPos;
+	public ColorRect BlackScreen;
+	public float BlackScreenColorTarget;
+	public float MenuMoveSpeed = 4f;
+	private int titleTransitionCount = 0;	
+	private MarginContainer SettingsMenuControl;
 	private readonly string[] titleFontProperties = { "font_color", "font_shadow_color", "font_outline_color" };	
 	private Dictionary<string, AudioStream> audioStreams;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		BlackScreen = GetNode<ColorRect>("BlackScreen");
+		BlackScreenColorTarget = 0;
+		MainMenuControl = GetNode<MarginContainer>("MainMenuControl");
+		SettingsMenuControl = GetNode<MarginContainer>("SettingsMenuControl");
+		SettingsMenuControl.Position = new Vector2(0, -960);
+		MainMenuTargetPos = MainMenuControl.Position;
+		SettingsMenuTargetPos = SettingsMenuControl.Position;		
+		
 		//Load the sound player and initialize the dictionary for the sounds
 		menuSoundPlayer = GetNode<AudioStreamPlayer2D>("MenuSoundPlayer");				
 		audioStreams = new Dictionary<string, AudioStream>
@@ -35,8 +52,27 @@ public partial class MainMenu : Control
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
-	{			
-		
+	{		
+		if (MainMenuControl.Position != MainMenuTargetPos)
+	    {
+	        Vector2 currentPosition = MainMenuControl.Position;
+	        currentPosition = currentPosition.Lerp(MainMenuTargetPos, MenuMoveSpeed * (float)delta); // Adjust speed factor as needed
+        	MainMenuControl.Position = currentPosition;
+    	}
+
+		if(SettingsMenuControl.Position != SettingsMenuTargetPos)
+		{
+			Vector2 currentPosition = SettingsMenuControl.Position;
+			currentPosition = currentPosition.Lerp(SettingsMenuTargetPos, MenuMoveSpeed * (float)delta);
+			SettingsMenuControl.Position = currentPosition;
+		}
+
+		Color BlackscreenColor = (Color)BlackScreen.Get("color");
+		if(BlackscreenColor.A != BlackScreenColorTarget)
+		{
+			BlackscreenColor.A = Mathf.Lerp(BlackscreenColor.A, 0, 2f * (float)delta);
+			BlackScreen.Set("color", BlackscreenColor);
+		}
 		
 		if (isTitleVisible) return;
 		// Lerp towards the target alpha for all relevant colors
@@ -71,6 +107,7 @@ public partial class MainMenu : Control
 	// Example button press handlers using the dictionary directly
 	public void _on_host_game_button_pressed()
 	{
+		GetTree().ChangeSceneToFile("res://scenes/Test.tscn");
 		playStream("submenu_dropdown_select");
 	}
 
@@ -97,12 +134,14 @@ public partial class MainMenu : Control
 
 	public void _on_master_volume_slider_value_changed(float value)
 	{
+		playStream("submenu_slidein");
 		AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), value);
 		AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), value <= -40);
 	}
 
 	public void _on_music_volume_slider_value_changed(float value)
 	{
+		playStream("submenu_slidein");
 		AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Music"), value);
 		AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), value <= -40);
 	}
@@ -111,17 +150,17 @@ public partial class MainMenu : Control
 	{
 		playStream("submenu_dropdown_select");
 		AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, true);
-		GetNode<BoxContainer>("MainMenuControl/MainMenuContainer").Set("visible", false);
-		GetNode<BoxContainer>("MainMenuControl/SettingsMenuContainer").Set("visible", true);
-	}
+		MainMenuTargetPos = new Vector2(0, 960); // Set the target position
+		SettingsMenuTargetPos = new Vector2(0, 0);
+	}	
 
 	public void _on_back_button_pressed()
 	{
 		playStream("submenu_dropdown_select");
 		AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, false);
-		GetNode<BoxContainer>("MainMenuControl/MainMenuContainer").Set("visible", true);
-		GetNode<BoxContainer>("MainMenuControl/SettingsMenuContainer").Set("visible", false);
-	}
+		MainMenuTargetPos = new Vector2(0, 0);
+		SettingsMenuTargetPos = new Vector2(0,-960);
+	}	
 	
 	//Universal script for hovering over a mouse button
 	public void _on_mouse_entered()
