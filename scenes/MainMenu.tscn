@@ -1,0 +1,445 @@
+[gd_scene load_steps=10 format=3 uid="uid://bf5fnvf4rc1gb"]
+
+[ext_resource type="Script" path="res://scenes/scripts/MainMenu.cs" id="1_k0cre"]
+[ext_resource type="Texture2D" uid="uid://ci3cpybygbe03" path="res://textures/menu/apocalypse_menu.png" id="2_87dnt"]
+[ext_resource type="AudioStream" uid="uid://i3w2d5t1pilg" path="res://audio/music/aboard-a-aurora-game-menu-pulse-203549.mp3" id="3_74yl7"]
+
+[sub_resource type="SystemFont" id="SystemFont_yp2uy"]
+font_names = PackedStringArray("Bahnschrift")
+
+[sub_resource type="SystemFont" id="SystemFont_3fqbv"]
+font_names = PackedStringArray("Bahnschrift")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qua78"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixovu"]
+bg_color = Color(0.212305, 0.212305, 0.212305, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llyw5"]
+bg_color = Color(0.0646965, 0.0646965, 0.0646965, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3f28o"]
+bg_color = Color(0.158472, 0.158472, 0.158472, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k0cre")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_87dnt")
+expand_mode = 5
+
+[node name="MainMenuControl" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 24
+
+[node name="MainMenuContainer" type="VBoxContainer" parent="MainMenuControl"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Margin1" type="MarginContainer" parent="MainMenuControl/MainMenuContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 25
+
+[node name="TitleLabel" type="Label" parent="MainMenuControl/MainMenuContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 8
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 12
+theme_override_fonts/font = SubResource("SystemFont_yp2uy")
+theme_override_font_sizes/font_size = 64
+text = "Tilson Point"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Margin2" type="MarginContainer" parent="MainMenuControl/MainMenuContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_right = 400
+
+[node name="MainMenuButtonsContainer" type="VBoxContainer" parent="MainMenuControl/MainMenuContainer/Margin2"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="HostGameButton" type="Button" parent="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_3fqbv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
+text = "Host Game"
+vertical_icon_alignment = 0
+
+[node name="JoinGameButton" type="Button" parent="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_3fqbv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
+text = "Join Game"
+vertical_icon_alignment = 0
+
+[node name="PlayerButton" type="Button" parent="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_3fqbv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
+text = "Player
+"
+vertical_icon_alignment = 0
+
+[node name="OptionsButton" type="Button" parent="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_3fqbv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
+text = "Options
+"
+vertical_icon_alignment = 0
+
+[node name="HelpButton" type="Button" parent="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_3fqbv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
+text = "Help
+"
+vertical_icon_alignment = 0
+
+[node name="QuitButton" type="Button" parent="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_3fqbv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
+text = "Quit"
+vertical_icon_alignment = 0
+
+[node name="SettingsMenuContainer" type="VBoxContainer" parent="MainMenuControl"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Margin1" type="MarginContainer" parent="MainMenuControl/SettingsMenuContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 25
+
+[node name="SettingsLabel" type="Label" parent="MainMenuControl/SettingsMenuContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 8
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 12
+theme_override_fonts/font = SubResource("SystemFont_yp2uy")
+theme_override_font_sizes/font_size = 64
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Margin2" type="MarginContainer" parent="MainMenuControl/SettingsMenuContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_right = 400
+
+[node name="SettingsButtonsContainer" type="VBoxContainer" parent="MainMenuControl/SettingsMenuContainer/Margin2"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="MasterVolumeLabel" type="Label" parent="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer"]
+layout_mode = 2
+text = "Volume"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer"]
+layout_mode = 2
+min_value = -40.0
+max_value = 0.0
+step = 0.1
+
+[node name="MusicVolumeLabel" type="Label" parent="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer"]
+layout_mode = 2
+min_value = -40.0
+max_value = 0.0
+step = 0.1
+
+[node name="MusicVolumeLabel2" type="Label" parent="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer"]
+layout_mode = 2
+text = "Window Resolution"
+
+[node name="ResolutionButton" type="OptionButton" parent="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer"]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "1280x720"
+popup/item_0/id = 0
+popup/item_1/text = "1920x1080"
+popup/item_1/id = 1
+
+[node name="Margin" type="MarginContainer" parent="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer"]
+layout_mode = 2
+
+[node name="VideoStressTestButton" type="Button" parent="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_3fqbv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
+text = "Video Stress Test"
+vertical_icon_alignment = 0
+
+[node name="Margin2" type="MarginContainer" parent="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 25
+
+[node name="BackButton2" type="Button" parent="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_3fqbv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
+text = "Back"
+vertical_icon_alignment = 0
+
+[node name="MenuMusicPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_74yl7")
+pitch_scale = 1.25
+autoplay = true
+attenuation = 0.001011
+bus = &"Music"
+parameters/looping = true
+
+[node name="MenuSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+attenuation = 0.001011
+
+[connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="." method="_on_host_game_button_pressed"]
+[connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/JoinGameButton" to="." method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/PlayerButton" to="." method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/HelpButton" to="." method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="value_changed" from="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="mouse_entered" from="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer/VideoStressTestButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer/VideoStressTestButton" to="." method="_on_back_button_pressed"]
+[connection signal="mouse_entered" from="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer/BackButton2" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="MainMenuControl/SettingsMenuContainer/Margin2/SettingsButtonsContainer/BackButton2" to="." method="_on_back_button_pressed"]
