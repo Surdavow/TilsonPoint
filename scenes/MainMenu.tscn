@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bf5fnvf4rc1gb"]
+[gd_scene load_steps=14 format=3 uid="uid://bf5fnvf4rc1gb"]
 
 [ext_resource type="Script" path="res://scenes/scripts/MainMenu.cs" id="1_k0cre"]
 [ext_resource type="Texture2D" uid="uid://ci3cpybygbe03" path="res://textures/menu/apocalypse_menu.png" id="2_87dnt"]
 [ext_resource type="AudioStream" uid="uid://i3w2d5t1pilg" path="res://audio/music/aboard-a-aurora-game-menu-pulse-203549.mp3" id="3_74yl7"]
+[ext_resource type="Script" path="res://scenes/scripts/BlackRect.cs" id="4_hp53w"]
+[ext_resource type="Script" path="res://scenes/scripts/MainMenuControl.cs" id="4_m6qsn"]
+[ext_resource type="Script" path="res://scenes/scripts/SettingsMenuControl.cs" id="5_wlaqi"]
 
 [sub_resource type="SystemFont" id="SystemFont_yp2uy"]
 font_names = PackedStringArray("Bahnschrift")
@@ -95,6 +98,7 @@ theme_override_constants/margin_left = 48
 theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 24
+script = ExtResource("4_m6qsn")
 metadata/_edit_use_anchors_ = true
 
 [node name="MainMenuContainer" type="VBoxContainer" parent="MainMenuControl"]
@@ -232,14 +236,11 @@ theme_override_constants/margin_left = 48
 theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 24
+script = ExtResource("5_wlaqi")
 
 [node name="SettingsMenuContainer" type="VBoxContainer" parent="SettingsMenuControl"]
 layout_mode = 2
 theme_override_constants/separation = 0
-
-[node name="Margin1" type="MarginContainer" parent="SettingsMenuControl/SettingsMenuContainer"]
-layout_mode = 2
-theme_override_constants/margin_bottom = 25
 
 [node name="SettingsLabel" type="Label" parent="SettingsMenuControl/SettingsMenuContainer"]
 layout_mode = 2
@@ -328,13 +329,11 @@ vertical_alignment = 1
 [node name="WindowModeButton" type="OptionButton" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-item_count = 3
+item_count = 2
 popup/item_0/text = "Windowed"
 popup/item_0/id = 0
-popup/item_1/text = "Borderless"
+popup/item_1/text = "Fullscreen"
 popup/item_1/id = 1
-popup/item_2/text = "Fullscreen"
-popup/item_2/id = 2
 
 [node name="Sound" type="MarginContainer" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab"]
 visible = false
@@ -436,18 +435,19 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+script = ExtResource("4_hp53w")
 
 [connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="." method="_on_mouse_entered"]
-[connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="." method="_on_host_game_button_pressed"]
+[connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="MainMenuControl" method="_on_host_game_button_pressed"]
 [connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="." method="_on_mouse_entered"]
-[connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="MainMenuControl" method="_on_options_button_pressed"]
 [connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="." method="_on_mouse_entered"]
-[connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="MainMenuControl" method="_on_quit_button_pressed"]
 [connection signal="mouse_entered" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab" to="." method="_on_mouse_entered"]
-[connection signal="tab_changed" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab" to="." method="_on_settings_tab_tab_changed"]
-[connection signal="item_selected" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/ResolutionButton" to="." method="_on_resolution_button_item_selected"]
-[connection signal="item_selected" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/WindowModeButton" to="." method="_on_resolution_button_item_selected"]
-[connection signal="value_changed" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
-[connection signal="value_changed" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="tab_changed" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab" to="SettingsMenuControl" method="_on_settings_tab_tab_changed"]
+[connection signal="item_selected" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/ResolutionButton" to="SettingsMenuControl" method="_on_resolution_button_item_selected"]
+[connection signal="item_selected" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/WindowModeButton" to="SettingsMenuControl" method="_on_window_mode_button_item_selected"]
+[connection signal="value_changed" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings/MasterVolumeSlider" to="SettingsMenuControl" method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings/MusicVolumeSlider" to="SettingsMenuControl" method="_on_music_volume_slider_value_changed"]
 [connection signal="mouse_entered" from="SettingsMenuControl/SettingsMenuContainer/DoneButton" to="." method="_on_mouse_entered"]
-[connection signal="pressed" from="SettingsMenuControl/SettingsMenuContainer/DoneButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="SettingsMenuControl/SettingsMenuContainer/DoneButton" to="SettingsMenuControl" method="_on_back_button_pressed"]
