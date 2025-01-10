@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bf5fnvf4rc1gb"]
+[gd_scene load_steps=11 format=3 uid="uid://bf5fnvf4rc1gb"]
 
 [ext_resource type="Script" path="res://scenes/scripts/MainMenu.cs" id="1_k0cre"]
 [ext_resource type="Texture2D" uid="uid://ci3cpybygbe03" path="res://textures/menu/apocalypse_menu.png" id="2_87dnt"]
@@ -49,6 +49,8 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_we3vj"]
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -68,6 +70,7 @@ bus = &"Music"
 parameters/looping = true
 
 [node name="MenuSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+volume_db = 5.0
 attenuation = 0.001011
 
 [node name="Background" type="TextureRect" parent="."]
@@ -157,36 +160,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
 text = "Host Game"
 vertical_icon_alignment = 0
 
-[node name="JoinGameButton" type="Button" parent="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
-custom_minimum_size = Vector2(120, 32)
-layout_mode = 2
-theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_3fqbv")
-theme_override_font_sizes/font_size = 20
-theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
-theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
-text = "Join Game"
-vertical_icon_alignment = 0
-
 [node name="OptionsButton" type="Button" parent="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
@@ -215,37 +188,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
 theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
 text = "Options
-"
-vertical_icon_alignment = 0
-
-[node name="HelpButton" type="Button" parent="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
-custom_minimum_size = Vector2(120, 32)
-layout_mode = 2
-theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_3fqbv")
-theme_override_font_sizes/font_size = 20
-theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
-theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
-text = "Help
 "
 vertical_icon_alignment = 0
 
@@ -317,6 +259,7 @@ vertical_alignment = 1
 [node name="SettingsTab" type="TabContainer" parent="SettingsMenuControl/SettingsMenuContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_we3vj")
 current_tab = 0
 
 [node name="Graphics" type="MarginContainer" parent="SettingsMenuControl/SettingsMenuContainer/SettingsTab"]
@@ -461,6 +404,16 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
 text = "Done"
 vertical_icon_alignment = 0
 
+[node name="CreditLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 165.0
+grow_vertical = 0
+text = "Created by Surdavow"
+
 [node name="VersionLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 3
@@ -472,9 +425,9 @@ offset_left = -76.0
 offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "Build 0.01"
+text = "Version 0.01"
 
-[node name="BlackScreen" type="ColorRect" parent="."]
+[node name="BlackRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -486,12 +439,12 @@ color = Color(0, 0, 0, 1)
 
 [connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="." method="_on_host_game_button_pressed"]
-[connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/JoinGameButton" to="." method="_on_mouse_entered"]
 [connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/HelpButton" to="." method="_on_mouse_entered"]
 [connection signal="mouse_entered" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="MainMenuControl/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="mouse_entered" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab" to="." method="_on_mouse_entered"]
+[connection signal="tab_changed" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab" to="." method="_on_settings_tab_tab_changed"]
 [connection signal="item_selected" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/ResolutionButton" to="." method="_on_resolution_button_item_selected"]
 [connection signal="item_selected" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/WindowModeButton" to="." method="_on_resolution_button_item_selected"]
 [connection signal="value_changed" from="SettingsMenuControl/SettingsMenuContainer/SettingsTab/Sound/SoundSettings/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]

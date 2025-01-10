@@ -2,6 +2,7 @@
 
 [sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_srqgo"]
 resource_name = "LowPassFilter"
+cutoff_hz = 20500.0
 resonance = 0.25
 db = 2
 
@@ -14,4 +15,4 @@ bus/1/bypass_fx = false
 bus/1/volume_db = 0.0672607
 bus/1/send = &"Master"
 bus/1/effect/0/effect = SubResource("AudioEffectLowPassFilter_srqgo")
-bus/1/effect/0/enabled = false
+bus/1/effect/0/enabled = true

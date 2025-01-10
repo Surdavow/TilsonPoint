@@ -7,14 +7,16 @@ public partial class MainMenu : Control
 {	    
 	private AudioStreamPlayer2D menuSoundPlayer;
 	private Label titleLabel;
+	private bool Quitting = false;
 	private bool isTitleVisible = false;
 	private MarginContainer MainMenuControl;
 	public Vector2 MainMenuTargetPos;
 	private MarginContainer SettingsMenuPos;
 	public Vector2 SettingsMenuTargetPos;
-	public ColorRect BlackScreen;
-	public float BlackScreenColorTarget;
+	public ColorRect BlackRect;
+	public float BlackColorTarget;
 	public float MenuMoveSpeed = 4f;
+	public float AudioLowPassTarget = 20500;
 	private int titleTransitionCount = 0;	
 	private MarginContainer SettingsMenuControl;
 	private readonly string[] titleFontProperties = { "font_color", "font_shadow_color", "font_outline_color" };	
@@ -23,8 +25,8 @@ public partial class MainMenu : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		BlackScreen = GetNode<ColorRect>("BlackScreen");
-		BlackScreenColorTarget = 0;
+		BlackRect = GetNode<ColorRect>("BlackRect");
+		BlackColorTarget = 0;
 		MainMenuControl = GetNode<MarginContainer>("MainMenuControl");
 		SettingsMenuControl = GetNode<MarginContainer>("SettingsMenuControl");
 		SettingsMenuControl.Position = new Vector2(0, -960);
@@ -53,6 +55,13 @@ public partial class MainMenu : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{		
+		AudioEffect LowPass = AudioServer.GetBusEffect(AudioServer.GetBusIndex("Music"), 0);
+		
+		if((float)LowPass.Get("cutoff_hz") != AudioLowPassTarget)
+		{
+			LowPass.Set("cutoff_hz",Mathf.Lerp((float)LowPass.Get("cutoff_hz"), AudioLowPassTarget, (float)delta*2));
+		}		
+		
 		if (MainMenuControl.Position != MainMenuTargetPos)
 	    {
 	        Vector2 currentPosition = MainMenuControl.Position;
@@ -66,12 +75,22 @@ public partial class MainMenu : Control
 			currentPosition = currentPosition.Lerp(SettingsMenuTargetPos, MenuMoveSpeed * (float)delta);
 			SettingsMenuControl.Position = currentPosition;
 		}
+	
+		Color BlackscreenColor = (Color)BlackRect.Get("color");
 
-		Color BlackscreenColor = (Color)BlackScreen.Get("color");
-		if(BlackscreenColor.A != BlackScreenColorTarget)
+		if(BlackscreenColor.A != BlackColorTarget)
 		{
-			BlackscreenColor.A = Mathf.Lerp(BlackscreenColor.A, 0, 2f * (float)delta);
-			BlackScreen.Set("color", BlackscreenColor);
+			BlackscreenColor.A = Mathf.Lerp(BlackscreenColor.A, BlackColorTarget, 2f * (float)delta);
+			BlackRect.Set("color", BlackscreenColor);
+
+			if(Quitting)
+			{
+				AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), -BlackscreenColor.A*50);
+				if(BlackscreenColor.A > 0.99)
+				{
+					GetTree().Quit();
+				}				
+			}
 		}
 		
 		if (isTitleVisible) return;
@@ -90,7 +109,7 @@ public partial class MainMenu : Control
 
 		if (titleTransitionCount == titleFontProperties.Length)
 		{
-			isTitleVisible = true;			
+			isTitleVisible = true;
 		}
 	}
 	
@@ -113,8 +132,11 @@ public partial class MainMenu : Control
 
 	public void _on_quit_button_pressed()
 	{
-		playStream("submenu_dropdown_select");
-		GetTree().Quit();
+		playStream("submenu_dropdown_select");	
+		
+		MainMenuTargetPos = new Vector2(0, -960); // Set the target position
+		BlackColorTarget = 1;
+		Quitting = true;
 	}
 
 	public void _on_resolution_button_item_selected(int index)
@@ -147,20 +169,25 @@ public partial class MainMenu : Control
 	}
 
 	public void _on_options_button_pressed()
-	{
+	{		
 		playStream("submenu_dropdown_select");
-		AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, true);
 		MainMenuTargetPos = new Vector2(0, 960); // Set the target position
 		SettingsMenuTargetPos = new Vector2(0, 0);
+		AudioLowPassTarget = 2000;
 	}	
 
 	public void _on_back_button_pressed()
 	{
 		playStream("submenu_dropdown_select");
-		AudioServer.SetBusEffectEnabled(AudioServer.GetBusIndex("Music"), 0, false);
 		MainMenuTargetPos = new Vector2(0, 0);
 		SettingsMenuTargetPos = new Vector2(0,-960);
+		AudioLowPassTarget = 20500;
 	}	
+
+	public void _on_settings_tab_tab_changed(int tab)
+	{
+		playStream("submenu_select");
+	}
 	
 	//Universal script for hovering over a mouse button
 	public void _on_mouse_entered()
