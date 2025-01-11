@@ -1,21 +1,32 @@
 using Godot;
 using System;
-
+using System.Collections.Generic;
 public partial class SettingsMenuControl : MarginContainer
 {
 	private MainMenu MainMenu;
 	private MainMenuControl MainMenuControl;
+	private AudioStreamPlayer2D SettingsSoundPlayer;
+	private Dictionary<string, AudioStream> audioStreams;
 	public Vector2 TargetPosition;
 	public float lerpSpeed = 4f;
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		MainMenu = GetParent<MainMenu>();  // Assuming MainMenu is the parent node
+		MainMenu = GetParent<MainMenu>();
 		MainMenuControl = MainMenu.GetNode<MainMenuControl>("MainMenuControl");
+		SettingsSoundPlayer = GetNode<AudioStreamPlayer2D>("SettingsMenuSoundPlayer");
+
+		audioStreams = new Dictionary<string, AudioStream>
+		{
+			{ "submenu_dropdown_select", (AudioStream)GD.Load("res://audio/menu/submenu_dropdown_select_01.wav") },
+			{ "submenu_scroll", (AudioStream)GD.Load("res://audio/menu/submenu_scroll_01.wav") },
+			{ "submenu_select", (AudioStream)GD.Load("res://audio/menu/submenu_select_01.wav") },
+			{ "submenu_slidein", (AudioStream)GD.Load("res://audio/menu/submenu_slidein_01.wav") }
+		};
+
 		Position = new Vector2(0, -960);
 		TargetPosition = Position;
 	}
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+
 	public override void _Process(double delta)
 	{
 		if(Position != TargetPosition)
@@ -24,7 +35,50 @@ public partial class SettingsMenuControl : MarginContainer
 		}
 	}
 
-		public void _on_resolution_button_item_selected(int index)
+	public void playStream(string sound)
+	{
+		if (audioStreams.ContainsKey(sound) && audioStreams[sound] != null)
+		{
+			SettingsSoundPlayer.Stream = audioStreams[sound];
+			SettingsSoundPlayer.Play();
+		}
+		else return;
+	}
+
+	//Universal script for hovering over a mouse button
+	public void _on_mouse_entered()
+	{
+		playStream("submenu_scroll");
+	}
+
+	public void _on_master_volume_slider_value_changed(float value)
+	{
+		playStream("submenu_slidein");
+		AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), value);
+		AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), value <= -40);
+	}
+
+	public void _on_music_volume_slider_value_changed(float value)
+	{
+		playStream("submenu_slidein");
+		AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Music"), value);
+		AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), value <= -40);
+	}
+
+	public void _on_done_button_pressed()
+	{
+		playStream("submenu_dropdown_select");
+		MainMenu.Set("AudioLowPassTarget",20500);
+		MainMenuControl.TargetPosition = new Vector2(0, 0);
+		TargetPosition = new Vector2(0, -960);
+	}
+
+	public void _on_settings_tab_tab_changed(int tab)	
+	{
+		playStream("submenu_select");
+	}
+
+	public void _on_resolution_button_item_selected(int index)
 	{
 		switch(index)
 		{
@@ -38,32 +92,7 @@ public partial class SettingsMenuControl : MarginContainer
 				break;
 		}
 	}
-
-	public void _on_master_volume_slider_value_changed(float value)
-	{
-		MainMenu.playStream("submenu_slidein");
-		AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), value);
-		AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), value <= -40);
-	}
-
-	public void _on_music_volume_slider_value_changed(float value)
-	{
-		MainMenu.playStream("submenu_slidein");
-		AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Music"), value);
-		AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), value <= -40);
-	}
-	public void _on_back_button_pressed()
-	{
-		MainMenu.playStream("submenu_dropdown_select");
-		MainMenu.Set("AudioLowPassTarget",20500);
-		TargetPosition = new Vector2(0, -960);
-		MainMenuControl.TargetPosition = new Vector2(0, 0);
-	}
-
-	public void _on_settings_tab_tab_changed(int tab)	
-	{
-		MainMenu.playStream("submenu_select");
-	}
+	
 	public void _on_window_mode_button_item_selected(int index)
 	{
 		switch(index)

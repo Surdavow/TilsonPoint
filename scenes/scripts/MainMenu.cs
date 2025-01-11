@@ -17,7 +17,7 @@ public partial class MainMenu : Control
 		fadeIn();
 		
 		//Load the sound player and initialize the dictionary for the sounds
-		menuSoundPlayer = GetNode<AudioStreamPlayer2D>("MenuSoundPlayer");				
+		menuSoundPlayer = GetNode<AudioStreamPlayer2D>("MenuSoundPlayer");
 		audioStreams = new Dictionary<string, AudioStream>
 		{
 			{ "submenu_dropdown_select", (AudioStream)GD.Load("res://audio/menu/submenu_dropdown_select_01.wav") },
