@@ -1,4 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b10oyub2q03ne"]
+[gd_scene load_steps=7 format=3 uid="uid://b10oyub2q03ne"]
+
+[ext_resource type="Script" path="res://scripts/MasterControl.cs" id="1_ljvef"]
+[ext_resource type="PackedScene" uid="uid://dqrye1x2yqq5k" path="res://scenes/menus/TransitionRect.tscn" id="1_v262s"]
+[ext_resource type="PackedScene" uid="uid://brnyoexdcagqf" path="res://scenes/menus/SettingsMenu.tscn" id="3_xry5v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r63qg"]
 sky_top_color = Color(0.346878, 0.534059, 0.699219, 1)
@@ -17,7 +21,22 @@ ssao_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
 
-[node name="Test" type="Node3D"]
+[node name="World" type="Node3D"]
+
+[node name="MasterControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ljvef")
+
+[node name="SettingsMenuMargin" parent="MasterControl" instance=ExtResource("3_xry5v")]
+layout_mode = 1
+
+[node name="TransitionRect" parent="MasterControl" instance=ExtResource("1_v262s")]
+layout_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bgutl")

@@ -1,12 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://brnyoexdcagqf"]
+[gd_scene load_steps=10 format=3 uid="uid://brnyoexdcagqf"]
 
-[ext_resource type="Script" path="res://scenes/scripts/SettingsMenuControl.cs" id="1_mbneo"]
+[ext_resource type="Script" path="res://scripts/SettingsMenuMargin.cs" id="1_qfinh"]
 
 [sub_resource type="SystemFont" id="SystemFont_n3hwe"]
 font_names = PackedStringArray("Bahnschrift")
 subpixel_positioning = 0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3ndqy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hlbwu"]
+bg_color = Color(0.109804, 0.109804, 0.109804, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="SystemFont" id="SystemFont_16f3t"]
 font_names = PackedStringArray("Bahnschrift")
@@ -51,15 +58,21 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
-[node name="SettingsMenuControl" type="MarginContainer"]
+[node name="SettingsMenuMargin" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_mbneo")
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 25
+script = ExtResource("1_qfinh")
 
 [node name="SettingsMenuSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+volume_db = 5.0
+max_polyphony = 4
 
 [node name="SettingsMenuContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -84,6 +97,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_3ndqy")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hlbwu")
 current_tab = 0
 
 [node name="Graphics" type="MarginContainer" parent="SettingsMenuContainer/SettingsTab"]
@@ -227,7 +241,8 @@ text = "Done"
 vertical_icon_alignment = 0
 
 [connection signal="mouse_entered" from="SettingsMenuContainer/SettingsTab" to="." method="_on_mouse_entered"]
-[connection signal="tab_changed" from="SettingsMenuContainer/SettingsTab" to="." method="_on_settings_tab_tab_changed"]
+[connection signal="tab_changed" from="SettingsMenuContainer/SettingsTab" to="." method="_on_settings_tab_changed"]
+[connection signal="item_selected" from="SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/DisplayDriverButton" to="." method="_on_display_driver_button_item_selected"]
 [connection signal="mouse_entered" from="SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/DisplayDriverButton" to="." method="_on_mouse_entered"]
 [connection signal="item_selected" from="SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/ResolutionButton" to="." method="_on_resolution_button_item_selected"]
 [connection signal="mouse_entered" from="SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/ResolutionButton" to="." method="_on_mouse_entered"]

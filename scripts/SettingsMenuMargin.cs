@@ -1,19 +1,19 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-public partial class SettingsMenuControl : MarginContainer
+public partial class SettingsMenuMargin : MarginContainer
 {
-	private MainMenu MainMenu;
-	private MainMenuControl MainMenuControl;
-	private AudioStreamPlayer2D SettingsSoundPlayer;
+	private MasterControl MasterControl;
+	private MainMenuMargin MainMenuControl;
+	private AudioStreamPlayer2D SettingsMenuSoundPlayer;
 	private Dictionary<string, AudioStream> audioStreams;
 	public Vector2 TargetPosition;
 	public float lerpSpeed = 4f;
 	public override void _Ready()
 	{
-		MainMenu = GetParent<MainMenu>();
-		MainMenuControl = MainMenu.GetNode<MainMenuControl>("MainMenuControl");
-		SettingsSoundPlayer = GetNode<AudioStreamPlayer2D>("SettingsMenuSoundPlayer");
+		MasterControl = GetParent<MasterControl>();
+		MainMenuControl = MasterControl.GetNode<MainMenuMargin>("MainMenuMargin");
+		SettingsMenuSoundPlayer = GetNode<AudioStreamPlayer2D>("SettingsMenuSoundPlayer");
 
 		audioStreams = new Dictionary<string, AudioStream>
 		{
@@ -33,16 +33,6 @@ public partial class SettingsMenuControl : MarginContainer
 		{
 			Position = new Vector2(Position.X, Mathf.Lerp(Position.Y, TargetPosition.Y, lerpSpeed * (float)delta));
 		}
-	}
-
-	public void playStream(string sound)
-	{
-		if (audioStreams.ContainsKey(sound) && audioStreams[sound] != null)
-		{
-			SettingsSoundPlayer.Stream = audioStreams[sound];
-			SettingsSoundPlayer.Play();
-		}
-		else return;
 	}
 
 	//Universal script for hovering over a mouse button
@@ -68,18 +58,24 @@ public partial class SettingsMenuControl : MarginContainer
 	public void _on_done_button_pressed()
 	{
 		playStream("submenu_dropdown_select");
-		MainMenu.Set("AudioLowPassTarget",20500);
+		MasterControl.Set("AudioLowPassTarget",20500);
 		MainMenuControl.TargetPosition = new Vector2(0, 0);
 		TargetPosition = new Vector2(0, -960);
 	}
 
-	public void _on_settings_tab_tab_changed(int tab)	
+	public void _on_settings_tab_changed(int tab)	
+	{
+		playStream("submenu_select");
+	}
+
+	public void _on_display_driver_button_item_selected(int index)
 	{
 		playStream("submenu_select");
 	}
 
 	public void _on_resolution_button_item_selected(int index)
 	{
+		playStream("submenu_select");
 		switch(index)
 		{
 			// 1280x720
@@ -106,5 +102,15 @@ public partial class SettingsMenuControl : MarginContainer
 				DisplayServer.WindowSetMode(DisplayServer.WindowMode.ExclusiveFullscreen); 
 				break;
 		}
+	}
+
+	public void playStream(string sound)
+	{
+		if (audioStreams.ContainsKey(sound) && audioStreams[sound] != null)
+		{
+			SettingsMenuSoundPlayer.Stream = audioStreams[sound];
+			SettingsMenuSoundPlayer.Play();
+		}
+		else return;
 	}
 }

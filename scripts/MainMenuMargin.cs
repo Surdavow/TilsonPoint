@@ -1,21 +1,32 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public partial class MainMenuControl : MarginContainer
+public partial class MainMenuMargin : MarginContainer
 {
-	private MainMenu MainMenu;
-	private SettingsMenuControl SettingsMenuControl;
+	private MasterControl MasterControl;
+	private AudioStreamPlayer2D MainMenuSoundPlayer;
+	private Dictionary<string, AudioStream> audioStreams;	
+	private SettingsMenuMargin SettingsMenuMargin;
 	private Label titleLabel;
-	private bool isTitleVisible = false;
-	private int titleTransitionCount = 0;
 	public Vector2 TargetPosition;
 	public float lerpSpeed = 4f;
 	private readonly string[] titleFontProperties = { "font_color", "font_shadow_color", "font_outline_color" };
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		MainMenu = GetParent<MainMenu>();
-		SettingsMenuControl = MainMenu.GetNode<SettingsMenuControl>("SettingsMenuControl");
+		MasterControl = GetTree().Root.GetNode<MasterControl>("MasterControl");
+		SettingsMenuMargin = MasterControl.GetNode<SettingsMenuMargin>("SettingsMenuMargin");
+
+		//Load the sound player and initialize the dictionary for the sounds
+		MainMenuSoundPlayer = GetNode<AudioStreamPlayer2D>("MainMenuSoundPlayer");
+		audioStreams = new Dictionary<string, AudioStream>
+		{
+			{ "submenu_dropdown_select", (AudioStream)GD.Load("res://audio/menu/submenu_dropdown_select_01.wav") },
+			{ "submenu_scroll", (AudioStream)GD.Load("res://audio/menu/submenu_scroll_01.wav") },
+			{ "submenu_select", (AudioStream)GD.Load("res://audio/menu/submenu_select_01.wav") },
+			{ "submenu_slidein", (AudioStream)GD.Load("res://audio/menu/submenu_slidein_01.wav") }
+		};
 		
 		// Adjust the label, make it transparent
 		titleLabel = GetNode<Label>("MainMenuContainer/TitleLabel");	
@@ -36,8 +47,6 @@ public partial class MainMenuControl : MarginContainer
         	Position = currentPosition;
     	}
 		
-		if (isTitleVisible) return;
-		// Lerp towards the target alpha for all relevant colors
 		foreach (string property in titleFontProperties)
 		{			
 			Color currentColor = (Color)titleLabel.Get($"theme_override_colors/{property}");
@@ -47,34 +56,42 @@ public partial class MainMenuControl : MarginContainer
 				currentAlpha = Mathf.Lerp(currentAlpha, 1, 0.5f * (float)delta);
 				titleLabel.Set($"theme_override_colors/{property}", new Color(currentColor.R, currentColor.G, currentColor.B, currentAlpha));		
 			}
-			else titleTransitionCount++;
-		}
-
-		if (titleTransitionCount == titleFontProperties.Length)
-		{
-			isTitleVisible = true;
 		}
 	}
 	public void _on_options_button_pressed()
 	{		
-		MainMenu.playStream("submenu_dropdown_select");
-		MainMenu.Set("AudioLowPassTarget",2000);
+		playStream("submenu_dropdown_select");
+		MasterControl.Set("AudioLowPassTarget",2000);
 		TargetPosition = new Vector2(0, 960); // Set the target position
-		SettingsMenuControl.Set("TargetPosition", new Vector2(0, 0));
+		SettingsMenuMargin.Set("TargetPosition", new Vector2(0, 0));
 	}
 	// Example button press handlers using the dictionary directly
 	public void _on_host_game_button_pressed()
 	{		
-		MainMenu.playStream("submenu_dropdown_select");		
-		MainMenu.fadeOut();
-		MainMenu.Set("Transition","HostGame");
+		playStream("submenu_dropdown_select");		
+		MasterControl.Set("TransitionTo","HostGame");
 	}
 
 	public void _on_quit_button_pressed()
 	{
-		MainMenu.playStream("submenu_dropdown_select");	
-		MainMenu.fadeOut();
-		MainMenu.Set("Transition","Quit");
+		playStream("submenu_dropdown_select");	
+		MasterControl.Set("TransitionTo","Quit");
 		TargetPosition = new Vector2(0, -960); // Set the target position		
-	}	
+	}
+
+	public void _on_mouse_entered()
+	{
+		playStream("submenu_scroll");
+	}
+
+	public void playStream(string sound)
+	{
+		if (audioStreams.ContainsKey(sound) && audioStreams[sound] != null)
+		{
+			MainMenuSoundPlayer.Stream = audioStreams[sound];
+			MainMenuSoundPlayer.Play();
+		}
+		else return;
+	}
+	
 }
