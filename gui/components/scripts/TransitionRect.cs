@@ -17,15 +17,30 @@ public partial class TransitionRect : ColorRect
 
 	public override void _Ready()
 	{
-		Color = new Color(Color.R, Color.G, Color.B, 1);
+		// Always start with a fully opaque screen, it is transparent in the editor for convenience
+		setAlpha(1, true);
+	}
+
+	public void setAlpha(float alpha, bool instant)
+	{
+		if(instant)
+		{
+			Color = new Color(Color.R, Color.G, Color.B, alpha);
+			alphaTarget = alpha;
+		}
+		else
+		{
+			alphaTarget = alpha;
+		}
 	}
 
 	public void fadeOut()
 	{
-		alphaTarget = 1;
+		setAlpha(1, false);
 	}
+
 	public void fadeIn()
 	{
-		alphaTarget = 0;
+		setAlpha(0, false);
 	}
 }

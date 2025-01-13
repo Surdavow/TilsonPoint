@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://b10oyub2q03ne"]
+[gd_scene load_steps=6 format=3 uid="uid://b10oyub2q03ne"]
 
-[ext_resource type="Script" path="res://scripts/MasterControl.cs" id="1_ljvef"]
-[ext_resource type="PackedScene" uid="uid://dqrye1x2yqq5k" path="res://scenes/menus/TransitionRect.tscn" id="1_v262s"]
-[ext_resource type="PackedScene" uid="uid://brnyoexdcagqf" path="res://scenes/menus/SettingsMenu.tscn" id="3_xry5v"]
+[ext_resource type="PackedScene" uid="uid://xdd3xtwgoflx" path="res://gui/GameUI.tscn" id="1_h1aa2"]
+[ext_resource type="AudioStream" uid="uid://cwgqw1q3un5wy" path="res://audio/music/monsters-university-theme.mp3" id="2_on6tf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r63qg"]
 sky_top_color = Color(0.346878, 0.534059, 0.699219, 1)
@@ -23,20 +22,7 @@ glow_enabled = true
 
 [node name="World" type="Node3D"]
 
-[node name="MasterControl" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_ljvef")
-
-[node name="SettingsMenuMargin" parent="MasterControl" instance=ExtResource("3_xry5v")]
-layout_mode = 1
-
-[node name="TransitionRect" parent="MasterControl" instance=ExtResource("1_v262s")]
-layout_mode = 1
+[node name="GameUi" parent="." instance=ExtResource("1_h1aa2")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bgutl")
@@ -48,3 +34,10 @@ shadow_enabled = true
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.78516, 0)
 current = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.88982)
+stream = ExtResource("2_on6tf")
+volume_db = -5.0
+autoplay = true
+parameters/looping = true

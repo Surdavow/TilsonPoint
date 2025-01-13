@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://bf5fnvf4rc1gb"]
 
-[ext_resource type="Script" path="res://scripts/MasterControl.cs" id="1_rwyqk"]
+[ext_resource type="Script" path="res://gui/menus/scripts/MainMenuControl.cs" id="1_eni2w"]
 [ext_resource type="Texture2D" uid="uid://ci3cpybygbe03" path="res://textures/menu/apocalypse_menu.png" id="2_87dnt"]
-[ext_resource type="AudioStream" uid="uid://i3w2d5t1pilg" path="res://audio/music/aboard-a-aurora-game-menu-pulse-203549.mp3" id="3_74yl7"]
-[ext_resource type="Script" path="res://scripts/MainMenuMargin.cs" id="4_idtb3"]
-[ext_resource type="PackedScene" uid="uid://brnyoexdcagqf" path="res://scenes/menus/SettingsMenu.tscn" id="5_kqdfr"]
-[ext_resource type="PackedScene" uid="uid://dqrye1x2yqq5k" path="res://scenes/menus/TransitionRect.tscn" id="6_fets6"]
+[ext_resource type="PackedScene" uid="uid://cneclhdhnfi0t" path="res://gui/menus/SettingsMenu.tscn" id="3_5k3ri"]
+[ext_resource type="PackedScene" uid="uid://kswicywrjx7i" path="res://gui/components/EffectsControl.tscn" id="3_yku8d"]
+[ext_resource type="AudioStream" uid="uid://cwgqw1q3un5wy" path="res://audio/music/monsters-university-theme.mp3" id="5_h3q22"]
+[ext_resource type="PackedScene" uid="uid://b85kyb4c1k70a" path="res://gui/components/MenuSoundPlayer.tscn" id="6_lpjog"]
 
 [sub_resource type="SystemFont" id="SystemFont_yp2uy"]
 font_names = PackedStringArray("Bahnschrift")
@@ -54,7 +54,7 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
-[node name="MasterControl" type="Control"]
+[node name="MainMenuControl" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,15 +62,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-script = ExtResource("1_rwyqk")
-
-[node name="MenuMusicPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_74yl7")
-pitch_scale = 1.25
-autoplay = true
-attenuation = 0.001011
-bus = &"Music"
-parameters/looping = true
+script = ExtResource("1_eni2w")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -117,13 +109,6 @@ theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 0
-script = ExtResource("4_idtb3")
-metadata/_edit_use_anchors_ = true
-
-[node name="MainMenuSoundPlayer" type="AudioStreamPlayer2D" parent="MainMenuMargin"]
-volume_db = 5.0
-attenuation = 0.001011
-max_polyphony = 4
 
 [node name="MainMenuContainer" type="VBoxContainer" parent="MainMenuMargin"]
 layout_mode = 2
@@ -249,15 +234,24 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
 text = "Quit"
 vertical_icon_alignment = 0
 
-[node name="SettingsMenuMargin" parent="." instance=ExtResource("5_kqdfr")]
+[node name="SettingsMenuControl" parent="." instance=ExtResource("3_5k3ri")]
 layout_mode = 1
 
-[node name="TransitionRect" parent="." instance=ExtResource("6_fets6")]
+[node name="EffectsControl" parent="." instance=ExtResource("3_yku8d")]
 layout_mode = 1
 
-[connection signal="mouse_entered" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="MainMenuMargin" method="_on_mouse_entered"]
-[connection signal="pressed" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="MainMenuMargin" method="_on_host_game_button_pressed"]
-[connection signal="mouse_entered" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="MainMenuMargin" method="_on_mouse_entered"]
-[connection signal="pressed" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="MainMenuMargin" method="_on_options_button_pressed"]
-[connection signal="mouse_entered" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="MainMenuMargin" method="_on_mouse_entered"]
-[connection signal="pressed" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="MainMenuMargin" method="_on_quit_button_pressed"]
+[node name="MenuMusicPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_h3q22")
+autoplay = true
+attenuation = 0.001011
+bus = &"Music"
+parameters/looping = true
+
+[node name="MenuSoundPlayer" parent="." instance=ExtResource("6_lpjog")]
+
+[connection signal="mouse_entered" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="." method="_on_host_game_button_pressed"]
+[connection signal="mouse_entered" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="mouse_entered" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
