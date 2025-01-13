@@ -20,10 +20,9 @@ public partial class SettingsMenuControl : Control
 			EffectsControl = MenuControl.GetNode<EffectsControl>("EffectsControl");
 		}
 		else
-		{
+		{			
 			EffectsControl = MenuControl.GetParent().GetNode<EffectsControl>("EffectsControl");
 		}
-		
 
 		MenuMargin.Position = new Vector2(0, -1000);
 		MarginTargetPos = MenuMargin.Position;
@@ -59,10 +58,11 @@ public partial class SettingsMenuControl : Control
 
 	public void _on_done_button_pressed()
 	{
-		MenuSoundPlayer.playStream("submenu_dropdown_select");		
+		MenuSoundPlayer.playStream("submenu_dropdown_select");
+		MenuControl.GetNode<MenuSoundPlayer>("MenuSoundPlayer").playStream("submenu_slidein");
 		MenuControl.Set("MarginTargetPos",Vector2.Zero);
 		MarginTargetPos = new Vector2(0, -1000);
-		EffectsControl.AudioLowPassTarget = 2000;
+		EffectsControl.Set("AudioLowPassTarget", 20500);
 	}
 
 	public void _on_settings_tab_changed(int tab)	

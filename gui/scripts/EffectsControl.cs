@@ -19,11 +19,18 @@ public partial class EffectsControl : Control
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
-	{			
+	{
 		if((float)MusicLowPass.Get("cutoff_hz") != AudioLowPassTarget)
 		{
 			float cutoffHz = (float)MusicLowPass.Get("cutoff_hz");
-			MusicLowPass.Set("cutoff_hz",Mathf.Lerp(cutoffHz, AudioLowPassTarget, (float)delta*2));
+			MusicLowPass.Set("cutoff_hz",Mathf.Lerp(cutoffHz, AudioLowPassTarget, (float)delta*2));			
+		}
+
+		//GD.Print(AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Master")));
+
+		if((string)GetParent().Get("TransitionTo") != null)
+		{
+			AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), -TransitionRect.Color.A*50);
 		}
 	}
 }

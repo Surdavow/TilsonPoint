@@ -7,6 +7,7 @@ public partial class PauseMenuControl : Control
 	private MarginContainer MenuMargin;
 	private SettingsMenuControl SettingsMenuControl;
 	private EffectsControl EffectsControl;
+	private string TransitionTo;
 	private Color TransitionRectColor;
 	public Vector2 MarginTargetPos;
 	private MenuSoundPlayer MenuSoundPlayer;
@@ -15,14 +16,16 @@ public partial class PauseMenuControl : Control
 	{		
 		EffectsControl = GetParent().GetNode<EffectsControl>("EffectsControl");
 		SettingsMenuControl = GetNode<SettingsMenuControl>("SettingsMenuControl");
-		MenuMargin = GetNode<MarginContainer>("PauseMenuMargin");		
+		MenuMargin = GetNode<MarginContainer>("PauseMenuMargin");
 		MenuMargin.Position = new Vector2(0, -1000);
 		MarginTargetPos = MenuMargin.Position;
-		MenuSoundPlayer = GetNode<MenuSoundPlayer>("MenuSoundPlayer");
+		MenuSoundPlayer = GetNode<MenuSoundPlayer>("MenuSoundPlayer");		
 	}
 
 	public override void _Process(double delta)
 	{
+		TransitionTo = (string)GetParent().Get("TransitionTo");		
+
 		if (MenuMargin.Position != MarginTargetPos)
 	    {
         	MenuMargin.Position = MenuMargin.Position.Lerp(MarginTargetPos, lerpSpeed * (float)delta);
@@ -31,7 +34,7 @@ public partial class PauseMenuControl : Control
 		TransitionRectColor = (Color)EffectsControl.TransitionRect.Get("color");
 		if(TransitionRectColor.A > 0.995)
 		{
-			switch((string)GetParent().Get("TransitionTo"))
+			switch(TransitionTo)
 			{
 				case "MainMenu":					
 					GetTree().ChangeSceneToFile("res://gui/menus/MainMenu.tscn");
@@ -40,18 +43,17 @@ public partial class PauseMenuControl : Control
 					GetTree().Quit();
 					break;
 			}			
-		}
+		}		
 	}
 
 	public override void _Input(InputEvent @event)
-	{
-	    if (Input.IsActionJustPressed("Pause"))
-	    {
-	        MenuSoundPlayer.playStream("submenu_slidein");
-	        
+	{	
+		if (Input.IsActionJustPressed("Pause") && TransitionTo == "")
+		{			
 			// Open the menu
 			if (MenuMargin.Position.Y <= -100)
 	        {
+				MenuSoundPlayer.playStream("submenu_slidein");
 				MarginTargetPos = Vector2.Zero;		
 	        }
 			// Attempt to close the menu
@@ -60,12 +62,12 @@ public partial class PauseMenuControl : Control
 				// If the settings menu is open, close it first, then return to the main menu
 				if(SettingsMenuControl.GetNode<MarginContainer>("SettingsMenuMargin").Position.Y > -720)
 				{
-					SettingsMenuControl.MarginTargetPos = new Vector2(0, -1000);
-					MarginTargetPos = Vector2.Zero;
+					SettingsMenuControl._on_done_button_pressed();
 				}
 				// If the settings menu is closed, close the pause menu
 				else 
 				{
+					MenuSoundPlayer.playStream("submenu_slidein");
 					MarginTargetPos = new Vector2(0, -1000);
 				}
 			}
@@ -75,12 +77,12 @@ public partial class PauseMenuControl : Control
 	public void _on_options_button_pressed()
 	{		
 		MenuSoundPlayer.playStream("submenu_dropdown_select");
-		EffectsControl.AudioLowPassTarget = 2000;
+		EffectsControl.Set("AudioLowPassTarget", 2000);
 		MarginTargetPos = new Vector2(0, 1000); // Set the target position
 		SettingsMenuControl.MarginTargetPos = Vector2.Zero; // Set the target position
 	}
 
-	public void _on_quit_button_pressed()
+	public void _on_disconnect_button_pressed()
 	{
 		MenuSoundPlayer.playStream("submenu_dropdown_select");	
 		MarginTargetPos = new Vector2(0, -1000);

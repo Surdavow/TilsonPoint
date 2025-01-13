@@ -1,12 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://byoijd1wqkeri"]
 
-[ext_resource type="Script" path="res://gui/menus/scripts/PauseMenuControl.cs" id="1_7jgi6"]
+[ext_resource type="Script" path="res://gui/scripts/PauseMenuControl.cs" id="1_7jgi6"]
 [ext_resource type="PackedScene" uid="uid://b85kyb4c1k70a" path="res://gui/components/MenuSoundPlayer.tscn" id="2_0qi1a"]
 [ext_resource type="PackedScene" uid="uid://cneclhdhnfi0t" path="res://gui/menus/SettingsMenu.tscn" id="2_5keiq"]
-
-[sub_resource type="SystemFont" id="SystemFont_wwyg8"]
-font_names = PackedStringArray("Bahnschrift")
-subpixel_positioning = 0
+[ext_resource type="PackedScene" uid="uid://b8gpq8qvrmrip" path="res://gui/components/TitleLabel.tscn" id="2_5yhdf"]
 
 [sub_resource type="SystemFont" id="SystemFont_kqkli"]
 font_names = PackedStringArray("Bahnschrift")
@@ -72,40 +69,28 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 0
 
-[node name="PauseMenuButtonsContainer" type="VBoxContainer" parent="PauseMenuMargin"]
+[node name="PauseMenuContainer" type="VBoxContainer" parent="PauseMenuMargin"]
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="Margin1" type="MarginContainer" parent="PauseMenuMargin/PauseMenuButtonsContainer"]
+[node name="Margin1" type="MarginContainer" parent="PauseMenuMargin/PauseMenuContainer"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 50
 
-[node name="TitleLabel" type="Label" parent="PauseMenuMargin/PauseMenuButtonsContainer"]
+[node name="TitleLabel" parent="PauseMenuMargin/PauseMenuContainer" instance=ExtResource("2_5yhdf")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 8
-theme_override_constants/outline_size = 16
-theme_override_constants/shadow_outline_size = 12
-theme_override_fonts/font = SubResource("SystemFont_wwyg8")
-theme_override_font_sizes/font_size = 64
-text = "Tilson Point"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Margin2" type="MarginContainer" parent="PauseMenuMargin/PauseMenuButtonsContainer"]
+[node name="Margin2" type="MarginContainer" parent="PauseMenuMargin/PauseMenuContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 400
 theme_override_constants/margin_right = 400
 
-[node name="PauseMenuButtonsContainer" type="VBoxContainer" parent="PauseMenuMargin/PauseMenuButtonsContainer/Margin2"]
+[node name="PauseMenuButtonsContainer" type="VBoxContainer" parent="PauseMenuMargin/PauseMenuContainer/Margin2"]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="OptionsButton" type="Button" parent="PauseMenuMargin/PauseMenuButtonsContainer/Margin2/PauseMenuButtonsContainer"]
+[node name="OptionsButton" type="Button" parent="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer"]
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
 theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
@@ -136,7 +121,7 @@ text = "Options
 "
 vertical_icon_alignment = 0
 
-[node name="QuitButton" type="Button" parent="PauseMenuMargin/PauseMenuButtonsContainer/Margin2/PauseMenuButtonsContainer"]
+[node name="DisconnectButton" type="Button" parent="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer"]
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
 theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
@@ -163,7 +148,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_jebpt")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_jebpt")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_o66ir")
 theme_override_styles/normal = SubResource("StyleBoxFlat_o66ir")
-text = "Quit"
+text = "Disconnect"
 vertical_icon_alignment = 0
 
 [node name="SettingsMenuControl" parent="." instance=ExtResource("2_5keiq")]
@@ -171,7 +156,7 @@ layout_mode = 1
 
 [node name="MenuSoundPlayer" parent="." instance=ExtResource("2_0qi1a")]
 
-[connection signal="mouse_entered" from="PauseMenuMargin/PauseMenuButtonsContainer/Margin2/PauseMenuButtonsContainer/OptionsButton" to="." method="_on_mouse_entered"]
-[connection signal="pressed" from="PauseMenuMargin/PauseMenuButtonsContainer/Margin2/PauseMenuButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="mouse_entered" from="PauseMenuMargin/PauseMenuButtonsContainer/Margin2/PauseMenuButtonsContainer/QuitButton" to="." method="_on_mouse_entered"]
-[connection signal="pressed" from="PauseMenuMargin/PauseMenuButtonsContainer/Margin2/PauseMenuButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="mouse_entered" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/OptionsButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="mouse_entered" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/DisconnectButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/DisconnectButton" to="." method="_on_disconnect_button_pressed"]

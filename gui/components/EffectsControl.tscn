@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://kswicywrjx7i"]
 
-[ext_resource type="Script" path="res://gui/components/scripts/EffectsControl.cs" id="1_w8wad"]
-[ext_resource type="Script" path="res://gui/components/scripts/TransitionRect.cs" id="2_c1qey"]
+[ext_resource type="Script" path="res://gui/scripts/EffectsControl.cs" id="1_w8wad"]
+[ext_resource type="Script" path="res://gui/scripts/TransitionRect.cs" id="2_c1qey"]
 
 [node name="EffectsControl" type="Control"]
 layout_mode = 3

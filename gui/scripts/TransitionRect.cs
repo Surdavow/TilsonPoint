@@ -26,12 +26,10 @@ public partial class TransitionRect : ColorRect
 		if(instant)
 		{
 			Color = new Color(Color.R, Color.G, Color.B, alpha);
-			alphaTarget = alpha;
+			
 		}
-		else
-		{
-			alphaTarget = alpha;
-		}
+		
+		alphaTarget = alpha;
 	}
 
 	public void fadeOut()

@@ -18,9 +18,6 @@ public partial class GameUI : Control
 
 	public override void _Process(double delta)
 	{
-		if(AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Master")) < -0.1)
-		{
-			AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), -EffectsControl.TransitionRect.Color.A*50);
-		}
+		
 	}
 }

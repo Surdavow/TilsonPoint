@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://cneclhdhnfi0t"]
 
-[ext_resource type="Script" path="res://gui/menus/scripts/SettingsMenuControl.cs" id="1_vycqo"]
+[ext_resource type="Script" path="res://gui/scripts/SettingsMenuControl.cs" id="1_vycqo"]
 [ext_resource type="PackedScene" uid="uid://b85kyb4c1k70a" path="res://gui/components/MenuSoundPlayer.tscn" id="2_u4mcv"]
 
 [sub_resource type="SystemFont" id="SystemFont_n3hwe"]
