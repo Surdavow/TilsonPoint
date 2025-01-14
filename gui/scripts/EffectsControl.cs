@@ -26,8 +26,6 @@ public partial class EffectsControl : Control
 			MusicLowPass.Set("cutoff_hz",Mathf.Lerp(cutoffHz, AudioLowPassTarget, (float)delta*2));			
 		}
 
-		//GD.Print(AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Master")));
-
 		if((string)GetParent().Get("TransitionTo") != null)
 		{
 			AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), -TransitionRect.Color.A*50);

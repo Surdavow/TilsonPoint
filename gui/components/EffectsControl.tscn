@@ -31,3 +31,7 @@ script = ExtResource("2_c1qey")
 volume_db = 5.0
 max_polyphony = 10
 script = ExtResource("3_2lreo")
+
+[node name="EffectsMusicPlayer" type="AudioStreamPlayer2D" parent="."]
+autoplay = true
+bus = &"Music"
