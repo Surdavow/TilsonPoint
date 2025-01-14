@@ -9,7 +9,7 @@ public partial class MainMenuControl : Control
 	private MarginContainer MenuMargin;
 	private EffectsControl EffectsControl;
 	private EffectsSoundPlayer EffectsSoundPlayer;
-	private AudioStreamPlayer2D EffectsMusicPlayer;
+	private EffectsMusicPlayer EffectsMusicPlayer;
 	private Color TransitionRectColor;
 	public string TransitionTo;
 	public string sceneName;
@@ -31,9 +31,9 @@ public partial class MainMenuControl : Control
 		SettingsMenuControl = GetNode<SettingsMenuControl>("SettingsMenuControl");	
 
 		EffectsSoundPlayer = EffectsControl.GetNode<EffectsSoundPlayer>("EffectsSoundPlayer");
-		EffectsMusicPlayer = EffectsControl.GetNode<AudioStreamPlayer2D>("EffectsMusicPlayer");
-		EffectsMusicPlayer.Set("stream", (AudioStream)GD.Load("res://audio/music/monsters-university-theme.mp3"));
-		EffectsMusicPlayer.Set("parameters/looping", true);
+		EffectsMusicPlayer = EffectsControl.GetNode<EffectsMusicPlayer>("EffectsMusicPlayer");
+		
+		EffectsMusicPlayer.setMusic((AudioStream)GD.Load("res://audio/music/monsters-university-theme.mp3"),true);
 		EffectsMusicPlayer.Play();
 		EffectsControl.TransitionRect.fadeIn();
 	}
