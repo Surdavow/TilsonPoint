@@ -8,7 +8,7 @@ public partial class MainMenuControl : Control
 	private SettingsMenuControl SettingsMenuControl;
 	private MarginContainer MenuMargin;
 	private EffectsControl EffectsControl;
-	private MenuSoundPlayer MenuSoundPlayer;
+	private EffectsSoundPlayer EffectsSoundPlayer;
 	private Color TransitionRectColor;
 	public string TransitionTo;
 	public string sceneName;
@@ -29,8 +29,7 @@ public partial class MainMenuControl : Control
 		MarginTargetPos = MenuMargin.Position;
 		SettingsMenuControl = GetNode<SettingsMenuControl>("SettingsMenuControl");				
 
-		// Load audio streams to be used in the menu
-		MenuSoundPlayer = GetNode<MenuSoundPlayer>("MenuSoundPlayer");
+		EffectsSoundPlayer = EffectsControl.GetNode<EffectsSoundPlayer>("EffectsSoundPlayer");
 		EffectsControl.TransitionRect.fadeIn();		
 	}
 
@@ -72,8 +71,8 @@ public partial class MainMenuControl : Control
 	}
 	public void _on_options_button_pressed()
 	{				
-		MenuSoundPlayer.playStream("submenu_slidein");
-		SettingsMenuControl.GetNode<MenuSoundPlayer>("MenuSoundPlayer").playStream("submenu_dropdown_select");
+		EffectsSoundPlayer.playStream("submenu_slidein");
+		EffectsSoundPlayer.playStream("submenu_dropdown_select");
 		EffectsControl.Set("AudioLowPassTarget", 2000);
 		MarginTargetPos = new Vector2(0, 1000); // Set the target position
 		SettingsMenuControl.MarginTargetPos = Vector2.Zero; // Set the target position
@@ -81,7 +80,7 @@ public partial class MainMenuControl : Control
 	// Example button press handlers using the dictionary directly
 	public void _on_host_game_button_pressed()
 	{		
-		MenuSoundPlayer.playStream("submenu_dropdown_select");
+		EffectsSoundPlayer.playStream("submenu_dropdown_select");
 		TransitionTo = "HostGame";
 		MarginTargetPos = new Vector2(0, -1000);
 		EffectsControl.TransitionRect.fadeOut();
@@ -89,7 +88,7 @@ public partial class MainMenuControl : Control
 
 	public void _on_quit_button_pressed()
 	{
-		MenuSoundPlayer.playStream("submenu_dropdown_select");	
+		EffectsSoundPlayer.playStream("submenu_dropdown_select");	
 		TransitionTo = "Quit";
 		MarginTargetPos = new Vector2(0, -1000);
 		EffectsControl.TransitionRect.fadeOut();
@@ -97,6 +96,6 @@ public partial class MainMenuControl : Control
 
 	public void _on_mouse_entered()
 	{
-		MenuSoundPlayer.playStream("submenu_scroll");
+		EffectsSoundPlayer.playStream("submenu_scroll");
 	}
 }

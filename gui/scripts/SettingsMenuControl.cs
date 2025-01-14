@@ -5,15 +5,14 @@ public partial class SettingsMenuControl : Control
 {
 	private Control MenuControl;
 	private EffectsControl EffectsControl;
-	private MenuSoundPlayer MenuSoundPlayer;
+	private EffectsSoundPlayer EffectsSoundPlayer;
 	private MarginContainer MenuMargin;
 	public Vector2 MarginTargetPos;
 	public float lerpSpeed = 4f;
 	public override void _Ready()
 	{
 		MenuControl = GetParent<Control>();
-		MenuMargin = GetNode<MarginContainer>("SettingsMenuMargin");
-		MenuSoundPlayer = GetNode<MenuSoundPlayer>("MenuSoundPlayer");
+		MenuMargin = GetNode<MarginContainer>("SettingsMenuMargin");		
 
 		if(MenuControl.Name == "MainMenuControl")
 		{
@@ -26,6 +25,7 @@ public partial class SettingsMenuControl : Control
 
 		MenuMargin.Position = new Vector2(0, -1000);
 		MarginTargetPos = MenuMargin.Position;
+		EffectsSoundPlayer = EffectsControl.GetNode<EffectsSoundPlayer>("EffectsSoundPlayer");
 	}
 
 	public override void _Process(double delta)
@@ -39,27 +39,27 @@ public partial class SettingsMenuControl : Control
 	//Universal script for hovering over a mouse button
 	public void _on_mouse_entered()
 	{
-		MenuSoundPlayer.playStream("submenu_scroll");
+		EffectsSoundPlayer.playStream("submenu_scroll");
 	}
 
 	public void _on_master_volume_slider_value_changed(float value)
 	{
-		MenuSoundPlayer.playStream("submenu_slidein");
+		EffectsSoundPlayer.playStream("submenu_slidein");
 		AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), value);
 		AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), value <= -40);
 	}
 
 	public void _on_music_volume_slider_value_changed(float value)
 	{
-		MenuSoundPlayer.playStream("submenu_slidein");
+		EffectsSoundPlayer.playStream("submenu_slidein");
 		AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Music"), value);
 		AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), value <= -40);
 	}
 
 	public void _on_done_button_pressed()
 	{
-		MenuSoundPlayer.playStream("submenu_dropdown_select");
-		MenuControl.GetNode<MenuSoundPlayer>("MenuSoundPlayer").playStream("submenu_slidein");
+		EffectsSoundPlayer.playStream("submenu_dropdown_select");
+		EffectsSoundPlayer.playStream("submenu_slidein");
 		MenuControl.Set("MarginTargetPos",Vector2.Zero);
 		MarginTargetPos = new Vector2(0, -1000);
 		EffectsControl.Set("AudioLowPassTarget", 20500);
@@ -67,17 +67,17 @@ public partial class SettingsMenuControl : Control
 
 	public void _on_settings_tab_changed(int tab)	
 	{
-		MenuSoundPlayer.playStream("submenu_select");
+		EffectsSoundPlayer.playStream("submenu_select");
 	}
 
 	public void _on_display_driver_button_item_selected(int index)
 	{
-		MenuSoundPlayer.playStream("submenu_select");
+		EffectsSoundPlayer.playStream("submenu_select");
 	}
 
 	public void _on_resolution_button_item_selected(int index)
 	{
-		MenuSoundPlayer.playStream("submenu_select");
+		EffectsSoundPlayer.playStream("submenu_select");
 		switch(index)
 		{
 			// 1280x720

@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://cneclhdhnfi0t"]
+[gd_scene load_steps=10 format=3 uid="uid://cneclhdhnfi0t"]
 
 [ext_resource type="Script" path="res://gui/scripts/SettingsMenuControl.cs" id="1_vycqo"]
-[ext_resource type="PackedScene" uid="uid://b85kyb4c1k70a" path="res://gui/components/MenuSoundPlayer.tscn" id="2_u4mcv"]
 
 [sub_resource type="SystemFont" id="SystemFont_n3hwe"]
 font_names = PackedStringArray("Bahnschrift")
@@ -246,8 +245,6 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_kmwv2")
 theme_override_styles/normal = SubResource("StyleBoxFlat_kmwv2")
 text = "Done"
 vertical_icon_alignment = 0
-
-[node name="MenuSoundPlayer" parent="." instance=ExtResource("2_u4mcv")]
 
 [connection signal="mouse_entered" from="SettingsMenuMargin/SettingsMenuContainer/SettingsTab" to="." method="_on_mouse_entered"]
 [connection signal="tab_changed" from="SettingsMenuMargin/SettingsMenuContainer/SettingsTab" to="." method="_on_settings_tab_changed"]

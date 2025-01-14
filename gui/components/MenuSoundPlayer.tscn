@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b85kyb4c1k70a"]
-
-[ext_resource type="Script" path="res://gui/scripts/MenuSoundPlayer.cs" id="1_7nb42"]
-
-[node name="MenuSoundPlayer" type="AudioStreamPlayer2D"]
-volume_db = 5.0
-script = ExtResource("1_7nb42")

@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://byoijd1wqkeri"]
+[gd_scene load_steps=9 format=3 uid="uid://byoijd1wqkeri"]
 
 [ext_resource type="Script" path="res://gui/scripts/PauseMenuControl.cs" id="1_7jgi6"]
-[ext_resource type="PackedScene" uid="uid://b85kyb4c1k70a" path="res://gui/components/MenuSoundPlayer.tscn" id="2_0qi1a"]
 [ext_resource type="PackedScene" uid="uid://cneclhdhnfi0t" path="res://gui/menus/SettingsMenu.tscn" id="2_5keiq"]
 [ext_resource type="PackedScene" uid="uid://b8gpq8qvrmrip" path="res://gui/components/TitleLabel.tscn" id="2_5yhdf"]
 
@@ -153,8 +152,6 @@ vertical_icon_alignment = 0
 
 [node name="SettingsMenuControl" parent="." instance=ExtResource("2_5keiq")]
 layout_mode = 1
-
-[node name="MenuSoundPlayer" parent="." instance=ExtResource("2_0qi1a")]
 
 [connection signal="mouse_entered" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/OptionsButton" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]

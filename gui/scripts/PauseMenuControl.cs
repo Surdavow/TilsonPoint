@@ -10,7 +10,7 @@ public partial class PauseMenuControl : Control
 	private string TransitionTo;
 	private Color TransitionRectColor;
 	public Vector2 MarginTargetPos;
-	private MenuSoundPlayer MenuSoundPlayer;
+	private EffectsSoundPlayer EffectsSoundPlayer;
 	public float lerpSpeed = 5f;
 	public override void _Ready()
 	{		
@@ -19,7 +19,7 @@ public partial class PauseMenuControl : Control
 		MenuMargin = GetNode<MarginContainer>("PauseMenuMargin");
 		MenuMargin.Position = new Vector2(0, -1000);
 		MarginTargetPos = MenuMargin.Position;
-		MenuSoundPlayer = GetNode<MenuSoundPlayer>("MenuSoundPlayer");		
+		EffectsSoundPlayer = EffectsControl.GetNode<EffectsSoundPlayer>("EffectsSoundPlayer");		
 	}
 
 	public override void _Process(double delta)
@@ -53,7 +53,7 @@ public partial class PauseMenuControl : Control
 			// Open the menu
 			if (MenuMargin.Position.Y <= -100)
 	        {
-				MenuSoundPlayer.playStream("submenu_slidein");
+				EffectsSoundPlayer.playStream("submenu_slidein");
 				MarginTargetPos = Vector2.Zero;		
 	        }
 			// Attempt to close the menu
@@ -67,7 +67,7 @@ public partial class PauseMenuControl : Control
 				// If the settings menu is closed, close the pause menu
 				else 
 				{
-					MenuSoundPlayer.playStream("submenu_slidein");
+					EffectsSoundPlayer.playStream("submenu_slidein");
 					MarginTargetPos = new Vector2(0, -1000);
 				}
 			}
@@ -76,7 +76,7 @@ public partial class PauseMenuControl : Control
 
 	public void _on_options_button_pressed()
 	{		
-		MenuSoundPlayer.playStream("submenu_dropdown_select");
+		EffectsSoundPlayer.playStream("submenu_dropdown_select");
 		EffectsControl.Set("AudioLowPassTarget", 2000);
 		MarginTargetPos = new Vector2(0, 1000); // Set the target position
 		SettingsMenuControl.MarginTargetPos = Vector2.Zero; // Set the target position
@@ -84,7 +84,7 @@ public partial class PauseMenuControl : Control
 
 	public void _on_disconnect_button_pressed()
 	{
-		MenuSoundPlayer.playStream("submenu_dropdown_select");	
+		EffectsSoundPlayer.playStream("submenu_dropdown_select");	
 		MarginTargetPos = new Vector2(0, -1000);
 		EffectsControl.TransitionRect.fadeOut();
 		GetParent().Set("TransitionTo", "MainMenu");
@@ -92,6 +92,6 @@ public partial class PauseMenuControl : Control
 
 	public void _on_mouse_entered()
 	{
-		MenuSoundPlayer.playStream("submenu_scroll");
+		EffectsSoundPlayer.playStream("submenu_scroll");
 	}	
 }

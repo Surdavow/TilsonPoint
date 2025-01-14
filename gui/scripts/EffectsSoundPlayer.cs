@@ -2,7 +2,7 @@ using Godot;
 using Godot.Collections;
 using System;
 
-public partial class MenuSoundPlayer : AudioStreamPlayer2D
+public partial class EffectsSoundPlayer : AudioStreamPlayer2D
 {
 	private Dictionary<string, AudioStream> audioStreams;
 	// Called when the node enters the scene tree for the first time.
