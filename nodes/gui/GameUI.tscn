@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://xdd3xtwgoflx"]
+
+[ext_resource type="Script" path="res://nodes/gui/scripts/GameUI.cs" id="1_h0rj8"]
+[ext_resource type="PackedScene" uid="uid://byoijd1wqkeri" path="res://nodes/gui/PauseMenu.tscn" id="1_xk7on"]
+[ext_resource type="PackedScene" uid="uid://kswicywrjx7i" path="res://nodes/gui/components/EffectsControl.tscn" id="2_rwvfb"]
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h0rj8")
+
+[node name="PauseMenuControl" parent="." instance=ExtResource("1_xk7on")]
+layout_mode = 1
+
+[node name="EffectsControl" parent="." instance=ExtResource("2_rwvfb")]
+layout_mode = 1

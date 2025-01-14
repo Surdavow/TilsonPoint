@@ -1,0 +1,92 @@
+[gd_scene load_steps=17 format=3 uid="uid://b10oyub2q03ne"]
+
+[ext_resource type="PackedScene" uid="uid://xdd3xtwgoflx" path="res://nodes/gui/GameUI.tscn" id="1_7w1ww"]
+[ext_resource type="AudioStream" uid="uid://i3w2d5t1pilg" path="res://audio/music/aboard-a-aurora-game-menu.mp3" id="2_irwfp"]
+[ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://textures/grids/Dark/texture_05.png" id="3_8lp7e"]
+[ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://textures/grids/Orange/texture_05.png" id="4_gi75l"]
+[ext_resource type="Texture2D" uid="uid://does8rpwjdh1r" path="res://textures/grids/Red/texture_05.png" id="5_7fhgt"]
+[ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://textures/grids/Purple/texture_05.png" id="6_jdmft"]
+[ext_resource type="Texture2D" uid="uid://dqgbgrchvfwve" path="res://textures/grids/Green/texture_05.png" id="7_el0ur"]
+[ext_resource type="PackedScene" uid="uid://dkarsmui52nlo" path="res://nodes/character/player.tscn" id="8_frwt7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r63qg"]
+sky_top_color = Color(0.346878, 0.534059, 0.699219, 1)
+sky_horizon_color = Color(0.83672, 0.883515, 0.924805, 1)
+ground_bottom_color = Color(0.355469, 0.355469, 0.355469, 1)
+ground_horizon_color = Color(0.83672, 0.883515, 0.924805, 1)
+
+[sub_resource type="Sky" id="Sky_0gt7m"]
+sky_material = SubResource("ProceduralSkyMaterial_r63qg")
+
+[sub_resource type="Environment" id="Environment_bgutl"]
+background_mode = 2
+sky = SubResource("Sky_0gt7m")
+tonemap_mode = 2
+ssao_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ou2ug"]
+albedo_texture = ExtResource("3_8lp7e")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d8uv5"]
+albedo_texture = ExtResource("4_gi75l")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5wv65"]
+albedo_texture = ExtResource("5_7fhgt")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kevx"]
+albedo_texture = ExtResource("6_jdmft")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6622c"]
+albedo_texture = ExtResource("7_el0ur")
+
+[node name="World" type="Node3D"]
+
+[node name="GameUI" parent="." instance=ExtResource("1_7w1ww")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bgutl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.78332, 0.141019, -4.93575)
+stream = ExtResource("2_irwfp")
+volume_db = -5.0
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[node name="Ground" type="CSGBox3D" parent="."]
+material_override = SubResource("StandardMaterial3D_ou2ug")
+use_collision = true
+size = Vector3(1000, 1, 1000)
+metadata/_edit_lock_ = true
+
+[node name="Box1" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.563089, 1, 5.1717)
+material_override = SubResource("StandardMaterial3D_d8uv5")
+use_collision = true
+
+[node name="Box2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.269441, 0, -0.963017, 0, 1, 0, 0.963017, 0, 0.269441, -1.59809, 1, 2.15551)
+material_override = SubResource("StandardMaterial3D_5wv65")
+use_collision = true
+
+[node name="Box3" type="CSGBox3D" parent="."]
+transform = Transform3D(0.803389, 0, 0.595454, 0, 1, 0, -0.595454, 0, 0.803389, -2.84484, 1, 4.84145)
+material_override = SubResource("StandardMaterial3D_0kevx")
+use_collision = true
+
+[node name="Box4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.990946, 0, -0.134263, 0, 1, 0, 0.134263, 0, 0.990946, -4.11504, 1, 2.6193)
+material_override = SubResource("StandardMaterial3D_6622c")
+use_collision = true
+
+[node name="Player" parent="." instance=ExtResource("8_frwt7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.615468, 0)
+script = null
