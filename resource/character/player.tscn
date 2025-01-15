@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkarsmui52nlo"]
+
+[ext_resource type="Script" path="res://source/character/PlayerController.cs" id="1_m6gnb"]
+[ext_resource type="Script" path="res://source/character/CameraControl.cs" id="2_7j6qi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b0l1v"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_67i4u"]
+
+[node name="PlayerController" type="CharacterBody3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_m6gnb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985767, 0)
+shape = SubResource("CapsuleShape3D_b0l1v")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.907574, 0)
+mesh = SubResource("CapsuleMesh_67i4u")
+
+[node name="CameraControl" type="Node3D" parent="." node_paths=PackedStringArray("CameraTarget", "FollowTarget")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68908, 0)
+script = ExtResource("2_7j6qi")
+CameraTarget = NodePath("CameraTarget")
+FollowTarget = NodePath("..")
+
+[node name="CameraTarget" type="Node3D" parent="CameraControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35401, 0, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraControl/CameraTarget"]
+spring_length = -2.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraControl/CameraTarget/SpringArm3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="CameraControl"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.325519, 0.669417)
