@@ -7,7 +7,6 @@ public partial class PauseMenuControl : Control
 	private MarginContainer MenuMargin;
 	private SettingsMenuControl SettingsMenuControl;
 	private EffectsControl EffectsControl;
-	private string TransitionTo;
 	private Color TransitionRectColor;
 	public Vector2 MarginTargetPos;
 	private EffectsSoundPlayer EffectsSoundPlayer;
@@ -24,31 +23,15 @@ public partial class PauseMenuControl : Control
 
 	public override void _Process(double delta)
 	{
-		TransitionTo = (string)GetParent().Get("TransitionTo");		
-
 		if (MenuMargin.Position != MarginTargetPos)
 	    {
         	MenuMargin.Position = MenuMargin.Position.Lerp(MarginTargetPos, lerpSpeed * (float)delta);
     	}
-
-		TransitionRectColor = (Color)EffectsControl.TransitionRect.Get("color");
-		if(TransitionRectColor.A > 0.995)
-		{
-			switch(TransitionTo)
-			{
-				case "MainMenu":					
-					GetTree().ChangeSceneToFile("res://resource/scenes/MainMenu.tscn");
-					break;
-				case "Quit":
-					GetTree().Quit();
-					break;
-			}			
-		}		
 	}
 
 	public override void _Input(InputEvent @event)
 	{	
-		if (Input.IsActionJustPressed("pause") && TransitionTo == "")
+		if (Input.IsActionJustPressed("pause") && EffectsControl.TransitionTo == "")
 		{			
 			// Open the menu
 			if (MenuMargin.Position.Y <= -100)
@@ -87,7 +70,7 @@ public partial class PauseMenuControl : Control
 		EffectsSoundPlayer.playStream("submenu_dropdown_select");	
 		MarginTargetPos = new Vector2(0, -1000);
 		EffectsControl.TransitionRect.fadeOut();
-		GetParent().Set("TransitionTo", "MainMenu");
+		EffectsControl.TransitionTo = "MainMenu";
 	}
 
 	public void _on_mouse_entered()

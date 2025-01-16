@@ -5,7 +5,6 @@ using System.IO;
 public partial class GameUI : Control
 {
 	private EffectsControl EffectsControl;
-	public string TransitionTo;
 	public string sceneName;	
 	public override void _Ready()
 	{
@@ -14,14 +13,6 @@ public partial class GameUI : Control
 		
 		EffectsControl = GetNode<EffectsControl>("EffectsControl");
 		EffectsControl.TransitionRect.fadeIn();
-		TransitionTo = "start";
-	}
-
-	public override void _Process(double delta)
-	{		
-		if(TransitionTo == "start" && EffectsControl.TransitionRect.Color.A < 0.1)
-		{
-			TransitionTo = "";
-		}
+		EffectsControl.TransitionTo = "start";
 	}
 }

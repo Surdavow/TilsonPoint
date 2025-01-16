@@ -11,7 +11,6 @@ public partial class MainMenuControl : Control
 	private EffectsSoundPlayer EffectsSoundPlayer;
 	private EffectsMusicPlayer EffectsMusicPlayer;
 	private Color TransitionRectColor;
-	public string TransitionTo;
 	public string sceneName;
 	public Vector2 MarginTargetPos;
 	public float lerpSpeed = 4f;
@@ -37,12 +36,12 @@ public partial class MainMenuControl : Control
 		EffectsMusicPlayer.Play();
 		EffectsControl.TransitionRect.fadeIn();
 
-		TransitionTo = "start";
+		EffectsControl.TransitionTo = "start";
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-	    if (Input.IsActionJustPressed("pause") && TransitionTo == null)
+	    if (Input.IsActionJustPressed("pause") && (string)EffectsControl.TransitionTo == "")
 	    {	        	
 			if(SettingsMenuControl.GetNode<MarginContainer>("SettingsMenuMargin").Position.Y > -720)
 			{
@@ -57,28 +56,7 @@ public partial class MainMenuControl : Control
 		if (MenuMargin.Position != MarginTargetPos)
 	    {
         	MenuMargin.Position = MenuMargin.Position.Lerp(MarginTargetPos, lerpSpeed * (float)delta);
-    	}
-
-		if(TransitionTo == "start" && EffectsControl.TransitionRect.Color.A < 0.05)
-		{
-			TransitionTo = "";
-		}
-		
-		if(EffectsControl.TransitionRect.Color.A > 0.995)
-		{
-			switch(TransitionTo)
-			{
-				case "HostGame":
-					if(sceneName == "MainMenu")
-					{
-						GetTree().ChangeSceneToFile("res://resource/scenes/Game.tscn");
-					}						
-					break;
-				case "Quit":
-					GetTree().Quit();
-					break;
-			}
-		}				
+    	}					
 	}
 	public void _on_options_button_pressed()
 	{				
@@ -92,7 +70,7 @@ public partial class MainMenuControl : Control
 	public void _on_host_game_button_pressed()
 	{		
 		EffectsSoundPlayer.playStream("submenu_dropdown_select");
-		TransitionTo = "HostGame";
+		EffectsControl.TransitionTo = "HostGame";
 		MarginTargetPos = new Vector2(0, -1000);
 		EffectsControl.TransitionRect.fadeOut();
 	}
@@ -100,7 +78,7 @@ public partial class MainMenuControl : Control
 	public void _on_quit_button_pressed()
 	{
 		EffectsSoundPlayer.playStream("submenu_dropdown_select");	
-		TransitionTo = "Quit";
+		EffectsControl.TransitionTo = "Quit";
 		MarginTargetPos = new Vector2(0, -1000);
 		EffectsControl.TransitionRect.fadeOut();
 	}
