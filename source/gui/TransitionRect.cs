@@ -4,7 +4,7 @@ using System;
 public partial class TransitionRect : ColorRect
 {
 	public float alphaTarget = 1;
-	private int lerpSpeed = 2;
+	private int lerpSpeed = 4;
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
