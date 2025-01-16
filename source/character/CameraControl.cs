@@ -5,10 +5,8 @@ public partial class CameraControl : Node3D
 {
 	[Export] public Node3D CameraTarget;
 	[Export] public Node3D FollowTarget;
-	[Export] public float FollowTargetHeightOffset = 1.5f;
-	[Export] public float CameraLerpSpeed = 7.5f;
-	[Export] public float PitchMax = 50;
-	[Export] public float PitchMin = -50;
+	[Export] public int CameraLerpSpeed = 8;
+	[Export] public int LookPitch = 85;
 	private float yaw = 0;
 	private float pitch = 0;
 	private float mouseSensitivity = 0.003f;
@@ -38,11 +36,11 @@ public partial class CameraControl : Node3D
 			CameraTarget.Rotation.Z
 		);
 
-		pitch = Mathf.Clamp(pitch, Mathf.DegToRad(PitchMin), Mathf.DegToRad(PitchMax));
+		pitch = Mathf.Clamp(pitch, Mathf.DegToRad(-LookPitch), Mathf.DegToRad(LookPitch));
 
 		if (FollowTarget != null)
 		{
-			GlobalPosition = FollowTarget.GlobalPosition + new Vector3(0, FollowTargetHeightOffset, 0);
+			GlobalPosition = GlobalPosition.Lerp(FollowTarget.GlobalPosition + new Vector3(0, 1.5f, 0), (float)delta * (CameraLerpSpeed)*1.5f);
 		}
 	}
 }

@@ -181,7 +181,6 @@ text = "Quit"
 vertical_icon_alignment = 0
 
 [node name="SettingsMenuControl" parent="." instance=ExtResource("2_5keiq")]
-visible = false
 layout_mode = 1
 
 [connection signal="mouse_entered" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/OptionsButton" to="." method="_on_mouse_entered"]

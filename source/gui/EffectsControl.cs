@@ -6,9 +6,11 @@ public partial class EffectsControl : Control
 {	
 	public float MasterVolumeTarget;
 	public float MusicVolumeTarget;
+	public float AudioLowPassTarget = 20500;
 	public string TransitionTo;
 	public TransitionRect TransitionRect;
-	public float AudioLowPassTarget = 20500;
+	public EffectsSoundPlayer SoundPlayer;
+	public EffectsMusicPlayer MusicPlayer;
 
 	public override void _Ready()
 	{		
@@ -17,6 +19,9 @@ public partial class EffectsControl : Control
 		// Set initial volume targets
 		MasterVolumeTarget = AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Master"));
 		MusicVolumeTarget = AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Music"));
+
+		SoundPlayer = GetNode<EffectsSoundPlayer>("EffectsSoundPlayer");
+		MusicPlayer = GetNode<EffectsMusicPlayer>("EffectsMusicPlayer");
 	}
 
 	public override void _Process(double delta)

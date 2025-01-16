@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkarsmui52nlo"]
+[gd_scene load_steps=6 format=3 uid="uid://dkarsmui52nlo"]
 
 [ext_resource type="Script" path="res://source/character/PlayerController.cs" id="1_5ox7l"]
+[ext_resource type="PackedScene" uid="uid://xdd3xtwgoflx" path="res://resource/gui/GameUI.tscn" id="2_5x3l8"]
 [ext_resource type="Script" path="res://source/character/CameraControl.cs" id="2_7j6qi"]
 [ext_resource type="PackedScene" uid="uid://cf3664558uquq" path="res://asesets/models/character/character_alpha.glb" id="3_8tq1o"]
 
@@ -10,6 +11,8 @@
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_5ox7l")
+
+[node name="GameUI" parent="." instance=ExtResource("2_5x3l8")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985767, 0)

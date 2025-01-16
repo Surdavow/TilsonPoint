@@ -70,4 +70,4 @@ strafe={
 
 [rendering]
 
-scaling_3d/mode=2
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
