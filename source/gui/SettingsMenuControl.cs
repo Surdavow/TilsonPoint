@@ -44,7 +44,7 @@ public partial class SettingsMenuControl : Control
 
 	public void _on_master_volume_slider_value_changed(float value)
 	{
-		if((string)GetParent().Get("TransitionTo") == "start")
+		if((string)EffectsControl.TransitionTo == "start")
 		{
 			return;
 		}
@@ -55,7 +55,7 @@ public partial class SettingsMenuControl : Control
 
 	public void _on_music_volume_slider_value_changed(float value)
 	{
-		if((string)GetParent().Get("TransitionTo") == "start")
+		if((string)EffectsControl.TransitionTo == "start")
 		{
 			return;
 		}
