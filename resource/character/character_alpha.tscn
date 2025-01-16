@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkc3ixap2h5wv"]
+
+[ext_resource type="PackedScene" uid="uid://cf3664558uquq" path="res://asesets/models/character/character_alpha.glb" id="1_dtij6"]
+
+[node name="character_alpha" instance=ExtResource("1_dtij6")]
+
+[node name="Skeleton3D" parent="Alpha_rig" index="0"]
+bones/0/position = Vector3(-3.30172e-05, 5.16213e-05, -99.7919)
+bones/6/rotation = Quaternion(-0.453869, -0.544821, 0.551167, -0.439759)
+bones/7/position = Vector3(-4.4889e-07, 12.9223, 3.67336e-06)
+bones/7/rotation = Quaternion(-0.0104713, -0.00106493, 0.101149, 0.994816)
+bones/8/position = Vector3(-3.06301e-07, 27.4047, -7.87434e-06)
+bones/12/position = Vector3(4.17235e-07, 4.38213, 1.76309e-05)
+bones/13/position = Vector3(-2.82204, 12.2666, 0.231834)
+bones/14/position = Vector3(-2.5012e-07, 3.89198, -7.47837e-06)
+bones/15/position = Vector3(-1.92123e-07, 3.41517, -1.5207e-05)
+bones/17/position = Vector3(-9.55689e-09, 3.61397, 9.67869e-06)
+bones/20/position = Vector3(6.74014e-07, 3.60118, 1.46963e-05)
+bones/22/rotation = Quaternion(-1.38282e-06, 2.55455e-07, -1.99914e-07, 1)
+bones/23/rotation = Quaternion(1.60433e-06, -3.53546e-07, 2.32562e-08, 1)
+bones/24/position = Vector3(1.60848e-06, 2.59483, -2.53178e-05)
+bones/24/rotation = Quaternion(1.74385e-06, 5.59028e-07, 8.44988e-07, 1)
+bones/25/rotation = Quaternion(0.453804, -0.544876, 0.551112, 0.439828)
+bones/26/position = Vector3(5.09534e-07, 12.9223, -2.75096e-05)
+bones/26/rotation = Quaternion(-0.0104358, 0.00106128, -0.10115, 0.994816)
+bones/28/position = Vector3(1.36228e-05, 27.6145, 7.65566e-06)
+bones/29/position = Vector3(3.00297, 3.78879, 2.16713)
+bones/30/position = Vector3(5.12599e-06, 4.74495, 9.40645e-06)
+bones/32/position = Vector3(2.82204, 12.2666, 0.231816)
+bones/34/position = Vector3(1.72386e-08, 3.41517, -2.10165e-05)
+bones/35/position = Vector3(1.71505e-05, 12.7755, -4.90337e-06)
+bones/36/position = Vector3(4.30426e-07, 3.61398, -2.10967e-05)
+bones/37/position = Vector3(-2.87158e-05, 3.45976, -2.28587e-05)
+bones/38/position = Vector3(-2.21663, 12.147, -0.0100166)
+bones/39/position = Vector3(3.6326e-07, 3.60121, -2.72164e-05)
+bones/41/position = Vector3(-4.72583, 10.9082, 0.226109)
+bones/42/rotation = Quaternion(-1.11184e-08, 2.61692e-08, -1.10525e-07, 1)
+bones/43/position = Vector3(-9.71749e-07, 2.59485, -2.81133e-05)
+bones/43/rotation = Quaternion(1.96019e-07, 2.29254e-08, -3.92856e-08, 1)
+bones/44/rotation = Quaternion(2.03362e-05, -0.00633988, 0.999976, -0.00296972)
+bones/45/rotation = Quaternion(-0.0181341, 0.000182716, -0.00592014, 0.999818)

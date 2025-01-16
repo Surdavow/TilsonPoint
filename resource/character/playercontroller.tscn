@@ -1,25 +1,19 @@
 [gd_scene load_steps=5 format=3 uid="uid://dkarsmui52nlo"]
 
-[ext_resource type="Script" path="res://source/character/PlayerController.cs" id="1_m6gnb"]
+[ext_resource type="Script" path="res://source/character/PlayerController.cs" id="1_5ox7l"]
 [ext_resource type="Script" path="res://source/character/CameraControl.cs" id="2_7j6qi"]
+[ext_resource type="PackedScene" uid="uid://cf3664558uquq" path="res://asesets/models/character/character_alpha.glb" id="3_8tq1o"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b0l1v"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_67i4u"]
 
 [node name="PlayerController" type="CharacterBody3D"]
 collision_layer = 3
 collision_mask = 3
-script = ExtResource("1_m6gnb")
+script = ExtResource("1_5ox7l")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985767, 0)
 shape = SubResource("CapsuleShape3D_b0l1v")
-
-[node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.907574, 0)
-gi_mode = 2
-mesh = SubResource("CapsuleMesh_67i4u")
 
 [node name="CameraControl" type="Node3D" parent="." node_paths=PackedStringArray("CameraTarget", "FollowTarget")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68908, 0)
@@ -37,3 +31,5 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 
 [node name="SpotLight3D" type="SpotLight3D" parent="CameraControl"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.325519, 0.669417)
+
+[node name="character_alpha" parent="." instance=ExtResource("3_8tq1o")]

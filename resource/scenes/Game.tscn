@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://does8rpwjdh1r" path="res://asesets/textures/grids/Red/texture_05.png" id="5_f2c6k"]
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://asesets/textures/grids/Purple/texture_05.png" id="6_nuj4w"]
 [ext_resource type="Texture2D" uid="uid://dqgbgrchvfwve" path="res://asesets/textures/grids/Green/texture_05.png" id="7_k4lvw"]
-[ext_resource type="PackedScene" uid="uid://dkarsmui52nlo" path="res://resource/character/player.tscn" id="8_rydyl"]
+[ext_resource type="PackedScene" uid="uid://dkarsmui52nlo" path="res://resource/character/playercontroller.tscn" id="8_gbqrv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r63qg"]
 sky_top_color = Color(0.346878, 0.534059, 0.699219, 1)
@@ -87,5 +87,4 @@ transform = Transform3D(0.990946, 0, -0.134263, 0, 1, 0, 0.134263, 0, 0.990946, 
 material_override = SubResource("StandardMaterial3D_6622c")
 use_collision = true
 
-[node name="PlayerController" parent="." instance=ExtResource("8_rydyl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22218, 0.5, 1.53945)
+[node name="PlayerController" parent="." instance=ExtResource("8_gbqrv")]
