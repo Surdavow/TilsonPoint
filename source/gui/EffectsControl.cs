@@ -8,18 +8,21 @@ public partial class EffectsControl : Control
 	public float MusicVolumeTarget;
 	public string TransitionTo;
 	public TransitionRect TransitionRect;
-	public AudioEffect MusicLowPass;
 	public float AudioLowPassTarget = 20500;
 
 	public override void _Ready()
 	{		
 		TransitionRect = GetNode<TransitionRect>("TransitionRect");
-		MusicLowPass = AudioServer.GetBusEffect(AudioServer.GetBusIndex("Music"), 0);
+
+		// Set initial volume targets
+		MasterVolumeTarget = AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Master"));
+		MusicVolumeTarget = AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Music"));
 	}
 
 	public override void _Process(double delta)
 	{
-	    // Handle low pass filter interpolation
+	    // Handle low pass filter interpolation for music
+		AudioEffect MusicLowPass = AudioServer.GetBusEffect(AudioServer.GetBusIndex("Music"), 0);
 	    float currentCutoffHz = (float)MusicLowPass.Get("cutoff_hz");
 	    if (currentCutoffHz != AudioLowPassTarget)
 	    {
@@ -27,14 +30,21 @@ public partial class EffectsControl : Control
 	        MusicLowPass.Set("cutoff_hz", interpolatedCutoff);
 	    }
 	
-	    // Handle master volume during transitions or normal state
-	    float targetMasterVolume = string.IsNullOrEmpty((string)GetParent().Get("TransitionTo")) ? MasterVolumeTarget : -TransitionRect.Color.A * 50;
-	
-	    float currentMasterVolume = AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Master"));
-	    if (currentMasterVolume != targetMasterVolume)
+	    // Handle master volume amplify effect during transitions or normal state
+		AudioEffect MasterAmplifyFilter = AudioServer.GetBusEffect(AudioServer.GetBusIndex("Master"), 0);
+	    float TransitionRectAlphaTarget = -TransitionRect.Color.A * 40;    
+		float currentMasterAmplifyValue = (float)MasterAmplifyFilter.Get("volume_db");
+	    if (currentMasterAmplifyValue != TransitionRectAlphaTarget)
 	    {
-	        AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), targetMasterVolume);
+	        MasterAmplifyFilter.Set("volume_db",TransitionRectAlphaTarget);
 	    }
+
+		// Handle master volume updates
+		float currentMasterVolume = AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Master"));
+		if (currentMasterVolume != MasterVolumeTarget)
+		{
+			AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), MasterVolumeTarget);
+		}
 	
 	    // Handle music volume updates
 	    float currentMusicVolume = AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Music"));

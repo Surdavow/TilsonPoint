@@ -21,8 +21,8 @@ public partial class MainMenuControl : Control
 	{
 		// Get the essential nodes for the menu		
 		MenuMargin = GetNode<MarginContainer>("MainMenuMargin");
+		MenuMarginTitle = MenuMargin.GetNode<TitleLabel>("MainMenuContainer/TitleLabel");
 		SettingsMenuControl = GetNode<SettingsMenuControl>("SettingsMenuControl");
-		MenuMarginTitle = MenuMargin.GetNode<TitleLabel>("MainMenuContainer/TitleLabel");				
 		EffectsControl = GetNode<EffectsControl>("EffectsControl");
 		EffectsSoundPlayer = EffectsControl.GetNode<EffectsSoundPlayer>("EffectsSoundPlayer");
 		EffectsMusicPlayer = EffectsControl.GetNode<EffectsMusicPlayer>("EffectsMusicPlayer");
