@@ -12,7 +12,7 @@ public partial class GameUI : Control
 		sceneName = Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath);
 		
 		EffectsControl = GetNode<EffectsControl>("EffectsControl");
-		EffectsControl.TransitionRect.fadeIn();
 		EffectsControl.TransitionTo = "start";
+		EffectsControl.TransitionRect.fadeIn();		
 	}
 }

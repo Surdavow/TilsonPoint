@@ -7,6 +7,7 @@ public partial class MainMenuControl : Control
 {
 	private SettingsMenuControl SettingsMenuControl;
 	private MarginContainer MenuMargin;
+	private TitleLabel MenuMarginTitle;
 	private EffectsControl EffectsControl;
 	private EffectsSoundPlayer EffectsSoundPlayer;
 	private EffectsMusicPlayer EffectsMusicPlayer;
@@ -18,30 +19,29 @@ public partial class MainMenuControl : Control
 	
 	public override void _Ready()
 	{
-		// Get the current scene name
-		sceneName = Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath);
-
-		// Get the essential nodes for the menu
-		EffectsControl = GetNode<EffectsControl>("EffectsControl");
+		// Get the essential nodes for the menu		
 		MenuMargin = GetNode<MarginContainer>("MainMenuMargin");
-		MenuMargin.GetNode<TitleLabel>("MainMenuContainer/TitleLabel").setAlpha(0,true);
-		MenuMargin.GetNode<TitleLabel>("MainMenuContainer/TitleLabel").fadeIn();
-		MarginTargetPos = MenuMargin.Position;
-		SettingsMenuControl = GetNode<SettingsMenuControl>("SettingsMenuControl");	
-
+		SettingsMenuControl = GetNode<SettingsMenuControl>("SettingsMenuControl");
+		MenuMarginTitle = MenuMargin.GetNode<TitleLabel>("MainMenuContainer/TitleLabel");				
+		EffectsControl = GetNode<EffectsControl>("EffectsControl");
 		EffectsSoundPlayer = EffectsControl.GetNode<EffectsSoundPlayer>("EffectsSoundPlayer");
 		EffectsMusicPlayer = EffectsControl.GetNode<EffectsMusicPlayer>("EffectsMusicPlayer");
 		
+		// Set some initial values
+		EffectsControl.TransitionTo = "start";
+		MarginTargetPos = MenuMargin.Position;		
+		
+		// Perform some initial setup
 		EffectsMusicPlayer.setMusic((AudioStream)GD.Load("res://asesets/audio/music/monsters-university-theme.mp3"),true);
 		EffectsMusicPlayer.Play();
 		EffectsControl.TransitionRect.fadeIn();
-
-		EffectsControl.TransitionTo = "start";
+		MenuMarginTitle.setAlpha(0, true);
+		MenuMarginTitle.fadeIn();
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-	    if (Input.IsActionJustPressed("pause") && (string)EffectsControl.TransitionTo == "")
+	    if (Input.IsActionJustPressed("pause"))
 	    {	        	
 			if(SettingsMenuControl.GetNode<MarginContainer>("SettingsMenuMargin").Position.Y > -720)
 			{

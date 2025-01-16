@@ -31,7 +31,7 @@ public partial class PauseMenuControl : Control
 
 	public override void _Input(InputEvent @event)
 	{	
-		if (Input.IsActionJustPressed("pause") && EffectsControl.TransitionTo == "")
+		if (Input.IsActionJustPressed("pause"))
 		{			
 			// Open the menu
 			if (MenuMargin.Position.Y <= -100)
