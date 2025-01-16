@@ -6,12 +6,12 @@ public partial class CameraControl : Node3D
 	[Export] public Node3D CameraTarget;
 	[Export] public Node3D FollowTarget;
 	[Export] public float FollowTargetHeightOffset = 1.5f;
+	[Export] public float CameraLerpSpeed = 7.5f;
 	[Export] public float PitchMax = 50;
 	[Export] public float PitchMin = -50;
 	private float yaw = 0;
 	private float pitch = 0;
-	private float yawSensitivity = 0.002f;
-	private float pitchSensitivity = 0.002f;
+	private float mouseSensitivity = 0.003f;
 
 	public override void _Ready()
 	{
@@ -21,10 +21,11 @@ public partial class CameraControl : Node3D
 
 	public override void _Input(InputEvent @event)
 	{
+		// Do not process mouse input if the mouse is visible
 		if (@event is InputEventMouseMotion mouseEvent && Input.MouseMode != Input.MouseModeEnum.Visible)
 		{
-			yaw += -mouseEvent.Relative.X * yawSensitivity;
-			pitch += mouseEvent.Relative.Y * pitchSensitivity;
+			yaw += -mouseEvent.Relative.X * mouseSensitivity;
+			pitch += mouseEvent.Relative.Y * mouseSensitivity;
 		}
 	}
 
@@ -32,8 +33,8 @@ public partial class CameraControl : Node3D
 	{
 		CameraTarget.Rotation = new Vector3
 		(
-			Mathf.LerpAngle(CameraTarget.Rotation.X, pitch, (float)delta * 10),
-			Mathf.LerpAngle(CameraTarget.Rotation.Y, yaw, (float)delta * 10),
+			Mathf.LerpAngle(CameraTarget.Rotation.X, pitch, (float)delta * CameraLerpSpeed),
+			Mathf.LerpAngle(CameraTarget.Rotation.Y, yaw, (float)delta * CameraLerpSpeed),
 			CameraTarget.Rotation.Z
 		);
 

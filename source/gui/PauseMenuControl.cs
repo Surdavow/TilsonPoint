@@ -94,5 +94,13 @@ public partial class PauseMenuControl : Control
 	public void _on_mouse_entered()
 	{
 		EffectsSoundPlayer.playStream("submenu_scroll");
-	}	
+	}
+
+	public void _on_quit_button_pressed()
+	{
+		EffectsSoundPlayer.playStream("submenu_dropdown_select");	
+		EffectsControl.TransitionTo = "Quit";
+		MarginTargetPos = new Vector2(0, -1000);
+		EffectsControl.TransitionRect.fadeOut();
+	}
 }

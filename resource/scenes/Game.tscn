@@ -88,4 +88,4 @@ material_override = SubResource("StandardMaterial3D_6622c")
 use_collision = true
 
 [node name="PlayerController" parent="." instance=ExtResource("8_rydyl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.25508, 1.02839, 2.08194)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22218, 0.5, 1.53945)

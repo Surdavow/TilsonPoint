@@ -150,10 +150,43 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_o66ir")
 text = "Disconnect"
 vertical_icon_alignment = 0
 
+[node name="QuitButton" type="Button" parent="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_kqkli")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_71pb7")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_0a6ex")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_0a6ex")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_0a6ex")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0a6ex")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_jebpt")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jebpt")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_o66ir")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o66ir")
+text = "Quit"
+vertical_icon_alignment = 0
+
 [node name="SettingsMenuControl" parent="." instance=ExtResource("2_5keiq")]
+visible = false
 layout_mode = 1
 
 [connection signal="mouse_entered" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/OptionsButton" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="mouse_entered" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/DisconnectButton" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/DisconnectButton" to="." method="_on_disconnect_button_pressed"]
+[connection signal="mouse_entered" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/QuitButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="PauseMenuMargin/PauseMenuContainer/Margin2/PauseMenuButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
