@@ -37,6 +37,12 @@ public partial class MainMenuControl : Control
 		EffectsControl.TransitionRect.fadeIn();
 		MenuMarginTitle.setAlpha(0, true);
 		MenuMarginTitle.fadeIn();
+
+		// If the mouse is hidden, release it
+		if(Input.MouseMode == Input.MouseModeEnum.Captured)
+		{
+			Input.MouseMode = Input.MouseModeEnum.Visible;
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -46,7 +52,7 @@ public partial class MainMenuControl : Control
 			if(SettingsMenuControl.GetNode<MarginContainer>("SettingsMenuMargin").Position.Y > -720)
 			{
 				SettingsMenuControl._on_done_button_pressed();
-			}			
+			}
 		}
 	}	
 

@@ -27,7 +27,6 @@ CameraTarget = NodePath("CameraTarget")
 FollowTarget = NodePath("..")
 
 [node name="CameraTarget" type="Node3D" parent="CameraControl"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35401, 0, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraControl/CameraTarget"]
 spring_length = -2.0

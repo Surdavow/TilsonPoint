@@ -21,18 +21,6 @@ public partial class CameraControl : Node3D
 
 	public override void _Input(InputEvent @event)
 	{
-		if (Input.IsActionJustPressed("pause") && @event.IsPressed())
-		{
-			if (Input.MouseMode == Input.MouseModeEnum.Visible)
-			{
-				Input.MouseMode = Input.MouseModeEnum.Captured;
-			}
-			else
-			{
-				Input.MouseMode = Input.MouseModeEnum.Visible;
-			}
-		}
-
 		if (@event is InputEventMouseMotion mouseEvent && Input.MouseMode != Input.MouseModeEnum.Visible)
 		{
 			yaw += -mouseEvent.Relative.X * yawSensitivity;

@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bf5fnvf4rc1gb"]
+[gd_scene load_steps=12 format=3 uid="uid://bf5fnvf4rc1gb"]
 
 [ext_resource type="Script" path="res://source/gui/MainMenuControl.cs" id="1_eni2w"]
 [ext_resource type="Texture2D" uid="uid://ci3cpybygbe03" path="res://asesets/textures/menu/apocalypse_menu.png" id="2_87dnt"]
 [ext_resource type="PackedScene" uid="uid://cneclhdhnfi0t" path="res://resource/gui/SettingsMenu.tscn" id="3_5k3ri"]
+[ext_resource type="PackedScene" uid="uid://c2wwtbxjbtx8o" path="res://resource/gui/components/VersionLabel.tscn" id="3_r7bx4"]
 [ext_resource type="PackedScene" uid="uid://b8gpq8qvrmrip" path="res://resource/gui/components/TitleLabel.tscn" id="3_tve5n"]
 [ext_resource type="PackedScene" uid="uid://kswicywrjx7i" path="res://resource/gui/components/EffectsControl.tscn" id="3_yku8d"]
 
@@ -81,17 +82,10 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="CreditLabel" type="Label" parent="InfoMargin"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-text = "Created by Surdavow"
-
-[node name="VersionLabel" type="Label" parent="InfoMargin"]
+[node name="VersionLabel" parent="InfoMargin" instance=ExtResource("3_r7bx4")]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-text = "Version 0.01"
 
 [node name="MainMenuMargin" type="MarginContainer" parent="."]
 layout_mode = 1
