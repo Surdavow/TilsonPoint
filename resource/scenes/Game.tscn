@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://asesets/textures/grids/Orange/texture_05.png" id="4_2f03c"]
 [ext_resource type="Texture2D" uid="uid://does8rpwjdh1r" path="res://asesets/textures/grids/Red/texture_05.png" id="5_f2c6k"]
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://asesets/textures/grids/Purple/texture_05.png" id="6_nuj4w"]
-[ext_resource type="PackedScene" uid="uid://xdd3xtwgoflx" path="res://resource/gui/GameUI.tscn" id="7_3hxap"]
+[ext_resource type="PackedScene" uid="uid://djfakiiu1au0g" path="res://resource/character/PlayerController.tscn" id="7_7cemo"]
 [ext_resource type="Texture2D" uid="uid://dqgbgrchvfwve" path="res://asesets/textures/grids/Green/texture_05.png" id="7_k4lvw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r63qg"]
@@ -85,7 +85,5 @@ transform = Transform3D(0.990946, 0, -0.134263, 0, 1, 0, 0.134263, 0, 0.990946, 
 material_override = SubResource("StandardMaterial3D_6622c")
 use_collision = true
 
-[node name="GameUI" parent="." instance=ExtResource("7_3hxap")]
-
-[node name="Camera3D" type="Camera3D" parent="GameUI"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69236, 0)
+[node name="PlayerController" parent="." instance=ExtResource("7_7cemo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.585329, 0)

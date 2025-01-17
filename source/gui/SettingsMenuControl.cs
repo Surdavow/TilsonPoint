@@ -47,7 +47,7 @@ public partial class SettingsMenuControl : Control
 
 	public void setChannelVolume(string channel, float value)
 	{
-		if((string)EffectsControl.TransitionTo == "start")
+		if(EffectsControl.TransitionTo == "start")
 		{
 			return;
 		}
@@ -63,7 +63,7 @@ public partial class SettingsMenuControl : Control
 		EffectsControl.SoundPlayer.playStream("submenu_slidein");
 		MenuControl.Set("MarginTargetPos",Vector2.Zero);
 		MarginTargetPos = new Vector2(0, -1000);
-		EffectsControl.Set("AudioLowPassTarget", 20500);
+		EffectsControl.AudioLowPassTarget = 20500;
 	}
 
 	public void _on_settings_tab_changed(int tab)	

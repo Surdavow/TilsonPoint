@@ -59,7 +59,7 @@ public partial class MainMenuControl : Control
 	{				
 		EffectsControl.SoundPlayer.playStream("submenu_slidein");
 		EffectsControl.SoundPlayer.playStream("submenu_dropdown_select");
-		EffectsControl.Set("AudioLowPassTarget", 2000);
+		EffectsControl.AudioLowPassTarget = 2000;
 		MarginTargetPos = new Vector2(0, 1000); // Set the target position
 		SettingsMenuControl.MarginTargetPos = Vector2.Zero; // Set the target position
 	}

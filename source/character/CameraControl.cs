@@ -5,7 +5,7 @@ public partial class CameraControl : Node3D
 {
 	[Export] public Node3D CameraTarget;
 	[Export] public Node3D FollowTarget;
-	[Export] public int CameraLerpSpeed = 8;
+	[Export] public int CameraLerpSpeed = 10;
 	[Export] public int LookPitch = 85;
 	private float yaw = 0;
 	private float pitch = 0;

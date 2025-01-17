@@ -51,7 +51,7 @@ public partial class EffectsControl : Control
 			TransitionTo = "";
 			TransitionRect.setAlpha(0, true);
 		}
-		else if (TransitionRect.Color.A > 0.995)
+		else if (TransitionRect.Color.A > 0.9975)
 		{
 			switch (TransitionTo.ToLower())
 			{
