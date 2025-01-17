@@ -34,18 +34,13 @@ public partial class PauseMenuControl : Control
 	}
 
 	public override void _Input(InputEvent @event)
-	{			
+	{		
 		if (Input.IsActionJustPressed("pause"))
-		{				
+		{
 			// Open the menu
 			if (MenuMargin.Position.Y <= -100)
 	        {
-				// If the mouse is hidden, release it
-				if(Input.MouseMode == Input.MouseModeEnum.Captured)
-				{
-					Input.MouseMode = Input.MouseModeEnum.Visible;
-				}				
-
+				Input.MouseMode = Input.MouseModeEnum.Visible;
 				EffectsControl.SoundPlayer.playStream("submenu_slidein");
 				MarginTargetPos = Vector2.Zero;		
 	        }
@@ -60,12 +55,7 @@ public partial class PauseMenuControl : Control
 				// If the settings menu is closed, close the pause menu
 				else 
 				{	
-					// If the mouse is visible, hide it
-					if (Input.MouseMode == Input.MouseModeEnum.Visible)
-					{
-						Input.MouseMode = Input.MouseModeEnum.Captured;
-					}
-
+					Input.MouseMode = Input.MouseModeEnum.Captured;
 					EffectsControl.SoundPlayer.playStream("submenu_slidein");
 					MarginTargetPos = new Vector2(0, -1000);
 				}

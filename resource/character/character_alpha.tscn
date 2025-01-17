@@ -39,3 +39,6 @@ bones/43/position = Vector3(-9.71749e-07, 2.59485, -2.81133e-05)
 bones/43/rotation = Quaternion(1.96019e-07, 2.29254e-08, -3.92856e-08, 1)
 bones/44/rotation = Quaternion(2.03362e-05, -0.00633988, 0.999976, -0.00296972)
 bones/45/rotation = Quaternion(-0.0181341, 0.000182716, -0.00592014, 0.999818)
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {}
