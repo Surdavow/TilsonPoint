@@ -13,7 +13,6 @@ public partial class EffectsControl : Control
 	public override void _Ready()
 	{		
 		TransitionRect = GetNode<TransitionRect>("TransitionRect");
-
 		SoundPlayer = GetNode<EffectsSoundPlayer>("EffectsSoundPlayer");
 		MusicPlayer = GetNode<EffectsMusicPlayer>("EffectsMusicPlayer");
 	}
@@ -26,7 +25,7 @@ public partial class EffectsControl : Control
 
 	private void HandleAudioEffects(double delta)
 	{
-		// Handle Low Pass Filter Interpolation
+		// Handle music low pass filter interpolation
 		AudioEffect musicLowPass = AudioServer.GetBusEffect(AudioServer.GetBusIndex("Music"), 0);
 		float currentCutoffHz = (float)musicLowPass.Get("cutoff_hz");
 		if (currentCutoffHz != AudioLowPassTarget)
@@ -35,7 +34,7 @@ public partial class EffectsControl : Control
 			musicLowPass.Set("cutoff_hz", interpolatedCutoff);
 		}
 
-		// Handle Master Volume Amplify Effect
+		// Handle master amplify effect
 		AudioEffect masterAmplifyFilter = AudioServer.GetBusEffect(AudioServer.GetBusIndex("Master"), 0);
 		float transitionRectAlphaTarget = -TransitionRect.Color.A * 40;    
 		float currentMasterAmplifyValue = (float)masterAmplifyFilter.Get("volume_db");

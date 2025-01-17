@@ -6,21 +6,16 @@ public partial class SettingsMenuControl : Control
 	private Control MenuControl;
 	private EffectsControl EffectsControl;
 	private MarginContainer MenuMargin;
+	private float lerpSpeed = 4f;
 	public Vector2 MarginTargetPos;
-	public float lerpSpeed = 4f;
+
 	public override void _Ready()
 	{
 		MenuControl = GetParent<Control>();
 		MenuMargin = GetNode<MarginContainer>("SettingsMenuMargin");		
 
-		if(MenuControl.Name == "MainMenuControl")
-		{
-			EffectsControl = MenuControl.GetNode<EffectsControl>("EffectsControl");
-		}
-		else
-		{			
-			EffectsControl = MenuControl.GetParent().GetNode<EffectsControl>("EffectsControl");
-		}
+		var parentControl = (MenuControl.Name == "MainMenuControl") ? MenuControl : MenuControl.GetParent<Control>();
+		EffectsControl = parentControl.GetNode<EffectsControl>("EffectsControl");
 
 		MenuMargin.Position = new Vector2(0, -1000);
 		MarginTargetPos = MenuMargin.Position;

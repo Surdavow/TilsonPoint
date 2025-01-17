@@ -7,8 +7,8 @@ public partial class MainMenuControl : Control
 	private MarginContainer MenuMargin;
 	private TitleLabel MenuMarginTitle;
 	private EffectsControl EffectsControl;
-	public Vector2 MarginTargetPos;
-	public float lerpSpeed = 4f;
+	private float lerpSpeed = 4f;
+	public Vector2 MarginTargetPos;	
 	
 	public override void _Ready()
 	{		
