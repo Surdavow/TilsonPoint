@@ -31,6 +31,10 @@ window/stretch/aspect="expand"
 
 project/assembly_name="TilsonPoint"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/root_motion/plugin.cfg")
+
 [input]
 
 ui_accept={

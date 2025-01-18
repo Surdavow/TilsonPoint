@@ -4,6 +4,7 @@ using System;
 public partial class CameraControl : Node3D
 {
 	public Node3D CameraTarget;
+	public Node3D CameraOffset;
 	public Node3D FollowTarget;
 	public int CameraLerpSpeed = 10;
 	public int LookPitch = 85;
@@ -42,7 +43,7 @@ public partial class CameraControl : Node3D
 
 		if (FollowTarget != null)
 		{
-			GlobalPosition = GlobalPosition.Lerp(FollowTarget.GlobalPosition + new Vector3(0, 1.5f, 0), (float)delta * (CameraLerpSpeed)*1.5f);
+			GlobalPosition = GlobalPosition.Lerp(FollowTarget.GlobalPosition + new Vector3(0, 1.5f, 0), (float)delta * (CameraLerpSpeed)*1.5f);			
 		}
 	}
 }

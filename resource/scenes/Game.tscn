@@ -1,6 +1,5 @@
-[gd_scene load_steps=16 format=3 uid="uid://b10oyub2q03ne"]
+[gd_scene load_steps=15 format=3 uid="uid://b10oyub2q03ne"]
 
-[ext_resource type="AudioStream" uid="uid://i3w2d5t1pilg" path="res://asesets/audio/music/aboard-a-aurora-game-menu.mp3" id="2_tve4n"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://asesets/textures/grids/Dark/texture_05.png" id="3_8c2lo"]
 [ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://asesets/textures/grids/Orange/texture_05.png" id="4_2f03c"]
 [ext_resource type="Texture2D" uid="uid://does8rpwjdh1r" path="res://asesets/textures/grids/Red/texture_05.png" id="5_f2c6k"]
@@ -50,14 +49,6 @@ environment = SubResource("Environment_bgutl")
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 directional_shadow_blend_splits = true
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.78332, 0.141019, -4.93575)
-stream = ExtResource("2_tve4n")
-volume_db = -5.0
-autoplay = true
-bus = &"Music"
-parameters/looping = true
 
 [node name="Ground" type="CSGBox3D" parent="."]
 material_override = SubResource("StandardMaterial3D_ou2ug")
