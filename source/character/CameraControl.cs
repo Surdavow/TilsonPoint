@@ -3,10 +3,10 @@ using System;
 
 public partial class CameraControl : Node3D
 {
-	[Export] public Node3D CameraTarget;
-	[Export] public Node3D FollowTarget;
-	[Export] public int CameraLerpSpeed = 10;
-	[Export] public int LookPitch = 85;
+	public Node3D CameraTarget;
+	public Node3D FollowTarget;
+	public int CameraLerpSpeed = 10;
+	public int LookPitch = 85;
 	private float yaw = 0;
 	private float pitch = 0;
 	private float mouseSensitivity = 0.003f;
@@ -14,6 +14,8 @@ public partial class CameraControl : Node3D
 	public override void _Ready()
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+		CameraTarget = GetNode<Node3D>("CameraTarget");
+		FollowTarget = (Node3D)GetParent();
 		TopLevel = true;
 	}
 

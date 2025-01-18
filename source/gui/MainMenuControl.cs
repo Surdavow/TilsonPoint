@@ -23,7 +23,7 @@ public partial class MainMenuControl : Control
 		MarginTargetPos = MenuMargin.Position;		
 		
 		// Perform some initial setup
-		EffectsControl.MusicPlayer.setMusic((AudioStream)GD.Load("res://asesets/audio/music/monsters-university-theme.mp3"),true);
+		EffectsControl.MusicPlayer.setMusic((AudioStream)GD.Load("res://asesets/audio/music/aboard-a-aurora-game-menu.mp3"),true);
 		EffectsControl.MusicPlayer.Play();
 		EffectsControl.TransitionRect.fadeIn();
 		MenuMarginTitle.setAlpha(0, true);
