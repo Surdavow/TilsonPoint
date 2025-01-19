@@ -107,7 +107,7 @@ public partial class PlayerController : CharacterBody3D
 	{
 		UpdateAnimation(delta);
 
-		Vector3 rootMotion = animationTree.GetRootMotionPosition() / (float)delta * 2.5f;
+		Vector3 rootMotion = animationTree.GetRootMotionPosition()*3 / (float)delta;
 		Vector3 horizontalVelocity;
 
 		if (IsOnFloor())
@@ -125,7 +125,7 @@ public partial class PlayerController : CharacterBody3D
 		currentVelocity.X = horizontalVelocity.X;
 		currentVelocity.Z = horizontalVelocity.Z;
 
-		return currentVelocity;
+		return currentVelocity;		
 	}
 
 	private void UpdateAnimation(double delta)
@@ -143,9 +143,6 @@ public partial class PlayerController : CharacterBody3D
 		
 		Vector2 newBlendPosition = currentBlendPosition.Lerp(targetBlendPosition, (float)delta * accelerateSpeed);
 		animationTree.Set("parameters/Locomotion/Main/blend_position", newBlendPosition);
-
-		int head_bone_index = skeleton.FindBone("mixamorig_Head");
-		skeleton.SetBonePoseRotation(head_bone_index, Quaternion.FromEuler(cameraTarget.GlobalTransform.Basis.GetEuler()));
 	}
 
 	private Vector3 UpdateRotation(Vector3 currentRotation, Vector2 inputDir, double delta)
