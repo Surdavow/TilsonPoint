@@ -2,16 +2,16 @@ using Godot;
 using System;
 
 public partial class MainMenuControl : Control
-{
+{	
 	private SettingsMenuControl SettingsMenuControl;
-	private MarginContainer MenuMargin;
+	private MarginContainer MenuMargin;	
 	private TitleLabel MenuMarginTitle;
 	private EffectsControl EffectsControl;
 	private float lerpSpeed = 4f;
 	public Vector2 MarginTargetPos;	
 	
 	public override void _Ready()
-	{		
+	{
 		// Get the essential nodes for the menu
 		MenuMargin = GetNode<MarginContainer>("MainMenuMargin");
 		MenuMarginTitle = MenuMargin.GetNode<TitleLabel>("MainMenuContainer/TitleLabel");
@@ -27,7 +27,7 @@ public partial class MainMenuControl : Control
 		EffectsControl.MusicPlayer.Play();
 		EffectsControl.TransitionRect.fadeIn();
 		MenuMarginTitle.setAlpha(0, true);
-		MenuMarginTitle.fadeIn();
+		MenuMarginTitle.fadeIn();			
 
 		// If the mouse is hidden, release it
 		if(Input.MouseMode == Input.MouseModeEnum.Captured)
@@ -53,7 +53,37 @@ public partial class MainMenuControl : Control
 		if (MenuMargin.Position != MarginTargetPos)
 	    {
         	MenuMargin.Position = MenuMargin.Position.Lerp(MarginTargetPos, lerpSpeed * (float)delta);
-    	}					
+    	}
+		
+		if (EffectsControl.TransitionRect.Color.A > 0.9975)
+		{
+			switch (EffectsControl.TransitionTo.ToLower())
+			{
+				case "hostgame":
+				{
+					PackedScene gameScene = (PackedScene)GD.Load("res://resource/scenes/Game.tscn");
+					Game gameInstance = (Game)gameScene.Instantiate();
+					gameInstance.ConnectionType = "host";  // Updated name
+					GetTree().Root.AddChild(gameInstance);
+					GetTree().CurrentScene.Free();
+					break;
+				}
+				
+				case "joingame":
+				{
+					PackedScene gameScene = (PackedScene)GD.Load("res://resource/scenes/Game.tscn");
+					Game gameInstance = (Game)gameScene.Instantiate();
+					gameInstance.ConnectionType = "client";  // Updated name
+					GetTree().Root.AddChild(gameInstance);
+					GetTree().CurrentScene.Free();
+					break;
+				}
+
+				case "quit":
+					GetTree().Quit();
+					break;					
+			}
+		}		
 	}
 	public void _on_options_button_pressed()
 	{				
@@ -65,9 +95,17 @@ public partial class MainMenuControl : Control
 	}
 	// Example button press handlers using the dictionary directly
 	public void _on_host_game_button_pressed()
-	{		
+	{
 		EffectsControl.SoundPlayer.playStream("submenu_dropdown_select");
 		EffectsControl.TransitionTo = "HostGame";
+		MarginTargetPos = new Vector2(0, -1000);
+		EffectsControl.TransitionRect.fadeOut();
+	}
+	
+	public void _on_join_game_button_pressed()
+	{
+		EffectsControl.SoundPlayer.playStream("submenu_dropdown_select");
+		EffectsControl.TransitionTo = "JoinGame";
 		MarginTargetPos = new Vector2(0, -1000);
 		EffectsControl.TransitionRect.fadeOut();
 	}

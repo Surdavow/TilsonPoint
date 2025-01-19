@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://b10oyub2q03ne"]
 
+[ext_resource type="Script" path="res://source/scenes/Game.cs" id="1_dpe5w"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://asesets/textures/grids/Dark/texture_05.png" id="3_8c2lo"]
 [ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://asesets/textures/grids/Orange/texture_05.png" id="4_2f03c"]
 [ext_resource type="Texture2D" uid="uid://does8rpwjdh1r" path="res://asesets/textures/grids/Red/texture_05.png" id="5_f2c6k"]
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://asesets/textures/grids/Purple/texture_05.png" id="6_nuj4w"]
-[ext_resource type="PackedScene" uid="uid://djfakiiu1au0g" path="res://resource/character/PlayerController.tscn" id="7_7cemo"]
 [ext_resource type="Texture2D" uid="uid://dqgbgrchvfwve" path="res://asesets/textures/grids/Green/texture_05.png" id="7_k4lvw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r63qg"]
@@ -40,7 +40,8 @@ albedo_texture = ExtResource("6_nuj4w")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6622c"]
 albedo_texture = ExtResource("7_k4lvw")
 
-[node name="World" type="Node3D"]
+[node name="Game" type="Node3D"]
+script = ExtResource("1_dpe5w")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bgutl")
@@ -51,30 +52,27 @@ shadow_enabled = true
 directional_shadow_blend_splits = true
 
 [node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 material_override = SubResource("StandardMaterial3D_ou2ug")
 use_collision = true
 size = Vector3(1000, 1, 1000)
-metadata/_edit_lock_ = true
 
 [node name="Box1" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.563089, 1, 5.1717)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.563089, 0.477258, 5.1717)
 material_override = SubResource("StandardMaterial3D_d8uv5")
 use_collision = true
 
 [node name="Box2" type="CSGBox3D" parent="."]
-transform = Transform3D(0.269441, 0, -0.963017, 0, 1, 0, 0.963017, 0, 0.269441, -1.59809, 1, 2.15551)
+transform = Transform3D(0.269441, 0, -0.963017, 0, 1, 0, 0.963017, 0, 0.269441, -1.59809, 0.477258, 2.15551)
 material_override = SubResource("StandardMaterial3D_5wv65")
 use_collision = true
 
 [node name="Box3" type="CSGBox3D" parent="."]
-transform = Transform3D(0.803389, 0, 0.595454, 0, 1, 0, -0.595454, 0, 0.803389, -2.84484, 1, 4.84145)
+transform = Transform3D(0.803389, 0, 0.595454, 0, 1, 0, -0.595454, 0, 0.803389, -2.84484, 0.477258, 4.84145)
 material_override = SubResource("StandardMaterial3D_0kevx")
 use_collision = true
 
 [node name="Box4" type="CSGBox3D" parent="."]
-transform = Transform3D(0.990946, 0, -0.134263, 0, 1, 0, 0.134263, 0, 0.990946, -4.11504, 1, 2.6193)
+transform = Transform3D(0.990946, 0, -0.134263, 0, 1, 0, 0.134263, 0, 0.990946, -4.11504, 0.477258, 2.6193)
 material_override = SubResource("StandardMaterial3D_6622c")
 use_collision = true
-
-[node name="PlayerController" parent="." instance=ExtResource("7_7cemo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.585329, 0)

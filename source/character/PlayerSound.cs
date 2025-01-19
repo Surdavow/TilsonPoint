@@ -25,7 +25,7 @@ public partial class PlayerSound : AudioStreamPlayer3D
 
 	public void playFootstep()
 	{
-		if(PlayerController.Velocity.Length() < 0.25f) return;
+		if(PlayerController.Velocity.Length() < 0.25f || !PlayerController.IsOnFloor()) return;
 
 		Random rand = new Random();
 		int index = rand.Next(1, 8);

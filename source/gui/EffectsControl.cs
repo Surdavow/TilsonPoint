@@ -4,6 +4,8 @@ using System;
 
 public partial class EffectsControl : Control
 {
+	private ENetMultiplayerPeer NetworkPeer = new ENetMultiplayerPeer();
+	public PackedScene PlayerScene { get; set; }
 	public float AudioLowPassTarget = 20500;
 	public string TransitionTo;
 	public TransitionRect TransitionRect;
@@ -51,22 +53,28 @@ public partial class EffectsControl : Control
 			TransitionTo = "";
 			TransitionRect.setAlpha(0, true);
 		}
-		else if (TransitionRect.Color.A > 0.9975)
-		{
-			switch (TransitionTo.ToLower())
-			{
-				case "hostgame":
-					GetTree().ChangeSceneToFile("res://resource/scenes/Game.tscn");			
-					break;
-				case "mainmenu":					
-					GetTree().ChangeSceneToFile("res://resource/scenes/MainMenu.tscn");
-					break;
-				case "start":
-					break;
-				case "quit":
-					GetTree().Quit();
-					break;					
-			}
-		}
+	}
+
+	private void DeletePlayerById(long id)
+	{
+		GetNode(id.ToString()).QueueFree();
+	}
+
+	private void AddPlayer(long id)
+	{
+		var player = PlayerScene.Instantiate();
+		player.Name = "Player-" + id;
+		CallDeferred("add_child", player);
+	}
+
+	private void RequestDeletePlayer(long id)
+	{
+		Rpc("DeletePlayer", id);		
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
+	private void DeletePlayer(long id)
+	{
+		GetNode(id.ToString()).QueueFree();
 	}
 }

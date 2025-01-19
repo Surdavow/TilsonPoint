@@ -5,18 +5,22 @@ using System;
 public partial class PauseMenuControl : Control
 {
 	private MarginContainer MenuMargin;
+	private Game Game;
 	private SettingsMenuControl SettingsMenuControl;
 	private EffectsControl EffectsControl;
 	private Color TransitionRectColor;
 	public Vector2 MarginTargetPos;
 	public float lerpSpeed = 5f;
 	public override void _Ready()
-	{		
-		EffectsControl = GetParent().GetNode<EffectsControl>("EffectsControl");
+	{				
+		Game = GetTree().Root.GetNode<Game>("Game");
+		EffectsControl = GetParent().GetNode<EffectsControl>("EffectsControl");		
 		SettingsMenuControl = GetNode<SettingsMenuControl>("SettingsMenuControl");
 		MenuMargin = GetNode<MarginContainer>("PauseMenuMargin");
+		
 		MenuMargin.Position = new Vector2(0, -1000);
 		MarginTargetPos = MenuMargin.Position;	
+		EffectsControl.TransitionTo = "start";
 
 		// If the mouse is visible, hide it
 		if (Input.MouseMode == Input.MouseModeEnum.Visible)
@@ -31,6 +35,21 @@ public partial class PauseMenuControl : Control
 	    {
         	MenuMargin.Position = MenuMargin.Position.Lerp(MarginTargetPos, lerpSpeed * (float)delta);
     	}
+
+		if (EffectsControl.TransitionRect.Color.A > 0.9975)
+		{
+			switch (EffectsControl.TransitionTo.ToLower())
+			{
+				case "disconnect":					
+					Game.DisconnectGame();
+					GetTree().ChangeSceneToFile("res://resource/scenes/MainMenu.tscn");					
+					break;
+				case "quit":
+					Game.DisconnectGame();
+					GetTree().Quit();					
+					break;
+			}
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -76,7 +95,7 @@ public partial class PauseMenuControl : Control
 		EffectsControl.SoundPlayer.playStream("submenu_dropdown_select");	
 		MarginTargetPos = new Vector2(0, -1000);
 		EffectsControl.TransitionRect.fadeOut();
-		EffectsControl.TransitionTo = "MainMenu";
+		EffectsControl.TransitionTo = "disconnect";
 	}
 
 	public void _on_mouse_entered()
@@ -87,7 +106,7 @@ public partial class PauseMenuControl : Control
 	public void _on_quit_button_pressed()
 	{
 		EffectsControl.SoundPlayer.playStream("submenu_dropdown_select");	
-		EffectsControl.TransitionTo = "Quit";
+		EffectsControl.TransitionTo = "quit";
 		MarginTargetPos = new Vector2(0, -1000);
 		EffectsControl.TransitionRect.fadeOut();
 	}
