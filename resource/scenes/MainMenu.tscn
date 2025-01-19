@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bf5fnvf4rc1gb"]
+[gd_scene load_steps=12 format=3 uid="uid://e5iryeca43p"]
 
 [ext_resource type="Script" path="res://source/gui/MainMenuControl.cs" id="1_eni2w"]
 [ext_resource type="Texture2D" uid="uid://ci3cpybygbe03" path="res://asesets/textures/menu/apocalypse_menu.png" id="2_87dnt"]

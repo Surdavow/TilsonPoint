@@ -38,7 +38,7 @@ func add_root_motion():
 		if animation_tree != null:
 			animation_tree.root_motion_track = root_bone_path
 
-	print("Root added to model")
+	##print("Root added to model")
 	pass
 
 func get_first_child(arr: Array[Variant]) -> Node:

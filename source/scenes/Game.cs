@@ -7,7 +7,7 @@ public partial class Game : Node3D
     ENetMultiplayerPeer MultiplayerPeer = new ENetMultiplayerPeer();
     PackedScene PlayerScene = GD.Load<PackedScene>("res://resource/character/PlayerController.tscn");
     private MultiplayerSpawner spawner;
-    
+
     public override void _EnterTree()
     {
         var playersNode = new Node3D { Name = "Players" };
@@ -18,9 +18,16 @@ public partial class Game : Node3D
             Name = "PlayerSpawner"
         };
         AddChild(spawner);
-        
+
         spawner.SpawnPath = new NodePath("../Players");
         spawner.AddSpawnableScene(PlayerScene.ResourcePath);
+
+        MultiplayerPeer.PeerConnected += (id) =>
+        {
+            GD.Print($"Connected to server with ID: {id}");
+            // When a player connects, spawn their character on the host and client
+            RpcId(id, nameof(SpawnPlayer), id);
+        };
     }
 
     public override void _Ready()
@@ -44,9 +51,9 @@ public partial class Game : Node3D
 
     public void DisconnectGame()
     {
-        try 
+        try
         {
-            // First, clean up all players
+            // Clean up players
             var playersNode = GetNode<Node>("Players");
             foreach (Node player in playersNode.GetChildren())
             {
@@ -73,15 +80,13 @@ public partial class Game : Node3D
                         MultiplayerPeer.DisconnectPeer(Multiplayer.GetUniqueId());
                     }
                 }
-                
-                // Important: Set to null before clearing the peer
+
                 Multiplayer.MultiplayerPeer = null;
                 MultiplayerPeer = null;
             }
 
-            // Reset connection type
             ConnectionType = null;
-            
+
             GD.Print("Successfully disconnected and cleaned up multiplayer resources");
         }
         catch (Exception e)
@@ -99,6 +104,7 @@ public partial class Game : Node3D
     [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
     private void SpawnPlayer(long peerId)
     {
+        // Ensure the player instance is created for each peer
         var playerInstance = PlayerScene.Instantiate<Node>();
         playerInstance.Name = "Player" + peerId.ToString();
         playerInstance.Set("multiplayer_authority", peerId);
@@ -108,6 +114,7 @@ public partial class Game : Node3D
 
     private void HostGame()
     {
+        // Create server on port 1700
         Error err = MultiplayerPeer.CreateServer(1700);
         if (err != Error.Ok)
         {
@@ -118,18 +125,20 @@ public partial class Game : Node3D
         MultiplayerPeer.PeerConnected += (id) =>
         {
             GD.Print($"Peer connected: {id}");
-            // Tell the newly connected peer to spawn all existing players
-            foreach (Node player in GetNode<Node>("Players").GetChildren())
+
+            // Check if the peer ID is valid before calling RpcId
+            if (MultiplayerPeer.GetPeer((int)id) != null)
             {
-                long playerId = player.Get("multiplayer_authority").As<long>();
-                RpcId(id, nameof(SpawnPlayer), playerId);
+                RpcId(id, nameof(SpawnPlayer), id);
             }
-            // Tell all peers to spawn the new player
-            Rpc(nameof(SpawnPlayer), id);
+            else
+            {
+                GD.PrintErr($"Attempt to call RPC with unknown peer ID: {id}");
+            }
         };
 
-        // Spawn the host's player
-        SpawnPlayer(1); // Host is always peer ID 1
+        // Host creates their own player
+        SpawnPlayer(MultiplayerPeer.GetUniqueId()); // Host always has their unique peer ID
     }
 
     private void JoinGame()
@@ -140,6 +149,21 @@ public partial class Game : Node3D
             GD.PrintErr($"Failed to create client: {err}");
             return;
         }
+
+        MultiplayerPeer.PeerConnected += (id) =>
+        {
+            GD.Print($"Peer connected: {id}");
+
+            // Ensure the client spawns their own player
+            if (MultiplayerPeer.GetPeer((int)id) != null)
+            {
+                RpcId(id, nameof(SpawnPlayer), id);
+            }
+            else
+            {
+                GD.PrintErr($"Attempt to call RPC with unknown peer ID: {id}");
+            }
+        };
     }
 
     private void RemovePlayer(long id)
@@ -149,6 +173,7 @@ public partial class Game : Node3D
         if (player != null)
         {
             player.QueueFree();
+            GD.Print($"Removed player with peer ID: {id}");
         }
     }
 }

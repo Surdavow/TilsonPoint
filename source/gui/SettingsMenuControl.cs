@@ -10,7 +10,7 @@ public partial class SettingsMenuControl : Control
 	public Vector2 MarginTargetPos;
 
 	public override void _Ready()
-	{
+	{	
 		MenuControl = GetParent<Control>();
 		MenuMargin = GetNode<MarginContainer>("SettingsMenuMargin");		
 
@@ -18,11 +18,13 @@ public partial class SettingsMenuControl : Control
 		EffectsControl = parentControl.GetNode<EffectsControl>("EffectsControl");
 
 		MenuMargin.Position = new Vector2(0, -1000);
-		MarginTargetPos = MenuMargin.Position;
+		MarginTargetPos = MenuMargin.Position;		
 	}
 
 	public override void _Process(double delta)
-	{
+	{		
+		Visible = MenuMargin.Position.Y > -648;		
+		
 		if(MenuMargin.Position != MarginTargetPos)
 		{
 			MenuMargin.Position = MenuMargin.Position.Lerp(MarginTargetPos, lerpSpeed * (float)delta);

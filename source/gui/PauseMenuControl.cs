@@ -16,7 +16,7 @@ public partial class PauseMenuControl : Control
 		Game = GetTree().Root.GetNode<Game>("Game");
 		EffectsControl = GetParent().GetNode<EffectsControl>("EffectsControl");		
 		SettingsMenuControl = GetNode<SettingsMenuControl>("SettingsMenuControl");
-		MenuMargin = GetNode<MarginContainer>("PauseMenuMargin");
+		MenuMargin = GetNode<MarginContainer>("PauseMenuMargin");		
 		
 		MenuMargin.Position = new Vector2(0, -1000);
 		MarginTargetPos = MenuMargin.Position;	
@@ -27,10 +27,14 @@ public partial class PauseMenuControl : Control
 		{
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 		}
+
+		Visible = false;
 	}
 
 	public override void _Process(double delta)
 	{
+		Visible = MenuMargin.Position.Y > -648;
+		
 		if (MenuMargin.Position != MarginTargetPos)
 	    {
         	MenuMargin.Position = MenuMargin.Position.Lerp(MarginTargetPos, lerpSpeed * (float)delta);
@@ -67,7 +71,7 @@ public partial class PauseMenuControl : Control
 			else
 			{
 				// If the settings menu is open, close it first, then return to the main menu
-				if(SettingsMenuControl.GetNode<MarginContainer>("SettingsMenuMargin").Position.Y > -720)
+				if(SettingsMenuControl.GetNode<MarginContainer>("SettingsMenuMargin").Position.Y > -648)
 				{
 					SettingsMenuControl._on_done_button_pressed();
 				}
@@ -79,7 +83,7 @@ public partial class PauseMenuControl : Control
 					MarginTargetPos = new Vector2(0, -1000);
 				}
 			}
-	    }
+	    }		
 	}
 
 	public void _on_options_button_pressed()
