@@ -1,2 +1,2 @@
 # Tilson Point
- A redot game project!
+ A game project!
