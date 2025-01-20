@@ -16,16 +16,12 @@ public partial class PlayerController : CharacterBody3D
 	private float cameraRotationY;
 	private float gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
 	private bool isQuitting = false;
-	private Vector3 networkPosition;
 
 	public override void _EnterTree()
 	{
 		// Set multiplayer authority to the peer ID
 		SetMultiplayerAuthority(int.Parse(Name.ToString().Replace("Player", "")));
 		GD.Print($"PlayerController entered tree, name: {Name}, authority: {GetMultiplayerAuthority()}");
-
-		// Initialize network position
-		networkPosition = GlobalTransform.Origin;
 	}
 
 	public override void _Ready()
@@ -58,8 +54,6 @@ public partial class PlayerController : CharacterBody3D
 		{
 			if (!IsMultiplayerAuthority())
 			{
-				// If not the authority, just sync position and return
-				SyncPlayerPosition();
 				return;
 			}
 
@@ -82,12 +76,6 @@ public partial class PlayerController : CharacterBody3D
 			Velocity = velocity;
 
 			MoveAndSlide();
-
-			// After moving, update the network position
-			networkPosition = GlobalTransform.Origin;
-
-			// Send position updates to other peers
-			Rpc(nameof(UpdatePlayerPosition), networkPosition);
 		}
 		catch (Exception e)
 		{
@@ -139,10 +127,17 @@ public partial class PlayerController : CharacterBody3D
 			Basis characterBasis = Basis.FromEuler(new Vector3(0, -Rotation.Y, 0));
 			Vector3 localDir = characterBasis * direction / sprintDivider;
 			targetBlendPosition = new Vector2(-localDir.X, localDir.Z).Lerp(currentBlendPosition, (float)delta * 2);
+
+			// Slow down or stop movement when colliding with walls
+			if (IsOnWall())
+			{					
+				float wallDotProduct = GetWallNormal().Dot(direction);
+				targetBlendPosition *= Mathf.Clamp(1 + wallDotProduct, 0, 1);
+			}
 		}
 		
 		Vector2 newBlendPosition = currentBlendPosition.Lerp(targetBlendPosition, (float)delta * accelerateSpeed);
-		animationTree.Set("parameters/Locomotion/Main/blend_position", newBlendPosition);
+		animationTree.Set("parameters/Locomotion/Main/blend_position", newBlendPosition);	
 	}
 
 	private Vector3 UpdateRotation(Vector3 currentRotation, Vector2 inputDir, double delta)
@@ -163,23 +158,5 @@ public partial class PlayerController : CharacterBody3D
 		}
 
 		return currentRotation;
-	}
-
-	// Sync position across all peers
-	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
-	private void UpdatePlayerPosition(Vector3 newPosition)
-	{
-		if (!IsMultiplayerAuthority())
-		{
-			// Only update the position if we're not the authority (i.e., client)
-			GlobalTransform = new Transform3D(GlobalTransform.Basis, newPosition);
-		}
-	}
-
-	// Sync player position with all peers, send when authority player moves
-	private void SyncPlayerPosition()
-	{
-		// Send position update
-		Rpc(nameof(UpdatePlayerPosition), networkPosition);
 	}
 }
