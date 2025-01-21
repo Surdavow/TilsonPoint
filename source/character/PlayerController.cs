@@ -17,15 +17,11 @@ public partial class PlayerController : CharacterBody3D
 	private float gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
 	private bool isQuitting = false;
 
-	public override void _EnterTree()
+	public override void _Ready()
 	{
 		// Set multiplayer authority to the peer ID
 		SetMultiplayerAuthority(int.Parse(Name.ToString().Replace("Player", "")));
-		GD.Print($"PlayerController entered tree, name: {Name}, authority: {GetMultiplayerAuthority()}");
-	}
 
-	public override void _Ready()
-	{
 		if (IsMultiplayerAuthority())
 		{
 			// Initialize camera control and animation tree for the local player (with authority)
@@ -83,7 +79,7 @@ public partial class PlayerController : CharacterBody3D
 		}
 	}
 
-	public void jump()
+	public void Jump()
 	{
 		if (IsOnFloor())
 		{
