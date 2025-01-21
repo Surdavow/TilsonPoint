@@ -1,12 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://b10oyub2q03ne"]
+[gd_scene load_steps=17 format=3 uid="uid://b10oyub2q03ne"]
 
 [ext_resource type="Script" uid="uid://cggm5wn4m0uaw" path="res://source/scenes/Game.cs" id="1_dpe5w"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://asesets/textures/grids/Dark/texture_05.png" id="3_8c2lo"]
 [ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://asesets/textures/grids/Orange/texture_05.png" id="4_2f03c"]
 [ext_resource type="Texture2D" uid="uid://does8rpwjdh1r" path="res://asesets/textures/grids/Red/texture_05.png" id="5_f2c6k"]
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://asesets/textures/grids/Purple/texture_05.png" id="6_nuj4w"]
+[ext_resource type="Texture2D" uid="uid://bdw2j5kejiegc" path="res://asesets/textures/grids/Dark/texture_01.png" id="6_wlhad"]
 [ext_resource type="Texture2D" uid="uid://dqgbgrchvfwve" path="res://asesets/textures/grids/Green/texture_05.png" id="7_k4lvw"]
-[ext_resource type="PackedScene" uid="uid://7l1irinimxa" path="res://resource/vehicle/VehicleController.tscn" id="7_wlhad"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r63qg"]
 sky_top_color = Color(0.346878, 0.534059, 0.699219, 1)
@@ -41,6 +41,9 @@ albedo_texture = ExtResource("6_nuj4w")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6622c"]
 albedo_texture = ExtResource("7_k4lvw")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqwos"]
+albedo_texture = ExtResource("6_wlhad")
+
 [node name="Game" type="Node3D"]
 script = ExtResource("1_dpe5w")
 
@@ -59,31 +62,66 @@ use_collision = true
 size = Vector3(1000, 1, 1000)
 
 [node name="Box1" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.563089, 0.477258, 5.1717)
+transform = Transform3D(0.37119, 0, -0.928557, 0, 1, 0, 0.928557, 0, 0.37119, -7.15206, 0.477258, 8.65329)
 material_override = SubResource("StandardMaterial3D_d8uv5")
 use_collision = true
 
 [node name="Box2" type="CSGBox3D" parent="."]
-transform = Transform3D(0.269441, 0, -0.963017, 0, 1, 0, 0.963017, 0, 0.269441, -1.59809, 0.477258, 2.15551)
+transform = Transform3D(-0.794203, 0, -0.607653, 0, 1, 0, 0.607653, 0, -0.794203, -5.18723, 0.477258, 6.92868)
 material_override = SubResource("StandardMaterial3D_5wv65")
 use_collision = true
 
 [node name="Box3" type="CSGBox3D" parent="."]
-transform = Transform3D(0.803389, 0, 0.595454, 0, 1, 0, -0.595454, 0, 0.803389, -2.84484, 0.477258, 4.84145)
+transform = Transform3D(0.851123, 0, -0.524966, 0, 1, 0, 0.524966, 0, 0.851123, -8.14406, 0.477258, 6.768)
 material_override = SubResource("StandardMaterial3D_0kevx")
 use_collision = true
 
 [node name="Box4" type="CSGBox3D" parent="."]
-transform = Transform3D(0.990946, 0, -0.134263, 0, 1, 0, 0.134263, 0, 0.990946, -4.11504, 0.477258, 2.6193)
+transform = Transform3D(0.243158, 0, -0.969987, 0, 1, 0, 0.969987, 0, 0.243158, -6.55215, 0.477258, 4.76371)
 material_override = SubResource("StandardMaterial3D_6622c")
 use_collision = true
 
-[node name="VehicleController" parent="." instance=ExtResource("7_wlhad")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.82909, 0, -2.00517)
-MaxSteer = 0.45
-MaxTorque = 300.0
-MaxBrakeForce = 1.0
-MaxWheelRpm = 600.0
-SteerDamping = 2.0
-FrontWheelGrip = 5.0
-RearWheelGrip = 5.0
+[node name="Box8" type="CSGBox3D" parent="."]
+transform = Transform3D(0.851123, 0, -0.524966, 0, 0.556025, 0, 0.524966, 0, 0.851123, -5.20022, 0.256328, 9.23691)
+material_override = SubResource("StandardMaterial3D_iqwos")
+use_collision = true
+
+[node name="Box10" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.556025, 0, 0, 0, 1, -1, 3, 16.1426)
+material_override = SubResource("StandardMaterial3D_iqwos")
+use_collision = true
+
+[node name="Box12" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.556025, 0, 0, 0, 1, -0.00332034, 3.43197, 16.1369)
+material_override = SubResource("StandardMaterial3D_iqwos")
+use_collision = true
+
+[node name="Box11" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.556025, 0, 0, 0, 1, -2, 2, 17)
+material_override = SubResource("StandardMaterial3D_iqwos")
+use_collision = true
+
+[node name="Box9" type="CSGBox3D" parent="."]
+transform = Transform3D(0.692823, 0, 0.721108, 0, 0.556025, 0, -0.721108, 0, 0.692823, -6.30747, 0.256328, 7.65893)
+material_override = SubResource("StandardMaterial3D_iqwos")
+use_collision = true
+
+[node name="BoxIncline1" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 4.1839, -3.09778, 0, 4.81303, 2.69286, -1, -0.291, 14.051)
+material_override = SubResource("StandardMaterial3D_d8uv5")
+use_collision = true
+
+[node name="BoxIncline4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 4.43631, -2.94872, 0, 4.58143, 2.85531, -2.38419e-07, 0.316828, 14.4638)
+material_override = SubResource("StandardMaterial3D_d8uv5")
+use_collision = true
+
+[node name="BoxIncline2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.79564, -3.68919, 0, 5.7319, 1.79934, -2, -0.986, 14.051)
+material_override = SubResource("StandardMaterial3D_d8uv5")
+use_collision = true
+
+[node name="BoxIncline3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.21685, -4.02919, 0, 6.26016, 0.783195, -3, -1.596, 14.051)
+material_override = SubResource("StandardMaterial3D_d8uv5")
+use_collision = true
