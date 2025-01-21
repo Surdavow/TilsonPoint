@@ -11,7 +11,7 @@ public partial class PlayerController : CharacterBody3D
 	private bool grounded;
 	private const int accelerateSpeed = 4;
 	private const int turnSpeed = 4;
-	private const int jumpForce = 3;
+	private const int jumpForce = 4;
 	private Node3D cameraTarget;
 	private float cameraRotationY;
 	private float gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
