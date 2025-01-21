@@ -120,6 +120,12 @@ public partial class PlayerController : CharacterBody3D
 			if (slopeDotProduct < -0.5f) // If the player is moving downhill, give them a slight speed boost
 			{
 				targetTimescale = 1.0f + Mathf.Abs(slopeDotProduct) * 0.375f;
+
+				// Adjust the player's velocity to stick to the floor normal
+				if (IsOnFloor())
+				{
+					Velocity = Velocity.Slide(GetFloorNormal());
+				}
 			}
 			else // Otherwise, adjust the timescale based on the incline if the player is moving uphill
 			{
@@ -129,14 +135,6 @@ public partial class PlayerController : CharacterBody3D
 
 			// Reduce the target blend position based on the incline
 			targetBlendPosition *= Mathf.Clamp(1.0f - inclineDotProduct*0.5f, 0.1f, 1.0f);
-
-			// Adjust the player's velocity to stick to the floor normal
-			if (IsOnFloor())
-			{
-				Vector3 floorNormal = GetFloorNormal();
-				Vector3 adjustedVelocity = Velocity.Slide(floorNormal);
-				Velocity = new Vector3(adjustedVelocity.X, -Mathf.Abs(gravity)*2, adjustedVelocity.Z);
-			}
 
 			// Stop the player from moving if they're against a wall, use the wall dot product and direction to adjust the blend position
 			// This will make the player slide along the wall instead of stopping abruptly, so they can still move if they're not directly running into it
