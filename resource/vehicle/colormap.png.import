@@ -2,26 +2,27 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5povxvrb382p"
-path="res://.godot/imported/icon.jpg-61be05de53c6b7307ff9dc85ea175019.ctex"
+uid="uid://d00a8fn18o6y3"
+path.s3tc="res://.godot/imported/colormap.png-ac87af8ec419678733e6fff903b01b98.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://addons/srcoder_simplecar/assets/screenshots/icon.jpg"
-dest_files=["res://.godot/imported/icon.jpg-61be05de53c6b7307ff9dc85ea175019.ctex"]
+source_file="res://resource/vehicle/colormap.png"
+dest_files=["res://.godot/imported/colormap.png-ac87af8ec419678733e6fff903b01b98.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -31,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

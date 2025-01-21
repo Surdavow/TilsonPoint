@@ -1,13 +1,13 @@
 [gd_scene load_steps=18 format=4 uid="uid://7l1irinimxa"]
 
-[ext_resource type="Texture2D" uid="uid://d00a8fn18o6y3" path="res://addons/srcoder_simplecar/assets/models/Textures/colormap.png" id="1_n0mcw"]
-[ext_resource type="PhysicsMaterial" uid="uid://cuw7isymmyyku" path="res://addons/srcoder_simplecar/assets/materials/metal_physics_material.phymat" id="1_vukum"]
-[ext_resource type="Script" path="res://addons/srcoder_simplecar/assets/scripts/car.gd" id="1_ymx53"]
+[ext_resource type="PhysicsMaterial" uid="uid://cuw7isymmyyku" path="res://resource/vehicle/metal_physics_material.phymat" id="1_8ysfg"]
+[ext_resource type="Script" uid="uid://lcimjs1ug73v" path="res://source/vehicle/VehicleController.cs" id="2_43ka1"]
+[ext_resource type="Texture2D" uid="uid://d00a8fn18o6y3" path="res://resource/vehicle/colormap.png" id="2_na4n8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bwqi7"]
 resource_name = "colormap"
 cull_mode = 2
-albedo_texture = ExtResource("1_n0mcw")
+albedo_texture = ExtResource("2_na4n8")
 texture_filter = 2
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2ildj"]
@@ -215,10 +215,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jalnx")
 
-[node name="car" type="VehicleBody3D"]
+[node name="VehicleController" type="VehicleBody3D"]
 collision_layer = 2
-physics_material_override = ExtResource("1_vukum")
-script = ExtResource("1_ymx53")
+physics_material_override = ExtResource("1_8ysfg")
+script = ExtResource("2_43ka1")
 
 [node name="body" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -0.025)

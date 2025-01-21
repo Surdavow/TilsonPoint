@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://g3fsjckkw00r"
-path="res://.godot/imported/sedan-sports.glb-ac3170b91e3c9e4ceb1b398a58cd1b05.scn"
+path="res://.godot/imported/sedan-sports.glb-325ac3a59fe2fd5ffe872a30e2e86174.scn"
 
 [deps]
 
-source_file="res://addons/srcoder_simplecar/assets/models/sedan-sports.glb"
-dest_files=["res://.godot/imported/sedan-sports.glb-ac3170b91e3c9e4ceb1b398a58cd1b05.scn"]
+source_file="res://resource/vehicle/sedan-sports.glb"
+dest_files=["res://.godot/imported/sedan-sports.glb-325ac3a59fe2fd5ffe872a30e2e86174.scn"]
 
 [params]
 
