@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://b10oyub2q03ne"]
+[gd_scene load_steps=16 format=3 uid="uid://b10oyub2q03ne"]
 
 [ext_resource type="Script" uid="uid://cggm5wn4m0uaw" path="res://source/scenes/Game.cs" id="1_dpe5w"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://asesets/textures/grids/Dark/texture_05.png" id="3_8c2lo"]
 [ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://asesets/textures/grids/Orange/texture_05.png" id="4_2f03c"]
 [ext_resource type="Texture2D" uid="uid://does8rpwjdh1r" path="res://asesets/textures/grids/Red/texture_05.png" id="5_f2c6k"]
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://asesets/textures/grids/Purple/texture_05.png" id="6_nuj4w"]
+[ext_resource type="PackedScene" uid="uid://7l1irinimxa" path="res://addons/srcoder_simplecar/car.tscn" id="7_iqwos"]
 [ext_resource type="Texture2D" uid="uid://dqgbgrchvfwve" path="res://asesets/textures/grids/Green/texture_05.png" id="7_k4lvw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r63qg"]
@@ -76,3 +77,6 @@ use_collision = true
 transform = Transform3D(0.990946, 0, -0.134263, 0, 1, 0, 0.134263, 0, 0.990946, -4.11504, 0.477258, 2.6193)
 material_override = SubResource("StandardMaterial3D_6622c")
 use_collision = true
+
+[node name="car" parent="." instance=ExtResource("7_iqwos")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.46507, 2.38419e-07, -0.469682)
