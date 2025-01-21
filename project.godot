@@ -31,7 +31,7 @@ project/assembly_name="TilsonPoint"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/root_motion/plugin.cfg")
+enabled=PackedStringArray("res://addons/root_motion/plugin.cfg", "res://addons/sky_3d/plugin.cfg")
 
 [input]
 
