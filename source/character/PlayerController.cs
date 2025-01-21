@@ -97,13 +97,13 @@ public partial class PlayerController : CharacterBody3D
 		Vector2 currentBlendPosition = (Vector2)animationTree.Get("parameters/Locomotion/Main/blend_position");
 		float currentTimescale = (float)animationTree.Get("parameters/TimeScale/scale");
 		
+		// Determine if the player is sprinting
+		int sprintDivider = Input.IsActionPressed("sprint") ? 1 : 2;		
 		Vector2 targetBlendPosition = Vector2.Zero;
 		float targetTimescale = 1.0f;		
 
 		if (direction != Vector3.Zero)
-		{
-			// Determine if the player is sprinting
-			int sprintDivider = Input.IsActionPressed("sprint") ? 1 : 2;
+		{			
 			// Calculate the local direction based on the player's rotation
 			Basis characterBasis = Basis.FromEuler(new Vector3(0, -Rotation.Y, 0));			
 			Vector3 localDir = characterBasis * direction / sprintDivider;
@@ -124,7 +124,8 @@ public partial class PlayerController : CharacterBody3D
 				// Adjust the player's velocity to stick to the floor normal
 				if (IsOnFloor())
 				{
-					Velocity = Velocity.Slide(GetFloorNormal());
+					Vector3 floorPoint = GlobalTransform.Origin - GetFloorNormal() * (GlobalTransform.Origin.Y - GetFloorNormal().Y);
+					Velocity = new Vector3(Velocity.X, floorPoint.Y, Velocity.Z);
 				}
 			}
 			else // Otherwise, adjust the timescale based on the incline if the player is moving uphill
@@ -139,7 +140,7 @@ public partial class PlayerController : CharacterBody3D
 			// Stop the player from moving if they're against a wall, use the wall dot product and direction to adjust the blend position
 			// This will make the player slide along the wall instead of stopping abruptly, so they can still move if they're not directly running into it
 			if (IsOnWall())
-			{				
+			{					
 				float wallDotProduct = GetWallNormal().Dot(direction);
 				targetBlendPosition *= Mathf.Clamp(1 + wallDotProduct, 0, 1);
 				targetTimescale = 1.0f;
@@ -150,18 +151,12 @@ public partial class PlayerController : CharacterBody3D
 		animationTree.Set("parameters/Locomotion/Main/blend_position", currentBlendPosition.Lerp(targetBlendPosition, (float)delta * accelerateSpeed));
 		animationTree.Set("parameters/TimeScale/scale", targetTimescale);
 
-		Vector3 rootMotion = animationTree.GetRootMotionPosition()*3 / (float)delta;
-		Vector3 horizontalVelocity;
+		Vector3 rootMotion = animationTree.GetRootMotionPosition() / (float)delta * 3;
+		Vector3 horizontalVelocity = Transform.Basis.GetRotationQuaternion() * rootMotion;
 
-		if (IsOnFloor())
+		if (!IsOnFloor())
 		{
-			horizontalVelocity = Transform.Basis.GetRotationQuaternion() * rootMotion;
-		}
-		else
-		{
-			// Allow slight air control using the direction vector
-			Vector3 airControl = direction * rootMotion.Length() * 0.15f;
-			horizontalVelocity = new Vector3(currentVelocity.X + airControl.X, currentVelocity.Y, currentVelocity.Z + airControl.Z);
+			horizontalVelocity = new Vector3(currentVelocity.X + (direction.X*0.05f), currentVelocity.Y, currentVelocity.Z + (direction.Z*0.05f));
 		}
 
 		currentVelocity.Y += -gravity * (float)delta;

@@ -6,7 +6,7 @@ public partial class CameraControl : Node3D
 	public Node3D CameraTarget;
 	public Node3D CameraOffset;
 	public Node3D FollowTarget;
-	public int CameraLerpSpeed = 10;
+	public int CameraLerpSpeed = 15;
 	public int LookPitch = 85;
 	private float yaw = 0;
 	private float pitch = 0;
