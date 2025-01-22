@@ -7,10 +7,8 @@ public partial class PlayerController : CharacterBody3D
 	private Vector3 direction;
 	private AnimationTree animationTree;
 	private Skeleton3D skeleton;
-	private bool jumping;
 	private bool grounded;
 	private const int accelerateSpeed = 4;
-	private const int turnSpeed = 4;
 	private const int jumpForce = 4;
 	private float lastLandTime;
 	private float LandBlendTarget;
@@ -71,21 +69,27 @@ public partial class PlayerController : CharacterBody3D
 		rotation = UpdateRotation(rotation, inputDir, delta);		
 		velocity = UpdateVelocity(velocity, delta);
 
-		float LandBlend = (float)animationTree.Get("parameters/LandBlend/blend_amount");		
-		jumping = Input.IsActionJustPressed("jump");
+		float LandBlend = (float)animationTree.Get("parameters/LandBlend/blend_amount");				
 		bool wasGrounded = grounded;
 		grounded = IsOnFloor();
 
 		if (!wasGrounded && grounded)
 		{			
-			lastLandTime = Engine.GetPhysicsFrames() * (float)delta;
+			lastLandTime = Engine.GetPhysicsFrames() * (float)delta;			
 			animationTree.Set("parameters/LandShot/request", true);
+			animationTree.Set("parameters/JumpTransition/transition_request","Move");
 			LandBlendTarget = Mathf.Clamp(Math.Abs(landImpactForce) / 5, 0.05f, 0.95f);			
 		}
 		else if (Engine.GetPhysicsFrames() * (float)delta - lastLandTime >= 0.5f)
 		{
 			animationTree.Set("parameters/LandBlend/blend_amount", Mathf.Lerp(LandBlend, 0, (float)delta));	
 			LandBlendTarget	= 0;			
+		}
+
+		if(Input.IsActionJustPressed("jump"))
+		{
+			string jumpType = grounded && direction != Vector3.Zero ? "Run Jump" : "Jump";
+			animationTree.Set("parameters/JumpTransition/transition_request",jumpType);
 		}
 
 		animationTree.Set("parameters/FallingBlend/blend_amount", Mathf.Lerp((float)animationTree.Get("parameters/FallingBlend/blend_amount"), grounded ? 0 : 1, (float)delta * 5));
@@ -108,7 +112,7 @@ public partial class PlayerController : CharacterBody3D
 	private Vector3 UpdateVelocity(Vector3 currentVelocity, double delta)
 	{
 		// Get the current blend position and timescale from the animation tree
-		Vector2 currentBlendPosition = (Vector2)animationTree.Get("parameters/Locomotion/Main/blend_position");
+		Vector2 currentBlendPosition = (Vector2)animationTree.Get("parameters/Movement/blend_position");
 		float currentTimescale = (float)animationTree.Get("parameters/TimeScale/scale");
 		
 		// Determine if the player is sprinting
@@ -162,7 +166,7 @@ public partial class PlayerController : CharacterBody3D
 		}
 		
 		// Set the updated blend position and timescale in the animation tree
-		animationTree.Set("parameters/Locomotion/Main/blend_position", currentBlendPosition.Lerp(targetBlendPosition, (float)delta * accelerateSpeed));
+		animationTree.Set("parameters/Movement/blend_position", currentBlendPosition.Lerp(targetBlendPosition, (float)delta * accelerateSpeed));
 		animationTree.Set("parameters/TimeScale/scale", targetTimescale);
 
 		Vector3 rootMotion = animationTree.GetRootMotionPosition() / (float)delta * 3;
@@ -181,12 +185,13 @@ public partial class PlayerController : CharacterBody3D
 	}
 
 	private Vector3 UpdateRotation(Vector3 currentRotation, Vector2 inputDir, double delta)
-	{        
-		bool isAiming = Input.IsActionPressed("aim");
+	{        		
 		Vector3 inputDirNormalized = new Vector3(inputDir.X, 0, inputDir.Y).Normalized();
 		cameraRotationY = cameraTarget != null ? cameraTarget.GlobalTransform.Basis.GetEuler().Y : GlobalTransform.Basis.GetEuler().Y;
-		direction = inputDirNormalized.Rotated(Vector3.Up, cameraRotationY);        
+		direction = inputDirNormalized.Rotated(Vector3.Up, cameraRotationY);
 		float targetRotation = direction == Vector3.Zero ? Rotation.Y : Mathf.Atan2(direction.X, direction.Z);
+		float turnSpeed = IsOnFloor() ? 4 : 2;
+		bool isAiming = Input.IsActionPressed("aim");		
 		
 		if (direction != Vector3.Zero || isAiming)
 		{
