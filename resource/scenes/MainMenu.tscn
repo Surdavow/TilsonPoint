@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b115ombfjjc54" path="res://source/gui/MainMenuControl.cs" id="1_eni2w"]
 [ext_resource type="Texture2D" uid="uid://ci3cpybygbe03" path="res://asesets/textures/menu/apocalypse_menu.png" id="2_87dnt"]
-[ext_resource type="PackedScene" uid="uid://cneclhdhnfi0t" path="res://resource/gui/SettingsMenu.tscn" id="3_5k3ri"]
+[ext_resource type="PackedScene" uid="uid://cneclhdhnfi0t" path="res://resource/gui/SettingsMenuControl.tscn" id="3_5k3ri"]
 [ext_resource type="PackedScene" uid="uid://c2wwtbxjbtx8o" path="res://resource/gui/components/VersionLabel.tscn" id="3_r7bx4"]
 [ext_resource type="PackedScene" uid="uid://b8gpq8qvrmrip" path="res://resource/gui/components/TitleLabel.tscn" id="3_tve5n"]
 [ext_resource type="PackedScene" uid="uid://kswicywrjx7i" path="res://resource/gui/components/EffectsControl.tscn" id="3_yku8d"]

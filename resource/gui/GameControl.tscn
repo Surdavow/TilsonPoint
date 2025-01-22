@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://xdd3xtwgoflx"]
 
-[ext_resource type="Script" path="res://source/gui/GameControl.cs" id="1_b25dv"]
-[ext_resource type="PackedScene" uid="uid://byoijd1wqkeri" path="res://resource/gui/PauseMenu.tscn" id="1_xk7on"]
+[ext_resource type="Script" uid="uid://c8bdgxed4jxx8" path="res://source/gui/GameControl.cs" id="1_b25dv"]
+[ext_resource type="PackedScene" uid="uid://byoijd1wqkeri" path="res://resource/gui/PauseMenuControl.tscn" id="1_xk7on"]
 [ext_resource type="PackedScene" uid="uid://kswicywrjx7i" path="res://resource/gui/components/EffectsControl.tscn" id="2_rwvfb"]
 
 [node name="GameControl" type="Control"]

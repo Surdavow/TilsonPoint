@@ -74,14 +74,16 @@ public partial class PlayerController : CharacterBody3D
 
 		if (!wasGrounded && grounded)
 		{			
-			lastLandTime = Engine.GetPhysicsFrames() * (float)delta;			
-			animationTree.Set("parameters/LandShot/request", true);
+			string landAnimType = direction == Vector3.Zero ? "Land" : "Run Land";
+			lastLandTime = Engine.GetPhysicsFrames() * (float)delta;
 			animationTree.Set("parameters/JumpTransition/transition_request","Move");
+			animationTree.Set("parameters/LandTransition/transition_request", landAnimType);
 			LandBlendTarget = Mathf.Clamp(Math.Abs(landImpactForce) / 5, 0.05f, 0.95f);			
 		}
-		else if (Engine.GetPhysicsFrames() * (float)delta - lastLandTime >= 0.5f)
+		else if (Engine.GetPhysicsFrames() * (float)delta - lastLandTime >= 0.6f)
 		{
-			animationTree.Set("parameters/LandBlend/blend_amount", Mathf.Lerp(LandBlend, 0, (float)delta));	
+			animationTree.Set("parameters/LandTransition/transition_request", "Default");
+			animationTree.Set("parameters/LandBlend/blend_amount", Mathf.Lerp(LandBlend, 0, (float)delta));
 			LandBlendTarget	= 0;			
 		}
 
@@ -92,7 +94,7 @@ public partial class PlayerController : CharacterBody3D
 		}
 
 		animationTree.Set("parameters/FallingBlend/blend_amount", Mathf.Lerp((float)animationTree.Get("parameters/FallingBlend/blend_amount"), grounded ? 0 : 1, (float)delta * 5));
-		animationTree.Set("parameters/LandBlend/blend_amount", Mathf.Lerp(LandBlend, LandBlendTarget, (float)delta * 3));
+		animationTree.Set("parameters/LandBlend/blend_amount", Mathf.Lerp(LandBlend, LandBlendTarget, (float)delta * 5));
 
 		Rotation = rotation;
 		Velocity = velocity;
