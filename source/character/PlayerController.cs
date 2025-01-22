@@ -14,7 +14,6 @@ public partial class PlayerController : CharacterBody3D
 	private float LandBlendTarget;
 	private float landImpactForce;
 	private Node3D cameraTarget;
-	private float cameraRotationY;
 	private float gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
 	private bool isQuitting = false;
 
@@ -185,14 +184,19 @@ public partial class PlayerController : CharacterBody3D
 	}
 
 	private Vector3 UpdateRotation(Vector3 currentRotation, Vector2 inputDir, double delta)
-	{        		
-		Vector3 inputDirNormalized = new Vector3(inputDir.X, 0, inputDir.Y).Normalized();
-		cameraRotationY = cameraTarget != null ? cameraTarget.GlobalTransform.Basis.GetEuler().Y : GlobalTransform.Basis.GetEuler().Y;
-		direction = inputDirNormalized.Rotated(Vector3.Up, cameraRotationY);
-		float targetRotation = direction == Vector3.Zero ? Rotation.Y : Mathf.Atan2(direction.X, direction.Z);
+	{	
+		// Create some variables to control the player's rotation speed and whether they're aiming	
 		float turnSpeed = IsOnFloor() ? 4 : 2;
-		bool isAiming = Input.IsActionPressed("aim");		
-		
+		bool isAiming = Input.IsActionPressed("aim");
+		float cameraRotationY = cameraTarget != null ? cameraTarget.GlobalTransform.Basis.GetEuler().Y : GlobalTransform.Basis.GetEuler().Y;
+
+		// Calculate the player's direction based on the input and camera rotation
+		Vector3 inputDirNormalized = new Vector3(inputDir.X, 0, inputDir.Y).Normalized();		
+		direction = inputDirNormalized.Rotated(Vector3.Up, cameraRotationY);
+
+		// Calculate the target rotation based on the player's direction or the camera rotation if they're aiming
+		float targetRotation = direction == Vector3.Zero ? Rotation.Y : Mathf.Atan2(direction.X, direction.Z);
+						
 		if (direction != Vector3.Zero || isAiming)
 		{
 			currentRotation = new Vector3(
