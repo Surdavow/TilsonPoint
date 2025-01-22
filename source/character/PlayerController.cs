@@ -12,6 +12,9 @@ public partial class PlayerController : CharacterBody3D
 	private const int accelerateSpeed = 4;
 	private const int turnSpeed = 4;
 	private const int jumpForce = 4;
+	private float lastLandTime;
+	private float LandBlendTarget;
+	private float landImpactForce;
 	private Node3D cameraTarget;
 	private float cameraRotationY;
 	private float gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
@@ -39,44 +42,59 @@ public partial class PlayerController : CharacterBody3D
 	}
 
 	public override void _PhysicsProcess(double delta)
-	{
+	{			
 		// Skip processing if we're quitting or multiplayer is not available
-		if (isQuitting || !IsInsideTree() || Multiplayer.MultiplayerPeer == null)
+		if (!IsMultiplayerAuthority() || isQuitting || !IsInsideTree() || Multiplayer.MultiplayerPeer == null)
 		{
 			return;
 		}
 
-		try
+		if(lastLandTime == 0)
 		{
-			if (!IsMultiplayerAuthority())
-			{
-				return;
-			}
-
-			// Handle movement and jumping logic for the player with authority
-			Vector2 inputDir = Input.MouseMode != Input.MouseModeEnum.Visible ? new Vector2(
-				Input.GetActionStrength("left") - Input.GetActionStrength("right"),
-				Input.GetActionStrength("forward") - Input.GetActionStrength("backward")
-				) : Vector2.Zero;
-			
-			Vector3 velocity = Velocity;
-			Vector3 rotation = Rotation;
-
-			rotation = UpdateRotation(rotation, inputDir, delta);
-			velocity = UpdateVelocity(velocity, delta);
-
-			jumping = Input.IsActionJustPressed("jump");
-			grounded = IsOnFloor();
-
-			Rotation = rotation;
-			Velocity = velocity;
-
-			MoveAndSlide();
+			lastLandTime = Engine.GetPhysicsFrames() * (float)delta;
 		}
-		catch (Exception e)
+
+		// Handle movement and jumping logic for the player with authority
+		Vector2 inputDir = Input.MouseMode != Input.MouseModeEnum.Visible ? new Vector2(
+			Input.GetActionStrength("left") - Input.GetActionStrength("right"),
+			Input.GetActionStrength("forward") - Input.GetActionStrength("backward")
+			) : Vector2.Zero;
+		
+		Vector3 velocity = Velocity;
+		Vector3 rotation = Rotation;
+
+		if (!IsOnFloor())
 		{
-			GD.PrintErr($"Error in PlayerController physics process: {e.Message}");
+			landImpactForce = velocity.Y;
+		}		
+
+		rotation = UpdateRotation(rotation, inputDir, delta);		
+		velocity = UpdateVelocity(velocity, delta);
+
+		float LandBlend = (float)animationTree.Get("parameters/LandBlend/blend_amount");		
+		jumping = Input.IsActionJustPressed("jump");
+		bool wasGrounded = grounded;
+		grounded = IsOnFloor();
+
+		if (!wasGrounded && grounded)
+		{			
+			lastLandTime = Engine.GetPhysicsFrames() * (float)delta;
+			animationTree.Set("parameters/LandShot/request", true);
+			LandBlendTarget = Mathf.Clamp(Math.Abs(landImpactForce) / 5, 0.05f, 0.95f);			
 		}
+		else if (Engine.GetPhysicsFrames() * (float)delta - lastLandTime >= 0.5f)
+		{
+			animationTree.Set("parameters/LandBlend/blend_amount", Mathf.Lerp(LandBlend, 0, (float)delta));	
+			LandBlendTarget	= 0;			
+		}
+
+		animationTree.Set("parameters/FallingBlend/blend_amount", Mathf.Lerp((float)animationTree.Get("parameters/FallingBlend/blend_amount"), grounded ? 0 : 1, (float)delta * 5));
+		animationTree.Set("parameters/LandBlend/blend_amount", Mathf.Lerp(LandBlend, LandBlendTarget, (float)delta * 3));
+
+		Rotation = rotation;
+		Velocity = velocity;
+
+		MoveAndSlide();
 	}
 
 	public void Jump()
@@ -168,13 +186,13 @@ public partial class PlayerController : CharacterBody3D
 		Vector3 inputDirNormalized = new Vector3(inputDir.X, 0, inputDir.Y).Normalized();
 		cameraRotationY = cameraTarget != null ? cameraTarget.GlobalTransform.Basis.GetEuler().Y : GlobalTransform.Basis.GetEuler().Y;
 		direction = inputDirNormalized.Rotated(Vector3.Up, cameraRotationY);        
-		float targetRotation = direction == Vector3.Zero ? Rotation.Y : isAiming ? cameraRotationY : Mathf.Atan2(direction.X, direction.Z);
+		float targetRotation = direction == Vector3.Zero ? Rotation.Y : Mathf.Atan2(direction.X, direction.Z);
 		
-		if (direction != Vector3.Zero)
+		if (direction != Vector3.Zero || isAiming)
 		{
 			currentRotation = new Vector3(
 				currentRotation.X,
-				Mathf.LerpAngle(currentRotation.Y, targetRotation, turnSpeed * (float)delta),
+				Mathf.LerpAngle(currentRotation.Y, isAiming ? cameraRotationY : targetRotation, turnSpeed * (float)delta),
 				currentRotation.Z
 			);
 		}
