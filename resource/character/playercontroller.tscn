@@ -14,18 +14,33 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("AnimationTree:parameters/Locomotion/Main/blend_position")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("AnimationTree:parameters/TimeScale/scale")
+properties/2/path = NodePath("GameControl:visible")
+properties/2/spawn = false
+properties/2/replication_mode = 0
+properties/3/path = NodePath("AnimationTree:parameters/FallingBlend/blend_amount")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("GameControl:visible")
+properties/4/path = NodePath("AnimationTree:parameters/JumpTransition/current_state")
 properties/4/spawn = true
-properties/4/replication_mode = 0
-properties/5/path = NodePath("CameraControl/CameraTarget/CharacterTarget:position")
+properties/4/replication_mode = 1
+properties/5/path = NodePath("AnimationTree:parameters/JumpTransition/transition_request")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath("AnimationTree:parameters/LandBlend/blend_amount")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("AnimationTree:parameters/LandTransition/current_state")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath("AnimationTree:parameters/LandTransition/transition_request")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath("AnimationTree:parameters/Movement/blend_position")
+properties/9/spawn = true
+properties/9/replication_mode = 1
+properties/10/path = NodePath("AnimationTree:parameters/TimeScale/scale")
+properties/10/spawn = true
+properties/10/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2xkg1"]
 radius = 0.375
@@ -65,7 +80,7 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_7f5w3"]
-xfade_time = 0.3
+xfade_time = 0.25
 xfade_curve = SubResource("Curve_vgupl")
 input_0/name = "Move"
 input_0/auto_advance = false
@@ -88,7 +103,7 @@ point_count = 2
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_lad7a"]
 sync = true
-xfade_time = 0.5
+xfade_time = 0.75
 xfade_curve = SubResource("Curve_lad7a")
 input_0/name = "Default"
 input_0/auto_advance = false
@@ -134,7 +149,7 @@ snap = Vector2(0.5, 0.5)
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_2aine"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_8bo25"]
-graph_offset = Vector2(-846.004, 282.31)
+graph_offset = Vector2(-872.532, 369.262)
 nodes/AnimFall/node = SubResource("AnimationNodeAnimation_lad7a")
 nodes/AnimFall/position = Vector2(-420, 440)
 nodes/AnimIdle/node = SubResource("AnimationNodeAnimation_vgupl")
@@ -350,6 +365,7 @@ bones/140/position = Vector3(-1.04367e-07, -1.26142e-06, 5.97793e-07)
 bones/140/rotation = Quaternion(0.0634863, -0.000900294, 0.00112688, 0.997982)
 bones/142/rotation = Quaternion(-2.22094e-09, -0.0258938, -8.05591e-08, 0.999665)
 bones/144/rotation = Quaternion(-8.12103e-10, 1.1778e-09, -4.52176e-08, 1)
+bones/146/rotation = Quaternion(0.029125, 8.51951e-09, 0.999576, 2.55476e-08)
 bones/148/rotation = Quaternion(0.0551145, 0.0350468, 0.0194921, 0.997674)
 bones/149/position = Vector3(4.31845e-09, -0.167659, 1.2392e-08)
 bones/150/position = Vector3(-0.240527, 0.507358, 0.402388)
@@ -428,7 +444,7 @@ parameters/FallingBlend/blend_amount = 0
 parameters/JumpTransition/current_state = "Move"
 parameters/JumpTransition/transition_request = ""
 parameters/JumpTransition/current_index = 0
-parameters/LandBlend/blend_amount = 1.0
+parameters/LandBlend/blend_amount = 0.0
 parameters/LandTransition/current_state = "Default"
 parameters/LandTransition/transition_request = ""
 parameters/LandTransition/current_index = 0

@@ -3,9 +3,10 @@ using System;
 
 public partial class CameraControl : Node3D
 {
-	public Node3D CameraTarget;
-	public Node3D CameraOffset;
+	public Node3D CameraTarget;	
 	public Node3D FollowTarget;
+	public Camera3D Camera;
+	private float CameraFOVTarget = 60;
 	public int CameraLerpSpeed = 15;
 	public int LookPitch = 85;
 	private float yaw = 0;
@@ -17,6 +18,7 @@ public partial class CameraControl : Node3D
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		CameraTarget = GetNode<Node3D>("CameraTarget");
 		FollowTarget = (Node3D)GetParent();
+		Camera = GetNode<Camera3D>("CameraTarget/SpringArm3D/Camera3D");
 		TopLevel = true;
 	}
 
@@ -28,6 +30,8 @@ public partial class CameraControl : Node3D
 			yaw += -mouseEvent.Relative.X * mouseSensitivity;
 			pitch += mouseEvent.Relative.Y * mouseSensitivity;
 		}
+
+		CameraFOVTarget = Input.IsActionPressed("aim") ? 35 : 60;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -44,6 +48,11 @@ public partial class CameraControl : Node3D
 		if (FollowTarget != null)
 		{
 			GlobalPosition = GlobalPosition.Lerp(FollowTarget.GlobalPosition + new Vector3(0, 1.5f, 0), (float)delta * (CameraLerpSpeed)*1.5f);			
+		}
+
+		if(Camera.Fov != CameraFOVTarget)
+		{
+			Camera.Fov = Mathf.Lerp(Camera.Fov, CameraFOVTarget, (float)delta * CameraLerpSpeed);
 		}
 	}
 }
