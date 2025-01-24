@@ -173,8 +173,8 @@ public partial class PlayerController : CharacterBody3D
 		animationTree.Set("parameters/Movement/blend_position", currentBlendPosition.Lerp(targetBlendPosition, (float)delta * accelerateSpeed));
 		animationTree.Set("parameters/TimeScale/scale", targetTimescale);
 
-		Vector3 rootMotion = animationTree.GetRootMotionPosition() / (float)delta * 3;
-		Vector3 horizontalVelocity = Transform.Basis.GetRotationQuaternion() * rootMotion;
+		Vector3 rootMotion = Transform.Basis *animationTree.GetRootMotionPosition();
+		Vector3 horizontalVelocity =  rootMotion / (float)delta;
 
 		if (!IsOnFloor())
 		{
