@@ -1,2 +1,2 @@
 # Tilson Point
- A game project! Using the Godot game engine, currently a public resource for now
+A coop zombie game project, currently delayed until Redot 4.4 is released
