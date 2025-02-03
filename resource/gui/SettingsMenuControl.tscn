@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://cneclhdhnfi0t"]
 
-[ext_resource type="Script" path="res://source/gui/SettingsMenuControl.cs" id="1_vycqo"]
+[ext_resource type="Script" uid="uid://cy77aawxugela" path="res://source/gui/SettingsMenuControl.cs" id="1_vycqo"]
 
 [sub_resource type="SystemFont" id="SystemFont_n3hwe"]
 font_names = PackedStringArray("Bahnschrift")
@@ -150,6 +150,38 @@ popup/item_0/id = 0
 popup/item_1/text = "Fullscreen"
 popup/item_1/id = 1
 
+[node name="VerticalSyncContainer" type="HBoxContainer" parent="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VerticalSyncLabel" type="Label" parent="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/VerticalSyncContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Vertical Sync:"
+vertical_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/VerticalSyncContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+
+[node name="MaxFramerateLabel" type="Label" parent="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Max Framerate:"
+vertical_alignment = 1
+
+[node name="MaxFramerateSlider" type="HSlider" parent="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.25
+max_value = 1.0
+step = 0.05
+value = 1.0
+
 [node name="ResolutionScalingLabel" type="Label" parent="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
@@ -229,16 +261,16 @@ size_flags_vertical = 4
 theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = SubResource("SystemFont_16f3t")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/focus = SubResource("StyleBoxEmpty_6x0jh")
@@ -257,6 +289,8 @@ vertical_icon_alignment = 0
 [connection signal="tab_changed" from="SettingsMenuMargin/SettingsMenuContainer/SettingsTab" to="." method="_on_settings_tab_changed"]
 [connection signal="item_selected" from="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/WindowModeButton" to="." method="_on_window_mode_button_item_selected"]
 [connection signal="mouse_entered" from="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/WindowModeButton" to="SettingsMenuMargin" method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/MaxFramerateSlider" to="." method="_on_mouse_entered"]
+[connection signal="value_changed" from="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/MaxFramerateSlider" to="." method="_on_resolution_slider_value_changed"]
 [connection signal="mouse_entered" from="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/ResolutionScalingSlider" to="." method="_on_mouse_entered"]
 [connection signal="value_changed" from="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Graphics/GraphicsGridContainer/DisplaySettingsContainer/ResolutionScalingSlider" to="." method="_on_resolution_slider_value_changed"]
 [connection signal="value_changed" from="SettingsMenuMargin/SettingsMenuContainer/SettingsTab/Audio/SoundSettings/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
