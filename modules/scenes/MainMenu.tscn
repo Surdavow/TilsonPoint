@@ -1,0 +1,257 @@
+[gd_scene load_steps=12 format=3 uid="uid://e5iryeca43p"]
+
+[ext_resource type="Script" uid="uid://b115ombfjjc54" path="res://modules/gui/scripts/MainMenuControl.cs" id="1_eni2w"]
+[ext_resource type="Texture2D" uid="uid://ci3cpybygbe03" path="res://modules/scenes/textures/menu/apocalypse_menu.png" id="2_87dnt"]
+[ext_resource type="PackedScene" uid="uid://cneclhdhnfi0t" path="res://modules/gui/SettingsMenuControl.tscn" id="3_5k3ri"]
+[ext_resource type="PackedScene" uid="uid://c2wwtbxjbtx8o" path="res://modules/gui/VersionLabel.tscn" id="3_r7bx4"]
+[ext_resource type="PackedScene" uid="uid://b8gpq8qvrmrip" path="res://modules/gui/TitleLabel.tscn" id="3_tve5n"]
+[ext_resource type="PackedScene" uid="uid://kswicywrjx7i" path="res://modules/gui/EffectsControl.tscn" id="3_yku8d"]
+
+[sub_resource type="SystemFont" id="SystemFont_3fqbv"]
+font_names = PackedStringArray("Bahnschrift")
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qua78"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixovu"]
+bg_color = Color(0.212305, 0.212305, 0.212305, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llyw5"]
+bg_color = Color(0.0646965, 0.0646965, 0.0646965, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3f28o"]
+bg_color = Color(0.158472, 0.158472, 0.158472, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[node name="MainMenuControl" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_eni2w")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_87dnt")
+expand_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="InfoMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VersionLabel" parent="InfoMargin" instance=ExtResource("3_r7bx4")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="MainMenuMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 0
+
+[node name="MainMenuContainer" type="VBoxContainer" parent="MainMenuMargin"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Margin1" type="MarginContainer" parent="MainMenuMargin/MainMenuContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 50
+
+[node name="TitleLabel" parent="MainMenuMargin/MainMenuContainer" instance=ExtResource("3_tve5n")]
+layout_mode = 2
+
+[node name="Margin2" type="MarginContainer" parent="MainMenuMargin/MainMenuContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_right = 400
+
+[node name="MainMenuButtonsContainer" type="VBoxContainer" parent="MainMenuMargin/MainMenuContainer/Margin2"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="HostGameButton" type="Button" parent="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_3fqbv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
+text = "Host Game"
+vertical_icon_alignment = 0
+
+[node name="JoinGameButton" type="Button" parent="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_3fqbv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
+text = "Join Game"
+vertical_icon_alignment = 0
+
+[node name="OptionsButton" type="Button" parent="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_3fqbv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
+text = "Options
+"
+vertical_icon_alignment = 0
+
+[node name="QuitButton" type="Button" parent="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_3fqbv")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qua78")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixovu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_llyw5")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_3f28o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f28o")
+text = "Quit"
+vertical_icon_alignment = 0
+
+[node name="SettingsMenuControl" parent="." instance=ExtResource("3_5k3ri")]
+layout_mode = 1
+
+[node name="EffectsControl" parent="." instance=ExtResource("3_yku8d")]
+layout_mode = 1
+
+[connection signal="mouse_entered" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/HostGameButton" to="." method="_on_host_game_button_pressed"]
+[connection signal="mouse_entered" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/JoinGameButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/JoinGameButton" to="." method="_on_join_game_button_pressed"]
+[connection signal="mouse_entered" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="mouse_entered" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="MainMenuMargin/MainMenuContainer/Margin2/MainMenuButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]
