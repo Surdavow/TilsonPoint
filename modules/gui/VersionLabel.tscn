@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c2wwtbxjbtx8o"]
 
-[ext_resource type="Script" uid="uid://dwtrwugpemybq" path="res://modules/gui/scripts/VersionLabel.cs" id="1_h1xpv"]
+[ext_resource type="Script" uid="uid://dwtrwugpemybq" path="res://modules/gui/VersionLabel.cs" id="1_h1xpv"]
 
 [node name="VersionLabel" type="Label"]
 anchors_preset = 15

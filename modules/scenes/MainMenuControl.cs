@@ -23,8 +23,6 @@ public partial class MainMenuControl : Control
 		MarginTargetPos = MenuMargin.Position;		
 		
 		// Perform some initial setup
-		EffectsControl.MusicPlayer.setMusic((AudioStream)GD.Load("res://modules/audio/music/aboard-a-aurora-game-menu.mp3"),true);
-		EffectsControl.MusicPlayer.Play();
 		EffectsControl.TransitionRect.fadeIn();
 		MenuMarginTitle.setAlpha(0, true);
 		MenuMarginTitle.fadeIn();			
@@ -54,36 +52,6 @@ public partial class MainMenuControl : Control
 	    {
         	MenuMargin.Position = MenuMargin.Position.Lerp(MarginTargetPos, lerpSpeed * (float)delta);
     	}
-		
-		if (EffectsControl.TransitionRect.Color.A > 0.9975)
-		{
-			switch (EffectsControl.TransitionTo.ToLower())
-			{
-				case "hostgame":
-				{
-					PackedScene gameScene = (PackedScene)GD.Load("res://modules/scenes/Game.tscn");
-					Game gameInstance = (Game)gameScene.Instantiate();
-					gameInstance.ConnectionType = "host";  // Updated name
-					GetTree().Root.AddChild(gameInstance);
-					GetTree().CurrentScene.Free();
-					break;
-				}
-				
-				case "joingame":
-				{
-					PackedScene gameScene = (PackedScene)GD.Load("res://modules/scenes/Game.tscn");
-					Game gameInstance = (Game)gameScene.Instantiate();
-					gameInstance.ConnectionType = "client";  // Updated name
-					GetTree().Root.AddChild(gameInstance);
-					GetTree().CurrentScene.Free();
-					break;
-				}
-
-				case "quit":
-					GetTree().Quit();
-					break;					
-			}
-		}		
 	}
 	public void _on_options_button_pressed()
 	{				
@@ -97,25 +65,18 @@ public partial class MainMenuControl : Control
 	public void _on_host_game_button_pressed()
 	{
 		EffectsControl.SoundPlayer.playStream("submenu_dropdown_select");
-		EffectsControl.TransitionTo = "HostGame";
-		MarginTargetPos = new Vector2(0, -1000);
-		EffectsControl.TransitionRect.fadeOut();
+		GetTree().ChangeSceneToFile("res://modules/scenes/Game.tscn");
 	}
 	
 	public void _on_join_game_button_pressed()
 	{
 		EffectsControl.SoundPlayer.playStream("submenu_dropdown_select");
-		EffectsControl.TransitionTo = "JoinGame";
-		MarginTargetPos = new Vector2(0, -1000);
-		EffectsControl.TransitionRect.fadeOut();
 	}
 
 	public void _on_quit_button_pressed()
 	{
 		EffectsControl.SoundPlayer.playStream("submenu_dropdown_select");	
-		EffectsControl.TransitionTo = "Quit";
-		MarginTargetPos = new Vector2(0, -1000);
-		EffectsControl.TransitionRect.fadeOut();
+		GetTree().Quit();
 	}
 
 	public void _on_mouse_entered()

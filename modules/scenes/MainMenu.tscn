@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://e5iryeca43p"]
 
-[ext_resource type="Script" uid="uid://b115ombfjjc54" path="res://modules/gui/scripts/MainMenuControl.cs" id="1_eni2w"]
+[ext_resource type="Script" uid="uid://b115ombfjjc54" path="res://modules/scenes/MainMenuControl.cs" id="1_eni2w"]
 [ext_resource type="Texture2D" uid="uid://ci3cpybygbe03" path="res://modules/scenes/textures/menu/apocalypse_menu.png" id="2_87dnt"]
 [ext_resource type="PackedScene" uid="uid://cneclhdhnfi0t" path="res://modules/gui/SettingsMenuControl.tscn" id="3_5k3ri"]
 [ext_resource type="PackedScene" uid="uid://c2wwtbxjbtx8o" path="res://modules/gui/VersionLabel.tscn" id="3_r7bx4"]

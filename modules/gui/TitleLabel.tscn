@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b8gpq8qvrmrip"]
 
-[ext_resource type="Script" uid="uid://bmbqgljkrd3rl" path="res://modules/gui/scripts/TitleLabel.cs" id="1_v3yhy"]
+[ext_resource type="Script" uid="uid://bmbqgljkrd3rl" path="res://modules/gui/TitleLabel.cs" id="1_v3yhy"]
 
 [sub_resource type="SystemFont" id="SystemFont_dwu44"]
 font_names = PackedStringArray("Bahnschrift")

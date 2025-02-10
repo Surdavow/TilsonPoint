@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://kswicywrjx7i"]
 
-[ext_resource type="Script" uid="uid://bahqxcvme7n1" path="res://modules/gui/scripts/EffectsControl.cs" id="1_w8wad"]
-[ext_resource type="Script" uid="uid://dgowk6t7t7cag" path="res://modules/gui/scripts/TransitionRect.cs" id="2_c1qey"]
-[ext_resource type="Script" uid="uid://ru1aplx8u1wx" path="res://modules/gui/scripts/EffectsSoundPlayer.cs" id="3_2lreo"]
-[ext_resource type="Script" uid="uid://dnlx5sjfdwsh2" path="res://modules/gui/scripts/EffectsMusicPlayer.cs" id="4_q27un"]
+[ext_resource type="Script" uid="uid://bahqxcvme7n1" path="res://modules/gui/EffectsControl.cs" id="1_w8wad"]
+[ext_resource type="Script" uid="uid://dgowk6t7t7cag" path="res://modules/gui/TransitionRect.cs" id="2_c1qey"]
+[ext_resource type="Script" uid="uid://ru1aplx8u1wx" path="res://modules/gui/EffectsSoundPlayer.cs" id="3_2lreo"]
+[ext_resource type="Script" uid="uid://dnlx5sjfdwsh2" path="res://modules/gui/EffectsMusicPlayer.cs" id="4_q27un"]
 
 [node name="EffectsControl" type="Control"]
 layout_mode = 3

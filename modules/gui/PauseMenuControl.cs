@@ -5,15 +5,13 @@ using System;
 public partial class PauseMenuControl : Control
 {
 	private MarginContainer MenuMargin;
-	private Game Game;
 	private SettingsMenuControl SettingsMenuControl;
 	private EffectsControl EffectsControl;
 	private Color TransitionRectColor;
 	public Vector2 MarginTargetPos;
 	public float lerpSpeed = 5f;
 	public override void _Ready()
-	{				
-		Game = GetTree().Root.GetNode<Game>("Game");
+	{
 		EffectsControl = GetParent().GetNode<EffectsControl>("EffectsControl");		
 		SettingsMenuControl = GetNode<SettingsMenuControl>("SettingsMenuControl");
 		MenuMargin = GetNode<MarginContainer>("PauseMenuMargin");		
@@ -45,11 +43,9 @@ public partial class PauseMenuControl : Control
 			switch (EffectsControl.TransitionTo.ToLower())
 			{
 				case "disconnect":					
-					Game.DisconnectGame();
 					GetTree().ChangeSceneToFile("res://resource/scenes/MainMenu.tscn");					
 					break;
 				case "quit":
-					Game.DisconnectGame();
 					GetTree().Quit();					
 					break;
 			}

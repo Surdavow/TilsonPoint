@@ -1,7 +1,6 @@
-[gd_scene load_steps=27 format=3 uid="uid://djfakiiu1au0g"]
+[gd_scene load_steps=26 format=3 uid="uid://djfakiiu1au0g"]
 
 [ext_resource type="Script" uid="uid://b0atc5nhqwyyp" path="res://modules/character/CameraControl.cs" id="4_7f5w3"]
-[ext_resource type="Script" uid="uid://cma1gprvcmscc" path="res://modules/character/PlayerSound.cs" id="5_alda2"]
 [ext_resource type="PackedScene" uid="uid://xdd3xtwgoflx" path="res://modules/gui/GameControl.tscn" id="6_xbglm"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f64g1"]
@@ -203,13 +202,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 mesh = SubResource("CapsuleMesh_7ddmw")
 
 [node name="GameControl" parent="." instance=ExtResource("6_xbglm")]
-
-[node name="PlayerSound" type="AudioStreamPlayer3D" parent="."]
-volume_db = -10.0
-unit_size = 2.5
-max_polyphony = 10
-attenuation_filter_cutoff_hz = 20500.0
-script = ExtResource("5_alda2")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 root_node = NodePath("")
