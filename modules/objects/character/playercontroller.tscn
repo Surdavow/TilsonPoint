@@ -1,0 +1,220 @@
+[gd_scene load_steps=26 format=3 uid="uid://djfakiiu1au0g"]
+
+[ext_resource type="Script" uid="uid://b0atc5nhqwyyp" path="res://modules/objects/character/CameraControl.cs" id="4_7f5w3"]
+[ext_resource type="PackedScene" uid="uid://xdd3xtwgoflx" path="res://modules/gui/GameControl.tscn" id="6_xbglm"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f64g1"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("GameControl:visible")
+properties/2/spawn = false
+properties/2/replication_mode = 0
+properties/3/path = NodePath("AnimationTree:parameters/FallingBlend/blend_amount")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("AnimationTree:parameters/JumpTransition/current_state")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("AnimationTree:parameters/JumpTransition/transition_request")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("AnimationTree:parameters/LandBlend/blend_amount")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("AnimationTree:parameters/LandTransition/current_state")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath("AnimationTree:parameters/LandTransition/transition_request")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath("AnimationTree:parameters/Movement/blend_position")
+properties/9/spawn = true
+properties/9/replication_mode = 1
+properties/10/path = NodePath("AnimationTree:parameters/TimeScale/scale")
+properties/10/spawn = true
+properties/10/replication_mode = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2xkg1"]
+radius = 0.375
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7ddmw"]
+radius = 0.155
+height = 0.4
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lad7a"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vgupl"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7f5w3"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1483d"]
+animation = &"land"
+use_custom_timeline = true
+timeline_length = 1.0
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_alda2"]
+animation = &"run_jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t4cws"]
+animation = &"run_land"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_1483d"]
+sync = true
+
+[sub_resource type="Curve" id="Curve_vgupl"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_7f5w3"]
+xfade_time = 0.25
+xfade_curve = SubResource("Curve_vgupl")
+input_0/name = "Move"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "Jump"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "Run Jump"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_lad7a"]
+
+[sub_resource type="Curve" id="Curve_lad7a"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_lad7a"]
+sync = true
+xfade_time = 0.75
+xfade_curve = SubResource("Curve_lad7a")
+input_0/name = "Default"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "Land"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "Run Land"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xbglm"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_07r8p"]
+animation = &"run_forward"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k5klf"]
+animation = &"run_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2r1sf"]
+animation = &"run_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_80iwa"]
+animation = &"run_backward"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_lad7a"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_xbglm")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_07r8p")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_k5klf")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_2r1sf")
+blend_point_3/pos = Vector2(-1, 0)
+blend_point_4/node = SubResource("AnimationNodeAnimation_80iwa")
+blend_point_4/pos = Vector2(0, -1)
+snap = Vector2(0.5, 0.5)
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_2aine"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_8bo25"]
+graph_offset = Vector2(-872.532, 369.262)
+nodes/AnimFall/node = SubResource("AnimationNodeAnimation_lad7a")
+nodes/AnimFall/position = Vector2(-420, 440)
+nodes/AnimIdle/node = SubResource("AnimationNodeAnimation_vgupl")
+nodes/AnimIdle/position = Vector2(-280, 520)
+nodes/AnimJump/node = SubResource("AnimationNodeAnimation_7f5w3")
+nodes/AnimJump/position = Vector2(-740, 400)
+nodes/AnimLand/node = SubResource("AnimationNodeAnimation_1483d")
+nodes/AnimLand/position = Vector2(-280, 680)
+nodes/AnimRunJump/node = SubResource("AnimationNodeAnimation_alda2")
+nodes/AnimRunJump/position = Vector2(-740, 560)
+nodes/AnimRunLand/node = SubResource("AnimationNodeAnimation_t4cws")
+nodes/AnimRunLand/position = Vector2(-280, 840)
+nodes/FallingBlend/node = SubResource("AnimationNodeBlend2_1483d")
+nodes/FallingBlend/position = Vector2(-260, 260)
+nodes/JumpTransition/node = SubResource("AnimationNodeTransition_7f5w3")
+nodes/JumpTransition/position = Vector2(-560, 260)
+nodes/LandBlend/node = SubResource("AnimationNodeBlend2_lad7a")
+nodes/LandBlend/position = Vector2(0, 260)
+nodes/LandTransition/node = SubResource("AnimationNodeTransition_lad7a")
+nodes/LandTransition/position = Vector2(-140, 520)
+nodes/Movement/node = SubResource("AnimationNodeBlendSpace2D_lad7a")
+nodes/Movement/position = Vector2(-740, 180)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_2aine")
+nodes/TimeScale/position = Vector2(160, 260)
+nodes/output/position = Vector2(300, 260)
+node_connections = [&"FallingBlend", 0, &"JumpTransition", &"FallingBlend", 1, &"AnimFall", &"JumpTransition", 0, &"Movement", &"JumpTransition", 1, &"AnimJump", &"JumpTransition", 2, &"AnimRunJump", &"LandBlend", 0, &"FallingBlend", &"LandBlend", 1, &"LandTransition", &"LandTransition", 0, &"AnimIdle", &"LandTransition", 1, &"AnimLand", &"LandTransition", 2, &"AnimRunLand", &"TimeScale", 0, &"LandBlend", &"output", 0, &"TimeScale"]
+
+[node name="PlayerController" type="CharacterBody3D"]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_f64g1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985767, 0)
+shape = SubResource("CapsuleShape3D_2xkg1")
+
+[node name="CameraControl" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("4_7f5w3")
+
+[node name="CameraTarget" type="Node3D" parent="CameraControl"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraControl/CameraTarget"]
+spring_length = -2.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraControl/CameraTarget/SpringArm3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+fov = 60.0
+
+[node name="CharacterTarget" type="Node3D" parent="CameraControl/CameraTarget"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraControl/CameraTarget/CharacterTarget"]
+mesh = SubResource("CapsuleMesh_7ddmw")
+
+[node name="GameControl" parent="." instance=ExtResource("6_xbglm")]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("")
+tree_root = SubResource("AnimationNodeBlendTree_8bo25")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../RootMotion3D/character_alpha/AnimationPlayer")
+parameters/FallingBlend/blend_amount = 0
+parameters/JumpTransition/current_state = "Move"
+parameters/JumpTransition/transition_request = ""
+parameters/JumpTransition/current_index = 0
+parameters/LandBlend/blend_amount = 0.0
+parameters/LandTransition/current_state = "Default"
+parameters/LandTransition/transition_request = ""
+parameters/LandTransition/current_index = 0
+parameters/Movement/blend_position = Vector2(0, 0)
+parameters/TimeScale/scale = 1.0
