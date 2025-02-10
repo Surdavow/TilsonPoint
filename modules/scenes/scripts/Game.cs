@@ -5,7 +5,7 @@ public partial class Game : Node3D
 {
     public string ConnectionType;
     ENetMultiplayerPeer MultiplayerPeer = new ENetMultiplayerPeer();
-    PackedScene PlayerScene = GD.Load<PackedScene>("res://resource/character/PlayerController.tscn");
+    PackedScene PlayerScene = GD.Load<PackedScene>("res://modules/character/playercontroller.tscn");
     private MultiplayerSpawner spawner;
 
     public override void _EnterTree()

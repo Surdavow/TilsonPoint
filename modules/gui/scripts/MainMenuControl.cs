@@ -61,7 +61,7 @@ public partial class MainMenuControl : Control
 			{
 				case "hostgame":
 				{
-					PackedScene gameScene = (PackedScene)GD.Load("res://resource/scenes/Game.tscn");
+					PackedScene gameScene = (PackedScene)GD.Load("res://modules/scenes/Game.tscn");
 					Game gameInstance = (Game)gameScene.Instantiate();
 					gameInstance.ConnectionType = "host";  // Updated name
 					GetTree().Root.AddChild(gameInstance);
@@ -71,7 +71,7 @@ public partial class MainMenuControl : Control
 				
 				case "joingame":
 				{
-					PackedScene gameScene = (PackedScene)GD.Load("res://resource/scenes/Game.tscn");
+					PackedScene gameScene = (PackedScene)GD.Load("res://modules/scenes/Game.tscn");
 					Game gameInstance = (Game)gameScene.Instantiate();
 					gameInstance.ConnectionType = "client";  // Updated name
 					GetTree().Root.AddChild(gameInstance);
